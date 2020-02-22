@@ -1,0 +1,79 @@
+Career Find Interview
+
+A local middle school would like us to build a career counseling application. The budget is unlimited so we are free to incorporate any supporting software or APIs we would want.
+
+The system needs to allow students to log into the application with a username and password. Their teacher will be able to create and manage user accounts including passowrd reset (which might mean we need to group kids by class and have multiple teacher-class pairs in the system). Students should have a saved profile that keeps track of student responses and provides a queue containing suggested careers for kids to explore.
+
+A chat bot is intended to 'replace a counsler' and provide students with guided conversations that help the system to catalog the student's interests. An open ended bot (like Siri or Google Assistant) would work but a scripted dialogue tree is OK as well. It sounds like the client wants us to parse student text responses for meaning (I think Google and Microsoft have APIs that might allow for this... maybe Amazon) but they did not rule out multiple choice responses. The client suggested asking closed questions to keep the conversation on rails. If we do go with a scripted dialogue tree we should allow administrators to edit 'the script' (or possibly manage and maintain multiple scripts...).
+
+We will receive from the client 16 career clusters. We are to populate the system with dummy data to facilitate development. The client will populate the system with data once it is delivered, so there needs to be an administrative interface that allows data to be updated in the system. The career data mentioned includes:
+
+- 16 career clusters
+
+- interest and subject keywords associated with career clusters (and/ or careers?), these keywords will be associated with students via chat bot interaction and facilitate career matching
+
+- career descriptions and salaries
+
+- DITL
+
+- celebrity articles associated with careers
+( Client specifically mentioned that they wanted the system to encourage students to think of other career options outside of sports stardum or general celebrity.
+  The goal is for them to uncover other options related to their interests (being a PE teacher instead of an NFL quarterback) or to find out about career opportunities
+  they might not realize are available (lots of parents don't discuss careers with kids, the ones that do usually want doctor or lawyer))
+
+
+Usage Scenario 1:
+
+As Billy future football star I log into my school's career counseling site. It is the first time I have ever been to the site and I am greeted by my school mascot Edward Eagle. "Hello Billy. I'm Eddie, your career counselor. Do you have time to answer some questions right now?" "nope" "OK. If you need me just click on me in the upper right hand corner of the screen."
+
+The students should be able to explore the career data in the system. A view should be presented showing the 16 career clusters. Students should be able to drill down into the clusters, select careers, and consume the information in the system in a compartmentalized fashion. The career information should not be presented as a single page report, this might not hold the students interest.
+
+
+Usage Scenario 2:
+
+As Billy future football star I log into my school's career counseling site. I've been here before and am greeted by my school mascot Edward Eagle. "Hey Billy. Nice to see you again. Do you have time to answer some questions right now?" "if I have to" "Do you have time to answer some questions right now?" "lolwat" "Do you have time to answer some questions right now?" "your not very smart are you?" "Do you have time to answer some questions right now?" "yes" "Great! What is your favorite subject in school?" "nothing" "What is your favorite subject in school?" "algebra 1" "If you like math you might enjoy 'FINANCING & ACCOUNTING'. Would you like to explore 'FINANCING & ACCOUNTING' now?" "no" "'FINANCING & ACCOUNTING' has been added to your queue. You can access your queue at the left side of the screen so that you can explore 'FINANCING & ACCOUNTING' whenever you want!"
+
+Client said that it is very important that the system keep the students engaged so that they actually use it. A reward system was suggested. For example, a point based system that allows the class that read the most articles in the system to have a pizza party at the end of the 9 weeks... or maybe a class gets 15 mintues extra at lunch if they hit the point targets their teacher sets each week.
+
+Admin interface is important in this case as it allows day to day management of the system by teachers and for the system to be updated as necessary. Examples of admin options:
+
+- teachers should be able to create, edit, and delete the user accounts of students in their class
+
+- teachers should be able to manage any point based system or gamefying features like... reset point count... set bonus multipliers active over certain periods of time... deactivate point count... enable randomized point rewards... set point goals with information radiators such as progress bars so students (and teachers) can easily see whether goals are being met or not
+
+- teachers/counselors/ faculty should be able to create, update, and delete all data used by the system
+-- top level career clusters names and icons, career names, career salary information, career descriptions, career-keyword associations, career-celebrity associations
+-- celebrity names and photos, celebrity articles/ bios
+-- keywords (like school subject or personal interest)
+-- chat bot scripts
+
+--> Allowing school faculty to update information within the system is important so that it remains relevant. Nothing was worse growing up than watching those 10 or 20 year old videos they would make you watch. It might be a good idea if we allow a free response chat bot system to ensure that logging functionality is available so that the school can identify trending topics among students so that fresh content can be added when needed and stale content can be removed.
+Students should be able to:
+
+- 'chat' with the counselor, completing dialogue trees so that keywords can be associated with the students profile
+
+- it might be a good idea to allow students to remove keywords from their profile or to add them directly in case the chat bot doesn't work or their interests change
+
+- add careers to their queue for later viewing or explore careers they or the counselor have added to their queue (might be a good idea to let the teacher add recomendations to the queue too or maybe not)
+
+- might be good to allow kids to bookmark or save careers they think they might actually be interested in
+
+- might be good to indicate which content students have or have not read yet... either 'new' for queued content they have not read or subtle indicators so they can tell if they have read something or not
+
+The interface should:
+- appeal to school students, their school colors are navy blue and neon green (we will receive a color palette from the client)
+- be 'simple and easy to use, quick and easy' to 'use' and 'add, delete, edit content'
+- present information in digetstable chunks
+- present information in ways that stand out and are engaging, like pictures, vibrant colors, large print text, fun fonts
+- be appropriate for middle school children... we might want to implement swear word or other content filters
+
+
+Prioritization of Requirements:
+
+1. Base system. A view of 16 career clusters allowing users to drill down into additional career information. Content creation is very important for this system to function as intended so functionality for adding data is important. Career clusters/ careers should support keyword association.
+
+2. Multi role user profiles. Much of the added functionality of the system hinges on user profiles in order for it to work. This will require at minimum a login page (username and password based... project requirements mention e-mail and password authentication), access to different interfaces determined by user role, and an admin interface to create, update, and delete users. Student profiles should be able to store keyword preferences and allow students to queue career clusters/ careers for future viewing. Student profiles should also allow students to track what information they have and have not read. Teacher accounts should be able to create, update, and delete student accounts from their class. Faculty accounts should be able to access content managment interfaces.
+
+3. Point based progress tracking and reporting/ other gamefying elements should not be too difficult to add in and really makes the site more interesting. It should be possible to track the progress of individual students, the progress of classes, as well as the progress of arbitrary groups of students (teams within a class, groups of classes within the school).
+
+4. Support for a chat bot 'counselor'. A dialogue tree based system seems like it is the best option. We can probably find an API that supports just that and might be able to find something that offers the same kind of functionality in a more sophisticated package that incorporates some language recognition options as well. Whatever system we go with faculty and or teachers should be able to customize script(s). An option that allows faculty to review chat bot logs would allow the system to be tuned appropriately. Dialogue scripts should facilitate identification of students' topics of interest, hobbies, favorite subjects, favorite celebrities, etc. as keywords so that matching career clusters/ careers can be added to their queue.

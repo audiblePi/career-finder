@@ -1,0 +1,10 @@
+A few notes about project requirements from before the interview:
+
+- we should ensure our github accounts are configured so that contributions we make to the group repository are obvious. for example 'rcaplin' as opposed to 'sauron'
+
+- a login page that supports 'error handling'/ email and password authentication is a requirement. More info will be provided on this later in class or by TAs.
+only 2 APIs are required due to smaller team sizes.
+
+- user story templates have been provided on canvas in uploaded files (or in lecture notes)... we will be graded based on completion of the templates but we can add additional information if we would like
+
+- main deliverables like SRS, site deployment, final deliverable, peer evaluation are as mentioned in notes. additional deliverables will be identified at the start of each sprint.
