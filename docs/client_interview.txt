@@ -36,9 +36,7 @@ As Billy future football star I log into my school's career counseling site. I'v
 Client said that it is very important that the system keep the students engaged so that they actually use it. A reward system was suggested. For example, a point based system that allows the class that read the most articles in the system to have a pizza party at the end of the 9 weeks... or maybe a class gets 15 mintues extra at lunch if they hit the point targets their teacher sets each week.
 
 Admin interface is important in this case as it allows day to day management of the system by teachers and for the system to be updated as necessary. Examples of admin options:
-
 - teachers should be able to create, edit, and delete the user accounts of students in their class
-
 - teachers should be able to manage any point based system or gamefying features like... reset point count... set bonus multipliers active over certain periods of time... deactivate point count... enable randomized point rewards... set point goals with information radiators such as progress bars so students (and teachers) can easily see whether goals are being met or not
 
 - teachers/counselors/ faculty should be able to create, update, and delete all data used by the system
@@ -51,13 +49,9 @@ Admin interface is important in this case as it allows day to day management of 
 Students should be able to:
 
 - 'chat' with the counselor, completing dialogue trees so that keywords can be associated with the students profile
-
 - it might be a good idea to allow students to remove keywords from their profile or to add them directly in case the chat bot doesn't work or their interests change
-
 - add careers to their queue for later viewing or explore careers they or the counselor have added to their queue (might be a good idea to let the teacher add recomendations to the queue too or maybe not)
-
 - might be good to allow kids to bookmark or save careers they think they might actually be interested in
-
 - might be good to indicate which content students have or have not read yet... either 'new' for queued content they have not read or subtle indicators so they can tell if they have read something or not
 
 The interface should:
