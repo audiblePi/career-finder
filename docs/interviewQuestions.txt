@@ -1,0 +1,76 @@
+Client: Career Find
+"A website to help students find a career."
+Goal: Answer questions about their interest and find a matching career based on interest.
+
+Features:
+- Chat Bot
+- Suggested Careers based on keywords
+- Descriptions of each career, salary
+- "A day in the life of"
+- Suggested classes the student should be strong in
+- Celebrities in the selected career
+
+
+1. Tell us about your organization. Is it for or non-profit? Will the site be a free service or do you have a business model in mind?
+
+
+
+2. What budget do you have in mind for development and maintenance of the site?
+
+
+
+3. Tell us about the students that will use the site. How old are they? Where do they go to school? Will the site be open to the general public or only students? Do users have to login to use the site and if so how will their accounts be created and with what credentials?
+
+
+
+
+
+4. Can you describe how you envision a user using the site? Is it a directed experience such as a personality inventory that matches a user to a career or an exploratory experience where a user reads about and compares different careers? How much time do you anticipate the user will spend on the site? Will they visit it several times or once?
+
+
+
+
+
+5. Do you already have data for career-keyword association, career descriptions and salaries, DITL, associated coursework, and career-celebrity associations? How would you like this information to be presented? In single page 'reports' containing all information for a given career? As summary data in career listings?
+
+
+
+
+
+6. What goal do you want the chat bot to help users achieve? Do you want a conversational bot or a service/ process oriented bot? How is user interaction with the chat bot initiated? Will the bot target users for interaction based on some criteria or will users initiate interaction with the bot? Are you looking for a dynamic bot like ELISA or a scripted tutorial/ guide for users such as clippy or navi?
+
+
+
+
+
+7. How would you like the site to look and feel? Does the site need to match an established aesthetic or be visually cohesive with existing sites? Do you have a particular color schemes or fonts in mind? More generally are there any qualities or data you would like to convey to the user visually?
+
+
+
+
+
+
+
+
+
+
+Possible feature sets based on Career Find handout::
+
+1. Information Service - career-keyword association, career descriptions and salaries, DITL, associated coursework, carrer-celebrity associations.
+
+
+2. Career Search - keyword/ tag based, 'interest inventory' based, name based, parameter based
+
+
+3. User Profile Features - career bookmarks, interest inventory & completed coursework, login/ account management
+
+
+4. Career Comparison - side by side career comparison, summary data in career listings
+
+
+5. Chat Bot - service/ process oriented... is there some task the chat bot should help the user complete?
+
+
+
+
+* Based on our discussion what are the most important features that will help Career Find serve its purpose? What is the minimum feature set that would allow you to start using the site? Are there any other considerations or limitations such as timelines, compliance issues, available resources that you think would affect development of the site?
