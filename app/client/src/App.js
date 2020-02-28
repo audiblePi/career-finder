@@ -6,7 +6,7 @@ import NavBar from "./components/Header/NavBar";
 
 const App = () => {
   return (
-    <h1>CEN3031 Team6 Test Page</h1>
+    <h1>CEN3031-Online Team6 Test Page</h1>
   );
 };
 
