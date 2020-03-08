@@ -1,5 +1,5 @@
 import React from 'react';
-//import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography';
 import BREADCRUMBS from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,9 +32,9 @@ export default function Breadcrumbs() {
             <Link color="inherit" href="/Career/Celebrity">
                 Celebrity
             </Link>
-            {/* <Typography color="textPrimary">
-                Breadcrumb
-            </Typography> */}
+            <Typography color="textPrimary">
+                Current
+            </Typography>
         </BREADCRUMBS>
     );
 }

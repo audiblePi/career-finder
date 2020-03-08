@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,8 +32,6 @@ function Celebrity() {
 
     return (
         <div>
-            
-
             <Grid container spacing={3}>
                 <Grid item xs={3}>
                     <img src="/assets/astronaut.png" alt="" className={classes.img}/>
@@ -44,12 +41,6 @@ function Celebrity() {
                         <Typography component="h1" variant="h2" color="inherit">
                             Celebrity Name
                         </Typography>
-                        {/* <Typography component="p" variant="p" color="inherit">
-                            Occupation
-                        </Typography>
-                        <Typography component="p" variant="p" color="inherit">
-                            Education
-                        </Typography> */}
                     </div>
                 </Grid>
                 <Grid item xs={12}>

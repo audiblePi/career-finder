@@ -1,5 +1,4 @@
 import React from 'react';
-//import './Home.css';
 import Clusters from "../../components/Clusters/Clusters";
 //import Chat from "../../components/Chat/Chat";
 
