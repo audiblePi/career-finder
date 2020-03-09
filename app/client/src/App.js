@@ -28,31 +28,57 @@ const useStyles = makeStyles(theme => ({
 const App = (props) => {
   const classes = useStyles();
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(
+    localStorage.getItem('loggedIn') || ''
+  );
 
   const updateLoggedIn = (status) => {        
       setLoggedIn(status)
   };
 
-  console.log( "Logged In Status: ", loggedIn);
+
+  const checkStatus = () => {
+    let status = localStorage.getItem('loggedIn');
+
+    //if (status == 1) {
+    //updateLoggedIn(true);
+    //}
+
+    console.log( "Logged In State: ", loggedIn);
+    console.log( "LocalStorage: ", status);
+  }
+
+  React.useEffect(() => checkStatus(), [])
+
+  //checkStatus();
 
   return (    
     <div className={classes.root}>
       <CssBaseline />
       { loggedIn ? <NavBar/> : '' }
       <Container maxWidth="lg" className={classes.container}>
-        <Breadcrumbs/>
+        { loggedIn ? <Breadcrumbs/> : '' }
         <Switch>
-          <Route exact path="/Home" component={Home} />
-          <Route exact 
-            path="/Login" 
-            render={(props) => <Login {...props} onLogin={updateLoggedIn} />} />
-          <Route exact path="/Career" component={Career} />
-          <Route exact path="/Career/DITL" component={DITL} />
-          <Route exact path="/Career/Celebrity" component={Celebrity} />
           <Route exact path="/">
-            <Redirect to="/Login" />
+            {loggedIn ? <Redirect to="/Home" /> : <Redirect to="/Login" />}
           </Route>
+
+          <Route exact path="/Home" component={Home} />
+
+          <Route exact path="/Login">
+            {loggedIn ? <Redirect to="/Home" /> : <Redirect to="/Login" />}
+          </Route>
+
+          {/*<Route exact 
+            path="/Login" 
+          render={(props) => <Login {...props} onLogin={updateLoggedIn} />} />*/}
+
+          <Route exact path="/Career" component={Career} />
+
+          <Route exact path="/Career/DITL" component={DITL} />
+
+          <Route exact path="/Career/Celebrity" component={Celebrity} />
+          
           <Route component={NotFound}/>
         </Switch>
       </Container>

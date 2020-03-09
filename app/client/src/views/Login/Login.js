@@ -55,7 +55,9 @@ export default function Login(props) {
 
         //onLogin(true);
 
-        props.history.push('/Home')    
+        localStorage.setItem('loggedIn', true);
+
+        props.history.push('/')    
     }
 
     return (
