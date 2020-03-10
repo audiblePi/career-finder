@@ -17,10 +17,10 @@ export default function Breadcrumbs() {
 
     return (
         <BREADCRUMBS aria-label="breadcrumb" className={classes.root}>
-            <Link color="inherit" href="/Login">
+            {/* <Link color="inherit" href="/Login">
                 Login
-            </Link>
-            <Link color="inherit" href="/Home">
+            </Link> */}
+            <Link color="inherit" href="/">
                 Home
             </Link>
             <Link color="inherit" href="/Career">

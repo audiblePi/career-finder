@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import Home from "../Home/Home";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -53,11 +55,7 @@ export default function Login(props) {
 
         //authenticate
 
-        //onLogin(true);
-
-        localStorage.setItem('loggedIn', true);
-
-        props.history.push('/')    
+        props.onLogin('true');
     }
 
     return (

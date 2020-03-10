@@ -131,7 +131,7 @@ class PrimarySearchAppBar extends React.Component {
   // handleDrawerClose = () => {
   //   setOpen(false);
   // };
-
+  
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
@@ -149,6 +149,7 @@ class PrimarySearchAppBar extends React.Component {
       >
         <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={(e) => this.props.onLogin('false')}>Log Out</MenuItem>
       </Menu>
     );
 

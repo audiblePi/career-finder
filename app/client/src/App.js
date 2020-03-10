@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEfect} from 'react';
 import { Route, Switch, Redirect  } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,63 +25,42 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const Main = (props) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <NavBar onLogin={props.onLogin} />
+      <Container maxWidth="lg" className={classes.container}>      
+        <Breadcrumbs/>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/Career" component={Career} />
+          <Route exact path="/Career/DITL" component={DITL} />
+          <Route exact path="/Career/Celebrity" component={Celebrity} />
+          <Route component={NotFound}/>
+        </Switch>
+      </Container>
+    </div>
+  )
+}
+
 const App = (props) => {
   const classes = useStyles();
 
   const [loggedIn, setLoggedIn] = useState(
-    localStorage.getItem('loggedIn') || ''
+    localStorage.getItem('loggedIn') || 'false'
   );
 
-  const updateLoggedIn = (status) => {        
+  const updateLoggedIn = (status) => {   
+      localStorage.setItem('loggedIn', status);
       setLoggedIn(status)
   };
 
-
-  const checkStatus = () => {
-    let status = localStorage.getItem('loggedIn');
-
-    //if (status == 1) {
-    //updateLoggedIn(true);
-    //}
-
-    console.log( "Logged In State: ", loggedIn);
-    console.log( "LocalStorage: ", status);
-  }
-
-  React.useEffect(() => checkStatus(), [])
-
-  //checkStatus();
-
   return (    
     <div className={classes.root}>
-      <CssBaseline />
-      { loggedIn ? <NavBar/> : '' }
-      <Container maxWidth="lg" className={classes.container}>
-        { loggedIn ? <Breadcrumbs/> : '' }
-        <Switch>
-          <Route exact path="/">
-            {loggedIn ? <Redirect to="/Home" /> : <Redirect to="/Login" />}
-          </Route>
-
-          <Route exact path="/Home" component={Home} />
-
-          <Route exact path="/Login">
-            {loggedIn ? <Redirect to="/Home" /> : <Redirect to="/Login" />}
-          </Route>
-
-          {/*<Route exact 
-            path="/Login" 
-          render={(props) => <Login {...props} onLogin={updateLoggedIn} />} />*/}
-
-          <Route exact path="/Career" component={Career} />
-
-          <Route exact path="/Career/DITL" component={DITL} />
-
-          <Route exact path="/Career/Celebrity" component={Celebrity} />
-          
-          <Route component={NotFound}/>
-        </Switch>
-      </Container>
+      {loggedIn === 'true' ? <Main onLogin={updateLoggedIn}/> : <Login onLogin={updateLoggedIn}/>}
     </div>
   );
 }
