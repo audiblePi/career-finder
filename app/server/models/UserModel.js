@@ -16,6 +16,4 @@ loginSchema.methods.isCorrect = function(password, callback) {
     });
 }
 
-var inter = mongoose.model('users', loginSchema)
-
-module.export = inter;
+module.exports = inter = mongoose.model('users', loginSchema);

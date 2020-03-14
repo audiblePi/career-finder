@@ -1,8 +1,9 @@
 import React from 'react';
 
 import mongoose from 'mongoose';
-import fetch from 'node-fetch';
+//import fetch from 'node-fetch';
 import Crypto from 'crypto';
+import axios from 'axios';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -53,8 +54,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function Login(props) {
     
-    const [username, setUsername] = React.useState('Default');
-    const [password, setPassword] = React.useState('Default'); 
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState(''); 
+    
     const classes = useStyles();
 
     const handleSubmit = (event) => {
@@ -62,10 +64,15 @@ export default function Login(props) {
         event.preventDefault();
         //authenticate
         //maybe switch to axios, im not having a good time with this
-        fetch('/auth', {
+       
+        /*fetch('/auth', {
             method: 'POST',
             body: {"username": props.username, "password": props.password},
             headers: { 'Content-type': 'application/json' }
+        })*/
+        axios.post('/auth', {
+            username: username,
+            password: password
         })
         .then(res => {
             if(res.status === 200) {
