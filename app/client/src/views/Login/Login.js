@@ -1,6 +1,7 @@
 import React from 'react';
-import mongoose from 'mongoose';
 
+import mongoose from 'mongoose';
+import fetch from 'node-fetch';
 import Crypto from 'crypto';
 
 import Button from '@material-ui/core/Button';
@@ -51,15 +52,30 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Login(props) {
+    
+    const [username, setUsername] = React.useState('Default');
+    const [password, setPassword] = React.useState('Default'); 
     const classes = useStyles();
 
     const handleSubmit = (event) => {
+        
         event.preventDefault();
-
         //authenticate
-        
-        
-        props.onLogin('true');
+        //maybe switch to axios, im not having a good time with this
+        fetch('/auth', {
+            method: 'POST',
+            body: {"username": props.username, "password": props.password},
+            headers: { 'Content-type': 'application/json' }
+        })
+        .then(res => {
+            if(res.status === 200) {
+                props.onLogin('true');
+            } else {
+                //display wrong?
+                props.onLogin('false');
+            }
+        });
+        //props.onLogin('true');
     }
 
     return (
@@ -79,6 +95,7 @@ export default function Login(props) {
                         label="User Name"
                         name="username"
                         autoFocus
+                        onInput={e=>setUsername(e.target.value)}
                     />
                     <TextField
                         variant="outlined"
@@ -90,6 +107,7 @@ export default function Login(props) {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onInput={e=>setPassword(e.target.value)}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
