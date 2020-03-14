@@ -1,4 +1,11 @@
 import React from 'react';
+import { useLocation, useParams } from "react-router-dom";
+
+import Home from "../../views/Home/Home";
+import Career from "../../views/Career/Career";
+import DITL from "../../views/DITL/DITL";
+import Celebrity from "../../views/Celebrity/Celebrity";
+
 import Typography from '@material-ui/core/Typography';
 import BREADCRUMBS from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
@@ -12,29 +19,80 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Breadcrumbs() {
+const routes = [
+    { 
+        path: "/", 
+        name: "Home", 
+        Component: Home 
+    },
+    { 
+        path: "/Career/:id", 
+        name: "Career", 
+        Component: Career 
+    },
+    {
+        path: "/Career/:id/DITL",
+        name: "DITL",
+        Component: DITL
+    },
+    { 
+        path: "/Career/:id/Celebrity/:id",
+        name: "Celebrity", 
+        Component: Celebrity 
+    }
+];
+
+export default function Breadcrumbs(props) {
     const classes = useStyles();
+
+    let location = useLocation()
+    let paths = location.pathname.split("/")
 
     return (
         <BREADCRUMBS aria-label="breadcrumb" className={classes.root}>
             {/* <Link color="inherit" href="/Login">
                 Login
             </Link> */}
-            <Link color="inherit" href="/">
+            {/* <Link color="inherit" href="/">
                 Home
             </Link>
-            <Link color="inherit" href="/Career">
+            <Link color="inherit" href="/Career/1">
                 Career
             </Link>
-            <Link color="inherit" href="/Career/DITL">
+            <Link color="inherit" href="/Career/1/DITL">
                 Day In The Life
             </Link>
-            <Link color="inherit" href="/Career/Celebrity">
+            <Link color="inherit" href="/Career/1/Celebrity/1">
                 Celebrity
             </Link>
             <Typography color="textPrimary">
                 Current
-            </Typography>
+            </Typography> */}
+            <Link color="inherit" href="/">
+                Home
+            </Link>
+            {
+                routes.map( ({ path, name, Component }, key) => {
+                    let idx = paths.indexOf(name)
+
+                    if (idx > 0){
+                        let href = "/"
+
+                        paths.forEach( (element, index) => {
+                            if (index <= idx && index > 0)
+                                href += (element + "/") 
+                        });
+
+                        if (paths[idx+1] !== "")
+                            href += (paths[idx+1] + "/")
+
+                        return <Link key={key} color="inherit" href={href}>{name}</Link>
+                    }
+                })
+            }
+            {/* <Typography color="textPrimary">
+                Current
+            </Typography> */}
         </BREADCRUMBS>
     );
 }

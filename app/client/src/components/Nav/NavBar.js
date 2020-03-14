@@ -14,6 +14,10 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ListIcon from '@material-ui/icons/List';
+import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+
 // import clsx from 'clsx';
 // import { makeStyles, useTheme } from '@material-ui/core/styles';
 // import Drawer from '@material-ui/core/Drawer';
@@ -147,8 +151,8 @@ class PrimarySearchAppBar extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+        {/* <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={this.handleMenuClose}>My account</MenuItem> */}
         <MenuItem onClick={(e) => this.props.onLogin('false')}>Log Out</MenuItem>
       </Menu>
     );
@@ -190,9 +194,9 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               CareerFind
             </Typography>
@@ -207,18 +211,27 @@ class PrimarySearchAppBar extends React.Component {
                   input: classes.inputInput,
                 }}
               /> */}
+              
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
+                <Badge badgeContent={41} color="secondary">
+                  <EmojiEventsIcon />
                 </Badge>
               </IconButton>
               <IconButton color="inherit">
+                <Badge badgeContent={4} color="secondary">
+                  <ListIcon />
+                </Badge>
+              </IconButton>
+              {/* <IconButton color="inherit">
                 <Badge badgeContent={17} color="secondary">
                   <NotificationsIcon />
                 </Badge>
+              </IconButton> */}
+              <IconButton color="inherit">
+                <SettingsIcon />
               </IconButton>
               <IconButton
                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}

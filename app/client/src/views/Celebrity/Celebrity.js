@@ -1,4 +1,6 @@
 import React from 'react';
+import { useParams } from 'react-router-dom'
+
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -30,6 +32,8 @@ const useStyles = makeStyles(theme => ({
 function Celebrity() {
     const classes = useStyles();
 
+    let { id } = useParams()
+
     return (
         <div>
             <Grid container spacing={3}>
@@ -39,7 +43,7 @@ function Celebrity() {
                 <Grid item xs={9} className={classes.flex}>
                     <div className={classes.title}>
                         <Typography component="h1" variant="h2" color="inherit">
-                            Celebrity Name
+                            Celebrity {id} Name 
                         </Typography>
                     </div>
                 </Grid>

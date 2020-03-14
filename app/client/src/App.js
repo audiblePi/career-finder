@@ -15,14 +15,8 @@ import NavBar from "./components/Nav/NavBar";
 import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    //display: 'flex',
-  },
-  
-  container: {
-    // paddingTop: theme.spacing(4),
-    // paddingBottom: theme.spacing(4),
-  },
+  root: {},
+  container: {},
 }));
 
 const Main = (props) => {
@@ -36,9 +30,9 @@ const Main = (props) => {
         <Breadcrumbs/>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/Career" component={Career} />
-          <Route exact path="/Career/DITL" component={DITL} />
-          <Route exact path="/Career/Celebrity" component={Celebrity} />
+          <Route exact path="/Career/:id" component={Career} />
+          <Route exact path="/Career/:id/DITL" component={DITL} />
+          <Route exact path="/Career/:id/Celebrity/:id"component={Celebrity} />
           <Route component={NotFound}/>
         </Switch>
       </Container>
