@@ -63,13 +63,6 @@ export default function Login(props) {
         
         event.preventDefault();
         //authenticate
-        //maybe switch to axios, im not having a good time with this
-       
-        /*fetch('/auth', {
-            method: 'POST',
-            body: {"username": props.username, "password": props.password},
-            headers: { 'Content-type': 'application/json' }
-        })*/
         axios.post('/auth', {
             username: username,
             password: password
