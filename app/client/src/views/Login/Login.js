@@ -2,7 +2,7 @@ import React from 'react';
 
 import mongoose from 'mongoose';
 //import fetch from 'node-fetch';
-import Crypto from 'crypto';
+import crypto from 'crypto';
 import axios from 'axios';
 
 import Button from '@material-ui/core/Button';
@@ -65,10 +65,10 @@ export default function Login(props) {
         //authenticate
         axios.post('/auth', {
             username: username,
-            password: password
+            password: crypto.createHash('md5').update(password).digest('hex')
         })
         .then(res => {
-            if(res.status === 200) {
+            if(res.data.result == 'match') {
                 props.onLogin('true');
             } else {
                 //display wrong?
