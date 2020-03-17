@@ -1,7 +1,8 @@
 const express = require('./config/express.js');
 const mongoose = require('mongoose');
 const config = require('./config/config.js');
-const loginRouter = require('./routes/loginRouter.js');
+const authRouter = require('./routes/authRouter.js');
+const userRouter = require('./routes/userRouter.js');
 const users = require('./controllers/loginController.js');
 const bodyParser = require('body-parser');
 
@@ -16,4 +17,5 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 
-app.use('/auth', loginRouter);
+app.use('/auth', authRouter);
+app.use('/user', userRouter);
