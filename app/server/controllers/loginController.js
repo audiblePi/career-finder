@@ -6,23 +6,29 @@ module.exports.authenticate = (req, res) => {
     if(req.body.username && req.body.password) {
         //for testing purposes until the database is populated
         //Team6 && Rocks
+        //console.log(req.body.password); //useful to get the hash for the test list
         if('Team6' === req.body.username && '5cdfbc0ea6e85d2cc3dd5ddec72ffe1a' === req.body.password) {
             res.status = 200;
             res.send({result: 'match'});
-        }
-        //search database by username
-        mongoose.connect(config.db.uri, {useNewURLParse: true, useUnifiedTopology: true});
-        var found = User.findOne({user: req.body.username});
-        mongoose.connection.close;
-        //if no entry with that username
-        if(found === null) {
-            res.status = 200;
-            res.send({result: 'username-not-found'});
-        }
-        //if username exists, and passwords are checked
-        if(found.password === req.body.password) {
-            res.status = 200;
-            res.send({result: 'match'});
+        } else {
+            //search database by username
+            mongoose.connect(config.db.uri, {useNewURLParse: true, useUnifiedTopology: true});
+            var found = User.findOne({user: req.body.username});
+            mongoose.connection.close;
+            //if no entry with that username
+            if(found === null) {
+                res.status = 200;
+                res.send({result: 'username-not-found'});
+                console.log('username not found');
+                return;
+            }
+            //if username exists, and passwords are checked
+            if(found.password === req.body.password) {
+                res.status = 200;
+                res.send({result: 'match'});
+                console.log('login match');
+                return;
+            }
         }
     } else {
         res.status = 200;
