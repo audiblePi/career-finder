@@ -4,57 +4,70 @@ const config = require('../config/config.js');
 
 module.exports.authenticate = (req, res) => {
     if(req.body.username && req.body.password) {
-        //for testing purposes until the database is populated
-        //Team6 && Rocks
-        //console.log(req.body.password); //useful to get the hash for the test list
-        if('Team6' === req.body.username && '5cdfbc0ea6e85d2cc3dd5ddec72ffe1a' === req.body.password) {
-            res.status = 200;
-            res.send({result: 'match'});
-        } else {
-            //search database by username
-            mongoose.connect(config.db.uri, {useNewURLParse: true, useUnifiedTopology: true});
-            var found = User.findOne({user: req.body.username});
-            mongoose.connection.close;
-            //if no entry with that username
-            if(found === null) {
-                res.status = 200;
-                res.send({result: 'username-not-found'});
-                console.log('username not found');
-                return;
-            }
-            //if username exists, and passwords are checked
-            if(found.password === req.body.password) {
-                res.status = 200;
-                res.send({result: 'match'});
-                console.log('login match');
-                return;
-            }
-        }
+    //console.log(req.body.password); //useful to get the hash for the test list
+        mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+        User.findOne({ user: req.body.username })
+            .then(found => {
+                if(found.password === req.body.password) {
+                    res.status = 200;
+                    res.send({result: 'match', role: found.role});
+                } else {
+                    //password does not match
+                    res.status = 200;
+                    res.send({result: 'wrong-password'});
+                }
+            })
+            .catch(err => {
+                //database error, or no documents with that username
+                res.status = 500;
+                res.send({result: 'username-not-found', error: err});//or database issue
+            });
     } else {
-        res.status = 200;
-        res.send({result: 'no-match'});
+        //username and/or password null
+        res.status = 300;
+        res.send({result: 'invalid-entry'});
     }
+    mongoose.connection.close;
 };
 
 module.exports.create = (req, res) => {
-    mongoose.connect(config.db.uri, {useNewURLParse: true, useUnifiedTopology: true});
-    var found = User.findOne({user: req.body.username});
-    if(found !== null) {
-        res.status = 400;
-        mongoose.connection.close;
-        res.send({result: 'username-already-exists'});
-    } else {
-        var newUser = new User({ user: req.body.username, password: req.body.password });
-        newUser.save(function (err) {
-            mongoose.connection.close;
-            if(err) {
+    console.log('create');
+    if(req.body.username) {
+        mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+        User.findOne({ user: req.body.username })
+            .then(found => {
+                if(found) {
+                    //user already exists
+                    res.status = 400;
+                    res.send({result: 'username-already-exists'});
+                    console.log('found');
+                } else {
+                    //user does not exist, so it will be added
+                    var newUser = new User({ user: req.body.username });
+                    if(req.body.password) {
+                        newUser.password = req.body.password;
+                    }
+                    newUser.save(function (err) {
+                        if(err) {
+                            res.status = 500;
+                            res.send({result: 'error'});
+                        } else {
+                            res.status = 200;
+                            res.send({result: 'successfully-added'});
+                        }
+                    });
+                }
+            })
+            .catch(err => {
+                //database error
                 res.status = 500;
-                res.send(console.error(err));
-            } else {
-                res.status = 200;
-                res.send({result: 'successfully-added'});
-            }
-        });
+                res.send({result: 'username-not-found', error: err});//or database issue
+            });
+        mongoose.connection.close;
+    } else {
+        //username and/or password null
+        res.status = 300;
+        res.send({result: 'username-required'});
     }
 };
 

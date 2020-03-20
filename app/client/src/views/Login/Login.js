@@ -1,7 +1,6 @@
 import React from 'react';
 
 import mongoose from 'mongoose';
-//import fetch from 'node-fetch';
 import crypto from 'crypto';
 import axios from 'axios';
 
@@ -75,7 +74,6 @@ export default function Login(props) {
                 props.onLogin('false');
             }
         });
-        //props.onLogin('true');
     }
 
     return (
