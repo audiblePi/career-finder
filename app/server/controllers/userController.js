@@ -1,46 +1,40 @@
 const mongoose = require('mongoose');
-const User = require('../models/UserModel.js');
+const User = require('../models/userModel.js');
 const config = require('../config/config.js');
 
 module.exports.authenticate = (req, res) => {
     if(req.body.username && req.body.password) {
-    //console.log(req.body.password); //useful to get the hash for the test list
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
         User.findOne({ user: req.body.username })
             .then(found => {
                 if(found.password === req.body.password) {
-                    res.status = 200;
+                    //password matches
                     res.send({result: 'match', role: found.role});
                 } else {
                     //password does not match
-                    res.status = 200;
                     res.send({result: 'wrong-password'});
                 }
             })
             .catch(err => {
-                //database error, or no documents with that username
+                //database error
                 res.status = 500;
-                res.send({result: 'username-not-found', error: err});//or database issue
+                res.send({result: 'database-error', error: err});//or database issue
             });
     } else {
         //username and/or password null
-        res.status = 300;
         res.send({result: 'invalid-entry'});
     }
     mongoose.connection.close;
 };
 
 module.exports.create = (req, res) => {
-    console.log('create');
     if(req.body.username) {
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
         User.findOne({ user: req.body.username })
             .then(found => {
                 if(found) {
                     //user already exists
-                    res.status = 400;
                     res.send({result: 'username-already-exists'});
-                    console.log('found');
                 } else {
                     //user does not exist, so it will be added
                     var newUser = new User({ user: req.body.username });
@@ -49,10 +43,11 @@ module.exports.create = (req, res) => {
                     }
                     newUser.save(function (err) {
                         if(err) {
+                            //error in saving document to db
                             res.status = 500;
-                            res.send({result: 'error'});
+                            res.send({result: 'database-error', error: err});
                         } else {
-                            res.status = 200;
+                            //everything fine
                             res.send({result: 'successfully-added'});
                         }
                     });
@@ -60,28 +55,60 @@ module.exports.create = (req, res) => {
             })
             .catch(err => {
                 //database error
-                res.status = 500;
-                res.send({result: 'username-not-found', error: err});//or database issue
+                res.send({result: 'database-error', error: err});//or database issue
             });
         mongoose.connection.close;
     } else {
-        //username and/or password null
-        res.status = 300;
+        //username undefined/null
         res.send({result: 'username-required'});
     }
 };
 
+//sends document based off user passed in get request body
 module.exports.read = (req, res) => {
-    res.status = 501;
-    res.end();
+    mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+    User.findOne({user: req.body.username})
+        .then(found => {
+            if(found) {
+                res.write({result: 'match'});
+                res.send(found.toResponse());
+            } else {
+                res.send({result: 'user-not-found'});
+            }
+        })
+        .catch(err => {
+            res.send({result: 'error', error: err});
+        });
+    mongoose.connection.close;
 };
 
 module.exports.update = (req, res) => {
     res.status = 501;
     res.end();
 };
-
+//remove user based off of username
 module.exports.delete = (req, res) => {
-    res.status = 501;
-    res.end();
+    mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+    User.deleteOne({user: req.body.username}), function(err) {
+        if(err) {
+            res.send({result: 'error', error: err});
+        } else {
+            res.send({result: 'user-removed'});
+        }
+    };
+    mongoose.connection.close;
 };
+//template endpoint for database
+/*
+module.exports.templates = (req, res) => {
+    mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+    User.function({parameter: 'value'})
+    .then(functionReturn => {
+        
+    })
+    .catch(err => {
+        
+    });
+    mongoose.connection.close;
+};
+*/

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const config = require('./config/config.js');
 const authRouter = require('./routes/authRouter.js');
 const userRouter = require('./routes/userRouter.js');
-const users = require('./controllers/loginController.js');
+const users = require('./controllers/userController.js');
 const bodyParser = require('body-parser');
 
 const port = process.env.PORT || 5000;
