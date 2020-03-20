@@ -30,7 +30,7 @@ export default function Clusters() {
             <GridList cols={4} cellHeight={180} className={classes.gridList}>
                 {clusters.map(cluster => (
                     <GridListTile key={cluster.img}>
-                        <Link href={"/Career/" + cluster.id}>
+                        <Link href={"/Cluster/" + cluster.id}>
                             <img src={cluster.img} alt={cluster.title} className="MuiGridListTile-imgFullHeight"/>
                             <GridListTileBar
                                 title={cluster.title}

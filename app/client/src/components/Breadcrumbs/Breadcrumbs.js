@@ -1,16 +1,16 @@
 import React from 'react';
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Home from "../../views/Home/Home";
 import Career from "../../views/Career/Career";
 import DITL from "../../views/DITL/DITL";
 import Celebrity from "../../views/Celebrity/Celebrity";
+import Cluster from "../../views/Cluster/Cluster";
 
-import Typography from '@material-ui/core/Typography';
+//import Typography from '@material-ui/core/Typography';
 import BREADCRUMBS from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
-
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -26,17 +26,22 @@ const routes = [
         Component: Home 
     },
     { 
-        path: "/Career/:id", 
+        path: "/Cluster/:id/Career/:id", 
+        name: "Cluster", 
+        Component: Cluster 
+    },
+    { 
+        path: "/Cluster/:id/Career/:id", 
         name: "Career", 
         Component: Career 
     },
     {
-        path: "/Career/:id/DITL",
+        path: "/Cluster/:id/Career/:id/DITL",
         name: "DITL",
         Component: DITL
     },
     { 
-        path: "/Career/:id/Celebrity/:id",
+        path: "/Cluster/:id/Career/:id/Celebrity/:id",
         name: "Celebrity", 
         Component: Celebrity 
     }

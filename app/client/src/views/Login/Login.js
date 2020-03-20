@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import Home from "../Home/Home";
+//import Home from "../Home/Home";
 
 function Copyright() {
   return (
