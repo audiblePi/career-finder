@@ -7,6 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import NavBar from "./components/Nav/NavBar";
 import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
+import Chat from "./components/Chat/Chat";
 
 import Home from "./views/Home/Home";
 import Login from "./views/Login/Login";
@@ -39,6 +40,7 @@ const Main = (props) => {
           <Route component={NotFound}/>
         </Switch>
       </Container>
+      <Chat/>
     </div>
   )
 }

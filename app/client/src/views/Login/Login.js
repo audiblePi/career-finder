@@ -51,10 +51,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Login(props) {
+    const classes = useStyles();
+
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState(''); 
     const [showError, setShowError] = React.useState(0);
-    const classes = useStyles();
 
     const handleSubmit = (event) => {
         event.preventDefault();
