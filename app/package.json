@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha server/tests",
+    "test-restart-users": "cd server && jest ./tests/listings.restart.test.js",
     "install-all": "concurrently \"npm install\" \"cd client && npm install\"",
     "client": "cd client && npm start",
     "server": "nodemon server/server.js",
