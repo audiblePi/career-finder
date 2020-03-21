@@ -55,24 +55,6 @@ export default function Breadcrumbs(props) {
 
     return (
         <BREADCRUMBS aria-label="breadcrumb" className={classes.root}>
-            {/* <Link color="inherit" href="/Login">
-                Login
-            </Link> */}
-            {/* <Link color="inherit" href="/">
-                Home
-            </Link>
-            <Link color="inherit" href="/Career/1">
-                Career
-            </Link>
-            <Link color="inherit" href="/Career/1/DITL">
-                Day In The Life
-            </Link>
-            <Link color="inherit" href="/Career/1/Celebrity/1">
-                Celebrity
-            </Link>
-            <Typography color="textPrimary">
-                Current
-            </Typography> */}
             <Link color="inherit" href="/">
                 Home
             </Link>
@@ -93,11 +75,10 @@ export default function Breadcrumbs(props) {
 
                         return <Link key={key} color="inherit" href={href}>{name}</Link>
                     }
+
+                    return ""
                 })
             }
-            {/* <Typography color="textPrimary">
-                Current
-            </Typography> */}
         </BREADCRUMBS>
     );
 }

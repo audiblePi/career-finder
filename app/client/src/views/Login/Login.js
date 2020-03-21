@@ -1,6 +1,6 @@
 import React from 'react';
 
-import mongoose from 'mongoose';
+//import mongoose from 'mongoose';
 import crypto from 'crypto';
 import axios from 'axios';
 
@@ -15,8 +15,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
-//import Home from "../Home/Home";
+import Alert from '@material-ui/lab/Alert';
 
 function Copyright() {
   return (
@@ -52,25 +51,25 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Login(props) {
-    
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState(''); 
-    
+    const [showError, setShowError] = React.useState(0);
     const classes = useStyles();
 
     const handleSubmit = (event) => {
-        
         event.preventDefault();
+
         //authenticate
         axios.post('/auth', {
             username: username,
             password: crypto.createHash('md5').update(password).digest('hex')
         })
         .then(res => {
-            if(res.data.result == 'match') {
-                props.onLogin('true');
-            } else {
-                //display wrong?
+            if (res.data.result === 'match') {
+                props.onLogin('true'); //move to db?
+            } 
+            else {
+                setShowError(1)
                 props.onLogin('false');
             }
         });
@@ -83,7 +82,10 @@ export default function Login(props) {
                 <Typography component="h1" variant="h5">
                     CareerFind
                 </Typography>
-                <form className={classes.form} noValidate onSubmit={(e) => handleSubmit(e)}>
+
+                {showError === 1 ? <Alert severity="error">This is an error alert — check it out!</Alert> : ""}
+
+                <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
                     <TextField
                         variant="outlined"
                         margin="normal"

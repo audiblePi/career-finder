@@ -141,61 +141,25 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const message = `Truncation should be conditionally applicable on this long line of text
- as this is a much longer line than what the container can support. `;
-
-function CareerCard() {
+function CareerCard(props) {
     const classes = useStyles();
 
-    let { cluster, id } = useParams()
-
-    console.log(cluster)
+    let { cluster } = useParams()
 
     return (
         <div>
-
             <Paper className={classes.paper}>
                 <Grid container wrap="nowrap" spacing={2}>
                     <Grid item>
-                        <Avatar>C</Avatar>
+                        <Avatar>{props.name.charAt(0)}</Avatar>
                     </Grid>
                     <Grid item xs>
-                        {/* <Typography>{message}</Typography> */}
-                        <Link color="inherit" href={"/Cluster/" + cluster + "/Career/1"}>
-                            <Typography>Career 1</Typography>
+                        <Link color="inherit" href={"/Cluster/" + cluster + "/Career/" + props.id}>
+                            <Typography variant="h4">{props.name}</Typography>
                         </Link>
                     </Grid>
                 </Grid>
             </Paper>
-
-            {/* <Paper className={classes.paper}>
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item>
-                        <Avatar>C</Avatar>
-                    </Grid>
-                    <Grid item xs>
-                        <Typography>{message}</Typography>
-                        <Link color="inherit" href={"/Cluster/" + id + "/Career/2"}>
-                            <Typography>Career 2</Typography>
-                        </Link>
-                    </Grid>
-                </Grid>
-            </Paper>
-
-            <Paper className={classes.paper}>
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item>
-                        <Avatar>C</Avatar>
-                    </Grid>
-                    <Grid item xs>
-                        <Typography>{message}</Typography>
-                        <Link color="inherit" href={"/Cluster/" + id + "/Career/3"}>
-                            <Typography>Career 3</Typography>
-                        </Link>
-                    </Grid>
-                </Grid>
-            </Paper> */}
-            
         </div>
     );
 }

@@ -11,6 +11,37 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+const careers = [
+    { 
+        id: 1, 
+        name: "Test Pilot", 
+    },
+    { 
+        id: 2, 
+        name: "Payload Commander (PLC)", 
+    },
+    { 
+        id: 3, 
+        name: "Mission Specialist (MS)", 
+    },
+    { 
+        id: 4, 
+        name: "Flight Engineer", 
+    },
+    { 
+        id: 5, 
+        name: "Commander", 
+    },
+    { 
+        id: 6, 
+        name: "Payload Specialist", 
+    },
+    { 
+        id: 7, 
+        name: "Science Officer", 
+    },
+];
+
 function Cluster() {
     const classes = useStyles();
 
@@ -21,10 +52,10 @@ function Cluster() {
             <Typography component="h1" variant="h3" color="inherit" gutterBottom>
                   Cluster {cluster}
             </Typography>
-            
-            <CareerCard/>
-            <CareerCard/>
-            <CareerCard/>
+
+            {careers.map( ({ id, name }, key) => {
+                return <CareerCard key={key} id={id} name={name}/>
+            })}
         </div>
     );
 }
