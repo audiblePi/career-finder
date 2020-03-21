@@ -1,5 +1,9 @@
 import React from 'react';
 
+import mongoose from 'mongoose';
+import crypto from 'crypto';
+import axios from 'axios';
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -48,14 +52,28 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Login(props) {
+    
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState(''); 
+    
     const classes = useStyles();
 
     const handleSubmit = (event) => {
+        
         event.preventDefault();
-
         //authenticate
-
-        props.onLogin('true');
+        axios.post('/auth', {
+            username: username,
+            password: crypto.createHash('md5').update(password).digest('hex')
+        })
+        .then(res => {
+            if(res.data.result == 'match') {
+                props.onLogin('true');
+            } else {
+                //display wrong?
+                props.onLogin('false');
+            }
+        });
     }
 
     return (
@@ -75,6 +93,7 @@ export default function Login(props) {
                         label="User Name"
                         name="username"
                         autoFocus
+                        onInput={e=>setUsername(e.target.value)}
                     />
                     <TextField
                         variant="outlined"
@@ -86,6 +105,7 @@ export default function Login(props) {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onInput={e=>setPassword(e.target.value)}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
