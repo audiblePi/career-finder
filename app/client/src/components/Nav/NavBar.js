@@ -17,6 +17,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ListIcon from '@material-ui/icons/List';
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+import Button from '@material-ui/core/Button';
 
 // import clsx from 'clsx';
 // import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -197,9 +198,11 @@ class PrimarySearchAppBar extends React.Component {
             {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
             </IconButton> */}
+
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               CareerFind
             </Typography>
+
             <div className={classes.search}>
               {/* <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -211,28 +214,35 @@ class PrimarySearchAppBar extends React.Component {
                   input: classes.inputInput,
                 }}
               /> */}
-              
             </div>
+
             <div className={classes.grow} />
+            
             <div className={classes.sectionDesktop}>
+              <Button color="inherit" href="/ManageUsers">Manage Users</Button>
+
               <IconButton color="inherit">
                 <Badge badgeContent={41} color="secondary">
                   <EmojiEventsIcon />
                 </Badge>
               </IconButton>
+
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
                   <ListIcon />
                 </Badge>
               </IconButton>
+
               {/* <IconButton color="inherit">
                 <Badge badgeContent={17} color="secondary">
                   <NotificationsIcon />
                 </Badge>
               </IconButton> */}
+
               <IconButton color="inherit">
                 <SettingsIcon />
               </IconButton>
+
               <IconButton
                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                 aria-haspopup="true"

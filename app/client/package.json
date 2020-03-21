@@ -5,6 +5,8 @@
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.46",
+    "material-table": "^1.57.2",
     "axios": "^0.19.2",
     "express": "^4.17.1",
     "mongoose": "^5.9.4",

@@ -44,6 +44,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end',
     padding: theme.spacing(1),
     alignItems: 'center',
+    textAlign: 'right',
     '& > *': {
       margin: theme.spacing(1),
     },
@@ -53,8 +54,8 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
   },
   avatar:{
-    width: theme.spacing(3),
-    height: theme.spacing(3),
+    // width: theme.spacing(3),
+    // height: theme.spacing(3),
   },
   input: {
     padding: '2px 4px',
@@ -77,10 +78,11 @@ export default function Chat() {
 
         {/* messages */}
         <div className={classes.message}>
-            <Avatar className={classes.avatar}>h</Avatar>I love you
+            <Avatar className={classes.avatar}>H</Avatar>Hello, Apollo 11. Houston. We're standing by.
         </div>
+
         <div className={classes.messageResponse}>
-            I know <Avatar className={classes.avatar}>u</Avatar>
+          Roger. Apollo 11.<Avatar className={classes.avatar}>E</Avatar>
         </div>
 
         {/* input form */}

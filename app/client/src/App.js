@@ -15,6 +15,7 @@ import Cluster from "./views/Cluster/Cluster";
 import Career from "./views/Career/Career";
 import DITL from "./views/DITL/DITL";
 import Celebrity from "./views/Celebrity/Celebrity";
+import ManageUsers from "./views/ManageUsers/ManageUsers";
 import NotFound from "./views/NotFound";
 
 const useStyles = makeStyles(theme => ({
@@ -36,7 +37,8 @@ const Main = (props) => {
           <Route exact path="/Cluster/:cluster" component={Cluster} />
           <Route exact path="/Cluster/:cluster/Career/:id" component={Career} />
           <Route exact path="/Cluster/:cluster/Career/:id/DITL" component={DITL} />
-          <Route exact path="/Cluster/:cluster/Career/:id/Celebrity/:id"component={Celebrity} />
+          <Route exact path="/Cluster/:cluster/Career/:id/Celebrity/:id" component={Celebrity} />
+          <Route exact path="/ManageUsers" component={ManageUsers}/>
           <Route component={NotFound}/>
         </Switch>
       </Container>
