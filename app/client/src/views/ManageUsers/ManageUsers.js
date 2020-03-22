@@ -51,6 +51,11 @@ const users = [
     },
 ];
 
+const retrieveUsers = () => {
+    console.log("retrieved users", users)
+    return users
+}
+
 function ManageUsers() {
     const [state, setState] = React.useState({
         // columns: [
@@ -71,16 +76,12 @@ function ManageUsers() {
             { title: 'Points', field: 'points', filtering: false  },
             { title: 'Role', field: 'role', lookup: { 'student': 'S', 'admin': 'A'}, },
         ],
-        data: users,
+        data: retrieveUsers(),
     });
 
     const createUser = (user) => {
         console.log("creating user", user)
     }
-
-    // const retrieveUser = (user) => {
-    //     console.log("retrieve user", user)
-    // }
 
     const updateUser = (user) => {
         console.log("update user", user)
