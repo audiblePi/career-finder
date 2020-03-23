@@ -6,7 +6,7 @@ const cluster = new mongoose.Schema({
     //https://bezkoder.com/node-js-upload-store-images-mongodb/
     // clusterId: ObjectId?
     name: {type: String, required: true},
-    image: {data: Buffer},
+    image: String, // url to image file
     keywords: [String], // Should reference 'name' in keyword.
     careers: [String] // Should reference 'name' in career.
 });
