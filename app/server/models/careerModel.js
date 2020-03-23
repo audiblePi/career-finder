@@ -4,12 +4,12 @@ const career = new mongoose.Schema({
     //https://mongoosejs.com/docs/schematypes.html
     //https://medium.com/@alvenw/how-to-store-images-to-mongodb-with-node-js-fb3905c37e6d
     // careerId: ObjectId?
-    name: String,
+    name: {type: String, required: true},
     description: String,
     salary: String, // Assuming no calculations needed...
     ditl: String,
-    celebrity: { // If celebrity article is unique to career.
-        name: String,
+    celebrity: { // Celebrity article is unique to career, name is required.
+        name: {type: String, required: true},
         photo: {data: Buffer},
         article: String
     }
