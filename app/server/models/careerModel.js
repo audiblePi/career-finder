@@ -10,7 +10,7 @@ const career = new mongoose.Schema({
     ditl: String,
     celebrity: { // Celebrity article is unique to career, name is required.
         name: {type: String, required: true},
-        photo: {data: Buffer},
+        photo: String, // url to image file
         article: String
     }
 });
