@@ -11,6 +11,8 @@ const Messages = (props) => {
         
         if (type === 'response')
             return <MessageResponse key={key} data={message} />
+
+        return ""
     })
 };
 
