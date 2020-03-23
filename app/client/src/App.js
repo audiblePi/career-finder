@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 const Main = (props) => {
   const classes = useStyles();
-
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -33,7 +33,8 @@ const Main = (props) => {
       <Container maxWidth="lg" className={classes.container}>      
         <Breadcrumbs/>
         <Switch>
-          <Route exact path="/" component={Home} />
+          {/* <Route exact path="/" component={Home} /> */}
+          <Route exact path="/" render={(routeProps) => <Home {...routeProps} {...props}/>}  />
           <Route exact path="/Cluster/:cluster" component={Cluster} />
           <Route exact path="/Cluster/:cluster/Career/:id" component={Career} />
           <Route exact path="/Cluster/:cluster/Career/:id/DITL" component={DITL} />
@@ -54,14 +55,20 @@ const App = (props) => {
     localStorage.getItem('loggedIn') || 'false'
   );
 
-  const updateLoggedIn = (status) => {   
-      localStorage.setItem('loggedIn', status);
-      setLoggedIn(status)
+  const [role, setRole] = useState('student');
+
+  const updateLoggedIn = (status, role) => {   
+    console.log('updateLoggedIn')
+    
+    localStorage.setItem('loggedIn', status);
+
+    setLoggedIn(status)
+    setRole(role)
   };
 
   return (    
     <div className={classes.root}>
-      {loggedIn === 'true' ? <Main onLogin={updateLoggedIn}/> : <Login onLogin={updateLoggedIn}/>}
+      {loggedIn === 'true' ? <Main role={role} onLogin={updateLoggedIn}/> : <Login role={role} onLogin={updateLoggedIn}/>}
     </div>
   );
 }

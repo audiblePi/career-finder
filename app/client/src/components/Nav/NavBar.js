@@ -125,18 +125,6 @@ class PrimarySearchAppBar extends React.Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
-  //const classes = useStyles();
-  //const theme = useTheme();
-  //const [open, setOpen] = React.useState(false);
-
-  // handleDrawerOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // handleDrawerClose = () => {
-  //   setOpen(false);
-  // };
-  
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
@@ -174,6 +162,7 @@ class PrimarySearchAppBar extends React.Component {
           </IconButton>
           <p>Messages</p>
         </MenuItem>
+        
         <MenuItem>
           <IconButton color="inherit">
             <Badge badgeContent={11} color="secondary">
@@ -182,6 +171,7 @@ class PrimarySearchAppBar extends React.Component {
           </IconButton>
           <p>Notifications</p>
         </MenuItem>
+
         <MenuItem onClick={this.handleProfileMenuOpen}>
           <IconButton color="inherit">
             <AccountCircle />
@@ -195,54 +185,35 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton> */}
-
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               CareerFind
             </Typography>
-
-            <div className={classes.search}>
-              {/* <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div> */}
-              {/* <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              /> */}
-            </div>
 
             <div className={classes.grow} />
             
             <div className={classes.sectionDesktop}>
               <Button color="inherit" href="/ManageUsers">Manage Users</Button>
 
+              {/*Awards*/}
               <IconButton color="inherit">
                 <Badge badgeContent={41} color="secondary">
                   <EmojiEventsIcon />
                 </Badge>
               </IconButton>
 
+              {/*Queue?*/}
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
                   <ListIcon />
                 </Badge>
               </IconButton>
 
-              {/* <IconButton color="inherit">
-                <Badge badgeContent={17} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton> */}
-
+              {/*Settings*/}
               <IconButton color="inherit">
                 <SettingsIcon />
               </IconButton>
 
+              {/*Profile*/}
               <IconButton
                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                 aria-haspopup="true"
@@ -251,6 +222,7 @@ class PrimarySearchAppBar extends React.Component {
               >
                 <AccountCircle />
               </IconButton>
+
             </div>
             <div className={classes.sectionMobile}>
               <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
@@ -260,39 +232,6 @@ class PrimarySearchAppBar extends React.Component {
           </Toolbar>
         </AppBar>
         <div className={classes.appBarSpacer} />
-        {/* <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </Drawer> */}
         {renderMenu}
         {renderMobileMenu}
       </div>

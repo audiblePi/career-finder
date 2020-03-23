@@ -66,12 +66,16 @@ export default function Login(props) {
             password: crypto.createHash('md5').update(password).digest('hex')
         })
         .then(res => {
+            console.log(res.data.role)
+
+            let role = res.data.role
+
             if (res.data.result === 'match') {
-                props.onLogin('true'); //move to db?
+                props.onLogin('true', role); //move to db?
             } 
             else {
                 setShowError(1)
-                props.onLogin('false');
+                props.onLogin('false', role);
             }
         });
     }

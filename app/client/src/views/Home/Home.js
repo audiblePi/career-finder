@@ -1,10 +1,10 @@
 import React from 'react';
 import Clusters from "../../components/Clusters/Clusters";
 
-function Home() {
+function Home(props) {
     return (
         <div className="App">
-            <Clusters/>
+            <Clusters {...props}/>
         </div>
     );
 }
