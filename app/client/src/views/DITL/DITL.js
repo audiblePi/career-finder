@@ -1,11 +1,15 @@
 import React from 'react';
+import { useParams } from 'react-router-dom'
+
 import Typography from '@material-ui/core/Typography';
 
 function DITL() {
+    let { id } = useParams()
+
     return (
         <div>
             <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                A Day In the Life
+                A Day In the Life {id}
             </Typography>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vulputate libero non mi congue, ac tristique tortor consectetur. Ut efficitur ligula ipsum, in vehicula sem congue non. Aliquam posuere nisi elit, at molestie velit viverra ut. Suspendisse imperdiet lectus sed ante dignissim, eu blandit nisl imperdiet. Aenean neque mi, pellentesque non venenatis et, pretium a erat. Aenean sollicitudin, justo quis volutpat viverra, neque justo tincidunt nibh, nec faucibus augue dolor vitae risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean pulvinar interdum leo, at porttitor libero venenatis sit amet. Duis aliquet turpis sit amet diam feugiat interdum. Donec sit amet posuere neque. Mauris consequat odio et viverra varius.

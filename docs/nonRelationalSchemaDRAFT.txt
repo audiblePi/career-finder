@@ -1,0 +1,48 @@
+I think there are 3 distinct entities in the career find app it would make sense to store in separate collections in MongoDB:
+
+careerContent(
+  career cluster: object array (
+    cluster name: string,
+    cluster image: image,
+    keywords: object array (
+      keyword name: string,
+      keyword type: string
+    )
+    careers: object array (
+      career name: string,
+      career description: string,
+      career salary: string,
+      ditl: string
+      celebrity: object array (
+        name: string,
+        photo: image,
+        article: string
+      )
+    )
+  )
+)
+
+
+** NOTE: user data model may also need to store an array of visited careers.
+** This would be to track progress in the system and allow points to be rewarded
+** for newly visited careers.
+users(
+  user: object array(
+    userId : unique string,
+    userName: string,
+    password: encrypted string,
+    class: string,
+    points: numeric (for student accounts only),
+    keywords: string array [] (for student accounts only | chat recommendations),
+    type: 'student' or 'admin'
+  )
+)
+
+* NOTE: we might want logging to be optional if we implement it.
+* Alternatively we might want to set limits on the number of log entries
+* that are retained or how long they are retained.
+chatCounselor(
+  icon: image,
+  prompts: string array [],
+  logs: string array []
+)
