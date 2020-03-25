@@ -6,7 +6,7 @@ const keyword = new mongoose.Schema({
     // keywordId: ObjectId? Name should be unique identifier...
     // in other words... Math could be a subject or an interest...
     // but not both.
-    name: {type: String, required: true},
+    name: {type: String, required: true, unique: true},
     type: {type: String, enum: ['subject', 'interest'], required: true},
     associatedClusters: [String]
 });
