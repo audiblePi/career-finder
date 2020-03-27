@@ -5,6 +5,6 @@
 
 module.exports = {
     db: {
-        uri: process.env.DB_URI, //place the URI of your mongo database here.
+        uri: process.env.MONGODB_URI, //place the URI of your mongo database here.
     }, 
 };
