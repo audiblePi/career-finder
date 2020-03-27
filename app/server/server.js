@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const config = require('./config/config.js');
 const authRouter = require('./routes/authRouter.js');
 const userRouter = require('./routes/userRouter.js');
+const clusterRouter = require('./routes/clusterRouter.js');
+const specialClusterRouter = require('./routes/specialClusterRouter.js');
 const users = require('./controllers/userController.js');
 const bodyParser = require('body-parser');
 
@@ -20,3 +22,5 @@ app.use(bodyParser.json());
 
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
+app.use('/cluster', clusterRouter);
+app.use('/returnCluster', specialClusterRouter)
