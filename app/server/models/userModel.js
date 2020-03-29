@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const loginSchema = new mongoose.Schema({
     user: { type: String, required: true, unique: true },
     password: { type: String },
+    name: { type: String },
     role: { type: String, enum: ['admin', 'student', 'teacher'], default: 'student' }, //admin, student, teacher, etc
     points: { type: Number, default: 0 }
 });
