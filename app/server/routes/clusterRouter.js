@@ -1,4 +1,4 @@
-const careerCluster = require('../controllers/carrerClusterController.js');
+const careerCluster = require('../controllers/careerClusterController.js');
 const express = require('express');
 const clusterRouter = express.Router();
 
