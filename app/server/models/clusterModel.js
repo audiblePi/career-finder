@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const cluster = new mongoose.Schema({
     //https://mongoosejs.com/docs/schematypes.html
@@ -11,4 +11,4 @@ const cluster = new mongoose.Schema({
     careers: [String] // Should reference 'name' in career.
 });
 
-export default mongoose.model('clusters', cluster);
+module.exports = inter = mongoose.model('clusters', cluster);

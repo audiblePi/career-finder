@@ -9,8 +9,7 @@ module.exports.authenticate = (req, res) => {
             .then(found => {
                 if(found.password === req.body.password) {
                     //password matches
-                    res.write(found);
-                    res.send({result: 'match'});
+                    res.send({found, result: 'match'});
                 } else {
                     //password does not match
                     res.send({result: 'wrong-password'});
