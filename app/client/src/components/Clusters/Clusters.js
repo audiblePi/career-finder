@@ -6,10 +6,10 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import Link from '@material-ui/core/Link';
-//import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-
-import clusters from '../../data/testData';
+import Button from '@material-ui/core/Button';
+import EditModal from '../EditModal/EditModal';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,10 +30,10 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const edit = (id, classes) => {
+const edit = (props, id, classes) => {
     return (
-        <IconButton className={classes.edit}>
-            <EditIcon />
+        <IconButton className={classes.edit} onClick={(e) => props.onDeleteCluster(e, id)} >
+            <DeleteIcon />
         </IconButton>
     )
 }
@@ -41,31 +41,45 @@ const edit = (id, classes) => {
 export default function Clusters(props) {
     const classes = useStyles();
 
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
+
     return (
         <div className={classes.root}>
+            { props.role === 'admin' ? <Button color="inherit" onClick={handleOpen}>Edit Clusters</Button> : ''}
+            
             <GridList cols={3} cellHeight={260} className={classes.gridList}>
-                {clusters.map(cluster => (
+                {props.clusters.map(cluster => (
                     <GridListTile key={cluster.img}>
-                        {/* <Link href={"/Cluster/" + cluster.id}> */}
+                        <Link href={"/Cluster/" + cluster.id}>
                             <img src={cluster.img} alt={cluster.title} className="MuiGridListTile-imgFullHeight"/>
 
-                            { props.role === 'admin' ? edit(cluster.id, classes) : ''}
+                            { props.role === 'admin' ? edit(props, cluster.id, classes) : ''}
 
                             <GridListTileBar
                                 title={cluster.title}
                                 subtitle={<span>{cluster.subtitle}</span>}
                                 actionIcon={
-                                    <Link href={"/Cluster/" + cluster.id}>
+                                    // <Link href={"/Cluster/" + cluster.id}>
                                         <IconButton aria-label={`info about ${cluster.title}`} className={classes.icon}>
                                             <InfoIcon />
                                         </IconButton>
-                                    </Link>
+                                    // </Link>
                                 }
                             />
-                        {/* </Link> */}
+                        </Link>
                     </GridListTile>
                 ))}
             </GridList>
+
+            <EditModal open={open} handleClose={onClose} data={props.clusters}/>
         </div>
     );
 }

@@ -66,8 +66,6 @@ export default function Login(props) {
             password: crypto.createHash('md5').update(password).digest('hex')
         })
         .then(res => {
-            console.log(res.data.role)
-
             let role = res.data.role
 
             if (res.data.result === 'match') {
