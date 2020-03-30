@@ -26,7 +26,12 @@ module.exports.init = () => {
     app.use(bodyParser.json());
 
     // add a router
-    app.use('/api/example', exampleRouter);
+    //app.use('/api/example', exampleRouter);
+    // PRODUCTION ENDPOINT TEST -- GET NOT WORKING
+    app.use('/auth', authRouter);
+    app.use('/user', userRouter);
+    app.use('/cluster', clusterRouter);
+    app.use('/returnCluster', specialClusterRouter);
 
     if (process.env.NODE_ENV === 'production') {
         // Serve any static files
