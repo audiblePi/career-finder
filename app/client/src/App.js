@@ -5,8 +5,17 @@ import Main from "./views/Main";
 
 import axios from 'axios';
 
-//mockData
-//import clustersD from './data/testData';
+const msgs = [
+  { 
+    id: 1,
+    type: "chatbot",
+    message: "Hello, Apollo 11. Houston. We're standing by.",
+  }
+];
+
+const getMessages = () => {
+  return msgs
+}
 
 // const initialState = {
 //   user: '',
@@ -27,20 +36,22 @@ import axios from 'axios';
 // }
 
 const App = (props) => {
-
   // const [state, dispatch] = useReducer(reducer, initialState);
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') || 'false');
   const [user, setUser] = useState(localStorage.getItem('user') || '');
   const [role, setRole] = useState(localStorage.getItem('role') || '');
   const [clusters, setClusters] = useState([]);
+  const [chatMessages, setChatMessages] = useState(getMessages);
 
-  const updateLoggedIn = (status, user, un, role) => {           
+  const updateLoggedIn = (status, user) => {    
     setLoggedIn(status)
     localStorage.setItem('loggedIn', status);
 
+    let user_id = (user === undefined) ? '' : user.name
     setUser(user)
-    localStorage.setItem('user', un);
+    localStorage.setItem('user_id', user_id);
 
+    let role = (user === undefined) ? '' : user.role
     setRole(role)
     localStorage.setItem('role', role);
   };
@@ -65,7 +76,7 @@ const App = (props) => {
   }
 
   const readClusters = async () => {
-    const res = await axios('/returnCluster',);
+    const res = await axios('/returnCluster');
     if (res.data.length > 0) {
       setClusters(res.data)
     } 
@@ -75,7 +86,7 @@ const App = (props) => {
   }
 
   const updateCluster = async (cluster) => {
-    const res = await axios.put('/cluster',{
+    const res = await axios.put('/cluster', {
       name: cluster.name,
       image: cluster.image,
       //keywords: [],
@@ -101,6 +112,29 @@ const App = (props) => {
     }
   }
 
+  /*
+   * Chat CRUD
+   */
+  const addMessage = (e, message) => {
+    e.preventDefault()
+  
+    let id = chatMessages.length + 1
+
+    let m = {
+      id: id,
+      type: "response", 
+      message: message
+    }
+
+    let r = {
+      id: id + 1,
+      type: "chatbot", 
+      message: "Roger. " + message
+    }
+
+    setChatMessages([...chatMessages, m, r])
+  }
+
   useEffect(() => {
     readClusters();
   }, []);
@@ -113,7 +147,9 @@ const App = (props) => {
         onUpdateCluster={updateCluster}
         onDeleteCluster={deleteCluster} 
         onLogin={updateLoggedIn}
-        role={role}/>
+        role={role}
+        chatMessages={chatMessages}
+        onAddMessage={addMessage}/>
     )
   }
 

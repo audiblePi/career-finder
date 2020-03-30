@@ -5,7 +5,6 @@ import MessageResponse from './MessageResponse';
 
 const Messages = (props) => {
     return props.data.map( ({ type, message }, key) => {
-        
         if (type === 'chatbot')
             return <Message key={key} data={message} />
         

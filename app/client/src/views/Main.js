@@ -33,7 +33,7 @@ const Main = (props) => {
           <Route component={NotFound}/>
         </Switch>
       </Container>
-      <Chat/>
+      <Chat {...props}/>
     </div>
   )
 }

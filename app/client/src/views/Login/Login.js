@@ -67,15 +67,13 @@ export default function Login(props) {
         })
         .then(res => {
             let user = res.data.found
-            let role = res.data.found.role
-            let un = res.data.found.user
 
             if (res.data.result === 'match') {
-                props.onLogin('true', user, un, role); //move to db?
+                props.onLogin('true', user); //move to db?
             } 
             else {
                 setShowError(1)
-                props.onLogin('false', user, un, role);
+                props.onLogin('false', user);
             }
         });
     }

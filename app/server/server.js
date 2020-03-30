@@ -19,7 +19,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/cluster', clusterRouter);
