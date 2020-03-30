@@ -29,17 +29,20 @@ import axios from 'axios';
 const App = (props) => {
 
   // const [state, dispatch] = useReducer(reducer, initialState);
-  const [loggedIn, setLoggedIn] = useState(
-    localStorage.getItem('loggedIn') || 'false'
-  );
-  //const [user, setUser] = useState('');
-  const [role, setRole] = useState('admin');
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') || 'false');
+  const [user, setUser] = useState(localStorage.getItem('user') || '');
+  const [role, setRole] = useState(localStorage.getItem('role') || '');
   const [clusters, setClusters] = useState([]);
 
-  const updateLoggedIn = (status, role) => {       
-    localStorage.setItem('loggedIn', status);
+  const updateLoggedIn = (status, user, un, role) => {           
     setLoggedIn(status)
+    localStorage.setItem('loggedIn', status);
+
+    setUser(user)
+    localStorage.setItem('user', un);
+
     setRole(role)
+    localStorage.setItem('role', role);
   };
 
   /*
@@ -75,8 +78,8 @@ const App = (props) => {
     const res = await axios.put('/cluster',{
       name: cluster.name,
       image: cluster.image,
-      keywords: [],
-      careers: [],
+      //keywords: [],
+      //careers: [],
     });
     if (res.data.result === "update-success") {
       console.log("updated cluster", cluster.name)

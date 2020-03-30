@@ -66,14 +66,16 @@ export default function Login(props) {
             password: crypto.createHash('md5').update(password).digest('hex')
         })
         .then(res => {
-            let role = res.data.role
+            let user = res.data.found
+            let role = res.data.found.role
+            let un = res.data.found.user
 
             if (res.data.result === 'match') {
-                props.onLogin('true', role); //move to db?
+                props.onLogin('true', user, un, role); //move to db?
             } 
             else {
                 setShowError(1)
-                props.onLogin('false', role);
+                props.onLogin('false', user, un, role);
             }
         });
     }
@@ -86,7 +88,7 @@ export default function Login(props) {
                     CareerFind
                 </Typography>
 
-                {showError === 1 ? <Alert severity="error">This is an error alert — check it out!</Alert> : ""}
+                {showError === 1 ? <Alert severity="error">Invalid username or password.</Alert> : ""}
 
                 <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
                     <TextField

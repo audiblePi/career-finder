@@ -25,10 +25,13 @@ function getModalStyle() {
     };
 }
 
-const getColumns = (data) => {    
+const getColumns = (data, ignoreKeys) => {    
     let columns = []
 
     for (const member in data[0]) {
+        if (ignoreKeys.includes(member))
+            continue
+
         if (member === "_id")
             continue
 
@@ -66,7 +69,7 @@ export default function EditModal(props) {
   
     useEffect(() => { 
         setState({data:props.data});
-        setColumns(getColumns(props.data));
+        setColumns(getColumns(props.data, props.ignoreKeys));
     }, [props.data]);
 
     return (

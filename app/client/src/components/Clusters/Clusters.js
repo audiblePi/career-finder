@@ -102,7 +102,8 @@ export default function Clusters(props) {
                     data={props.clusters}
                     onCreate={props.onCreateCluster}
                     onUpdate={props.onUpdateCluster}
-                    onDelete={props.onDeleteCluster}/>
+                    onDelete={props.onDeleteCluster}
+                    ignoreKeys={["keywords", "careers"]}/>
             </div>
         </div>
     );
