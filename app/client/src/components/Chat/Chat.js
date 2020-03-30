@@ -51,7 +51,7 @@ const getMessages = () => {
 }
 
 export default function Chat(props) {
-  const [chatMessages, setChatMessages] = useState(
+  const [chatMessages] = useState(
     getMessages()
   );
 
@@ -75,7 +75,7 @@ export default function Chat(props) {
   }
 
   useEffect(() => { 
-    console.log("component updated"); 
+    //console.log("Chat component updated"); 
   });
 
   //console.log(chatMessages)

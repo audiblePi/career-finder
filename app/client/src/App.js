@@ -1,62 +1,12 @@
-import React, { useState, useReducer } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-import NavBar from "./components/Nav/NavBar";
-import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
-import Chat from "./components/Chat/Chat";
-
-import Home from "./views/Home/Home";
 import Login from "./views/Login/Login";
-import Cluster from "./views/Cluster/Cluster";
-import Career from "./views/Career/Career";
-import DITL from "./views/DITL/DITL";
-import Celebrity from "./views/Celebrity/Celebrity";
-import ManageUsers from "./views/ManageUsers/ManageUsers";
-import NotFound from "./views/NotFound";
+import Main from "./views/Main";
+
+import axios from 'axios';
 
 //mockData
-import clusters from './data/testData';
-
-const useStyles = makeStyles(theme => ({
-  root: {},
-  container: {},
-}));
-
-const Main = (props) => {
-  const classes = useStyles();
-  
-  return (
-    <div>
-      <CssBaseline />
-      <NavBar onLogin={props.onLogin} />
-      <Container maxWidth="lg" className={classes.container}>      
-        <Breadcrumbs/>
-        <Switch>
-          {/* <Route exact path="/" component={Home} /> */}
-          <Route exact path="/" render={(routeProps) => <Home {...routeProps} {...props}/>}  />
-          <Route exact path="/Cluster/:cluster" component={Cluster} />
-          <Route exact path="/Cluster/:cluster/Career/:id" component={Career} />
-          <Route exact path="/Cluster/:cluster/Career/:id/DITL" component={DITL} />
-          <Route exact path="/Cluster/:cluster/Career/:id/Celebrity/:id" component={Celebrity} />
-          <Route exact path="/ManageUsers" component={ManageUsers}/>
-          <Route component={NotFound}/>
-        </Switch>
-      </Container>
-      <Chat/>
-    </div>
-  )
-}
-
-
-
-
-
-
-
+//import clustersD from './data/testData';
 
 // const initialState = {
 //   user: '',
@@ -76,21 +26,15 @@ const Main = (props) => {
 //   }
 // }
 
-//HOC
-const getClusters = () => {
-  return clusters
-}
-
 const App = (props) => {
-  const classes = useStyles();
 
   // const [state, dispatch] = useReducer(reducer, initialState);
   const [loggedIn, setLoggedIn] = useState(
     localStorage.getItem('loggedIn') || 'false'
   );
-  const [user, setUser] = useState('');
+  //const [user, setUser] = useState('');
   const [role, setRole] = useState('admin');
-  const [clusters, setClusters] = useState(getClusters());
+  const [clusters, setClusters] = useState([]);
 
   const updateLoggedIn = (status, role) => {       
     localStorage.setItem('loggedIn', status);
@@ -98,20 +42,45 @@ const App = (props) => {
     setRole(role)
   };
 
-  const deleteCluster = (e, id) => {
-    e.preventDefault()
-    let result = clusters.filter( (data, index, arr) => {
-      return data.id != id
-    })
-    setClusters(result)
-    //updateDB
+  const readClusters = async () => {
+    const res = await axios('/returnCluster',);
+    if (res.data.length > 0) {
+      //console.log(res.data)
+      setClusters(res.data)
+    } 
+    else {
+      console.log("error")
+    }
   }
+
+  const deleteCluster = async (e, name) => {
+    //e.preventDefault()
+    
+    // let result = clusters.filter( (data, index, arr) => {
+    //   return data.id !== id
+    // })
+    // setClusters(result)
+
+    const res = await axios.delete('/cluster', {data: {name: name}})
+    if (res.data.result == "delete-success") {
+      console.log("deleted cluster", name, "from db")
+      readClusters()
+    } 
+    else {
+      console.log("delete error")
+    }
+  }
+
+  useEffect(() => {
+    readClusters();
+  }, []);
 
   const mainComponent = () => {
     return (
       <Main 
         clusters={clusters} 
         onDeleteCluster={deleteCluster} 
+        onLogin={updateLoggedIn}
         role={role}/>
     )
   }
@@ -123,7 +92,7 @@ const App = (props) => {
   }
 
   return (    
-    <div className={classes.root}>
+    <div>
       {loggedIn === 'true' ? mainComponent() : loginComponent()}
     </div>
   );

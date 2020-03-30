@@ -40,7 +40,7 @@ module.exports.readAll = (req, res) => {
     CareerCluster.find({})
         .then(found => {
             if(found[0]) {
-                res.write({result: 'match'});
+                //res.write({result: 'match'});
                 res.send(found);
             } else {
                 res.send({result: 'no-clusters'});
@@ -57,7 +57,7 @@ module.exports.read = (req, res) => {
     CareerCluster.findOne({user: req.body.name})
         .then(found => {
             if(found) {
-                res.write({result: 'match'});
+                //res.write({result: 'match'});
                 res.send(found);
             } else {
                 res.send({result: 'cluster-not-found'});

@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import Link from '@material-ui/core/Link';
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+//import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import EditModal from '../EditModal/EditModal';
 
@@ -23,20 +23,17 @@ const useStyles = makeStyles(theme => ({
     icon: {
         color: 'rgba(255, 255, 255, 0.54)',
     },
-    edit: {
+    editWrapper: {
+        display: 'flex',
+        padding: 20,
+        justifyContent: 'center',
+    },
+    remove: {
         position: 'absolute',
         top: 0,
         right: 0,
     }
 }));
-
-const edit = (props, id, classes) => {
-    return (
-        <IconButton className={classes.edit} onClick={(e) => props.onDeleteCluster(e, id)} >
-            <DeleteIcon />
-        </IconButton>
-    )
-}
 
 export default function Clusters(props) {
     const classes = useStyles();
@@ -51,35 +48,62 @@ export default function Clusters(props) {
         setOpen(false);
     };
 
+    const removeCluster = (id) => {
+        return (
+            <IconButton className={classes.remove} onClick={(e) => props.onDeleteCluster(e, id)} >
+                <DeleteIcon />
+            </IconButton>
+        )
+    }
+
+    const editClusters = () => {
+        return (
+            <div className={classes.editWrapper}>
+                <Button className={classes.editButton} color="inherit" onClick={handleOpen}>
+                    Edit Clusters
+                </Button>
+            </div>
+        )
+    }
+
     return (
-        <div className={classes.root}>
-            { props.role === 'admin' ? <Button color="inherit" onClick={handleOpen}>Edit Clusters</Button> : ''}
+        <div>
+    
+            { props.role === 'admin' ? editClusters() : ''}
             
-            <GridList cols={3} cellHeight={260} className={classes.gridList}>
-                {props.clusters.map(cluster => (
-                    <GridListTile key={cluster.img}>
-                        <Link href={"/Cluster/" + cluster.id}>
-                            <img src={cluster.img} alt={cluster.title} className="MuiGridListTile-imgFullHeight"/>
+            <div className={classes.root}>    
+                <GridList cols={3} cellHeight={260} className={classes.gridList}>
+                    {props.clusters.map(cluster => (
+                        <GridListTile key={cluster._id}>
+                            <Link href={"/Cluster/" + cluster.name}>
+                                <img src={cluster.image} alt={cluster.name} className="MuiGridListTile-imgFullHeight"/>
 
-                            { props.role === 'admin' ? edit(props, cluster.id, classes) : ''}
+                                { props.role === 'admin' ? removeCluster(cluster.name) : ''}
 
-                            <GridListTileBar
-                                title={cluster.title}
-                                subtitle={<span>{cluster.subtitle}</span>}
-                                actionIcon={
-                                    // <Link href={"/Cluster/" + cluster.id}>
-                                        <IconButton aria-label={`info about ${cluster.title}`} className={classes.icon}>
-                                            <InfoIcon />
-                                        </IconButton>
-                                    // </Link>
-                                }
-                            />
-                        </Link>
-                    </GridListTile>
-                ))}
-            </GridList>
+                                <GridListTileBar
+                                    title={cluster.name}
+                                    subtitle={<span>Subtitle</span>}
+                                    actionIcon={
+                                        // <Link href={"/Cluster/" + cluster.id}>
+                                            <IconButton aria-label={`info about ${cluster.name}`} className={classes.icon}>
+                                                <InfoIcon />
+                                            </IconButton>
+                                        // </Link>
+                                    }
+                                />
+                            </Link>
+                        </GridListTile>
+                    ))}
+                </GridList>
 
-            <EditModal open={open} handleClose={onClose} data={props.clusters}/>
+                <EditModal 
+                    open={open} 
+                    handleClose={onClose} 
+                    data={props.clusters}
+                    onCreate={""}
+                    onUpdate={""}
+                    onDelete={props.onDeleteCluster}/>
+            </div>
         </div>
     );
 }
