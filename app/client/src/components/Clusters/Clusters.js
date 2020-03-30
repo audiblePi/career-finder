@@ -100,8 +100,8 @@ export default function Clusters(props) {
                     open={open} 
                     handleClose={onClose} 
                     data={props.clusters}
-                    onCreate={""}
-                    onUpdate={""}
+                    onCreate={props.onCreateCluster}
+                    onUpdate={props.onUpdateCluster}
                     onDelete={props.onDeleteCluster}/>
             </div>
         </div>

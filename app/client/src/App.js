@@ -42,27 +42,54 @@ const App = (props) => {
     setRole(role)
   };
 
+  /*
+   * Career Cluster CRUD
+   */
+  const createCluster = async (cluster) => {
+    const res = await axios.post('/cluster', {
+      name: cluster.name,
+      image: cluster.image,
+      keywords: [],
+      careers: [],
+    });
+    if (res.data.result === "successfully-added") {
+      console.log("created cluster", cluster.name, "from db")
+      readClusters()
+    } 
+    else {
+      console.log("create clusters error")
+    }
+  }
+
   const readClusters = async () => {
     const res = await axios('/returnCluster',);
     if (res.data.length > 0) {
-      //console.log(res.data)
       setClusters(res.data)
     } 
     else {
-      console.log("error")
+      console.log("read clusters error")
+    }
+  }
+
+  const updateCluster = async (cluster) => {
+    const res = await axios.put('/cluster',{
+      name: cluster.name,
+      image: cluster.image,
+      keywords: [],
+      careers: [],
+    });
+    if (res.data.result === "update-success") {
+      console.log("updated cluster", cluster.name)
+      readClusters()
+    } 
+    else {
+      console.log("update clusters error")
     }
   }
 
   const deleteCluster = async (e, name) => {
-    //e.preventDefault()
-    
-    // let result = clusters.filter( (data, index, arr) => {
-    //   return data.id !== id
-    // })
-    // setClusters(result)
-
     const res = await axios.delete('/cluster', {data: {name: name}})
-    if (res.data.result == "delete-success") {
+    if (res.data.result === "delete-success") {
       console.log("deleted cluster", name, "from db")
       readClusters()
     } 
@@ -79,6 +106,8 @@ const App = (props) => {
     return (
       <Main 
         clusters={clusters} 
+        onCreateCluster={createCluster}
+        onUpdateCluster={updateCluster}
         onDeleteCluster={deleteCluster} 
         onLogin={updateLoggedIn}
         role={role}/>

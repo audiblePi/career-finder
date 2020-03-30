@@ -29,6 +29,12 @@ const getColumns = (data) => {
     let columns = []
 
     for (const member in data[0]) {
+        if (member === "_id")
+            continue
+
+        if (member === "__v")
+            continue
+        
         let column = {
             title: member,
             field: member,
@@ -47,11 +53,11 @@ export default function EditModal(props) {
     const [modalStyle] = useState(getModalStyle);
 
     const createData = (d) => {
-        console.log("creating", d)
+        props.onCreate(d)
     }
 
     const updateData = (d) => {
-        console.log("update", d)
+        props.onUpdate(d)
     }
     
     const deleteData = (d) => {
