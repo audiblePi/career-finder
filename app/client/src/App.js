@@ -102,6 +102,8 @@ const App = (props) => {
   }
 
   const deleteCluster = async (e, name) => {
+    //e.preventDefault()
+
     const res = await axios.delete('/cluster', {data: {name: name}})
     if (res.data.result === "delete-success") {
       console.log("deleted cluster", name, "from db")
