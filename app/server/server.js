@@ -1,11 +1,7 @@
 const express = require('./config/express.js');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); // Do we need this here?
 const config = require('./config/config.js');
-const authRouter = require('./routes/authRouter.js');
-const userRouter = require('./routes/userRouter.js');
-const clusterRouter = require('./routes/clusterRouter.js');
-const specialClusterRouter = require('./routes/specialClusterRouter.js');
-const users = require('./controllers/userController.js');
+//const users = require('./controllers/userController.js'); // Do we need this? Moved routes to ./config/express.js
 const bodyParser = require('body-parser');
 
 const port = process.env.PORT || 5000;
@@ -14,13 +10,8 @@ const app = express.init()
 app.listen(port, () => console.log(`Server now running on port ${port}!`));
 console.log(config.db.uri);
 
+// Should this be moved to ./config/express.js? If it works don't fix I guess...
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-
-// PRODUCTION ENDPOINT TEST -- GET NOT WORKING
-//app.use('/auth', authRouter);
-//app.use('/user', userRouter);
-//app.use('/cluster', clusterRouter);
-//app.use('/returnCluster', specialClusterRouter);

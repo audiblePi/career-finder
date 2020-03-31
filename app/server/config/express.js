@@ -4,11 +4,10 @@ const path = require('path'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     exampleRouter = require('../routes/examples.server.routes');
-    // PRODUCTION ENDPOINT TEST -- GET NOT WORKING
-    const authRouter = require('../routes/authRouter.js');
-    const userRouter = require('../routes/userRouter.js');
-    const clusterRouter = require('../routes/clusterRouter.js');
-    const specialClusterRouter = require('../routes/specialClusterRouter.js');
+const authRouter = require('../routes/authRouter.js');
+const userRouter = require('../routes/userRouter.js');
+const clusterRouter = require('../routes/clusterRouter.js');
+const specialClusterRouter = require('../routes/specialClusterRouter.js');
 
 module.exports.init = () => {
     /* 
@@ -32,7 +31,6 @@ module.exports.init = () => {
 
     // add a router
     //app.use('/api/example', exampleRouter);
-    // PRODUCTION ENDPOINT TEST -- GET NOT WORKING
     app.use('/auth', authRouter);
     app.use('/user', userRouter);
     app.use('/cluster', clusterRouter);
