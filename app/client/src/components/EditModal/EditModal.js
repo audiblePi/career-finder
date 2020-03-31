@@ -64,7 +64,7 @@ export default function EditModal(props) {
     }
     
     const deleteData = (d) => {
-        props.onDelete(null, d.name)
+        props.onDelete(null, d._id)
     }
   
     useEffect(() => { 
@@ -80,8 +80,6 @@ export default function EditModal(props) {
             onClose={props.handleClose}>
 
             <div style={modalStyle} className={classes.paper}>
-                {/* <h2 id="simple-modal-title">Edit</h2> */}
-
                 <MaterialTable
                     title="Edit"
                     columns={columns}

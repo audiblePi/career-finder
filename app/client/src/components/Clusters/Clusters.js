@@ -6,8 +6,6 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import Link from '@material-ui/core/Link';
-//import DeleteIcon from '@material-ui/icons/Delete';
-//import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import EditModal from '../EditModal/EditModal';
 
@@ -48,14 +46,6 @@ export default function Clusters(props) {
         setOpen(false);
     };
 
-    // const removeCluster = (id) => {
-    //     return (
-    //         <IconButton className={classes.remove} onClick={(e) => props.onDeleteCluster(e, id)} >
-    //             <DeleteIcon />
-    //         </IconButton>
-    //     )
-    // }
-
     const editClusters = () => {
         return (
             <div className={classes.editWrapper}>
@@ -75,20 +65,15 @@ export default function Clusters(props) {
                 <GridList cols={3} cellHeight={260} className={classes.gridList}>
                     {props.clusters.map(cluster => (
                         <GridListTile key={cluster._id}>
-                            <Link href={"/Cluster/" + cluster.name}>
+                            <Link href={"/Cluster/" + cluster._id}>
                                 <img src={cluster.image} alt={cluster.name} className="MuiGridListTile-imgFullHeight"/>
-
-                                {/* { props.role === 'admin' ? removeCluster(cluster.name) : ''} */}
-
                                 <GridListTileBar
                                     title={cluster.name}
                                     subtitle={<span>Subtitle</span>}
                                     actionIcon={
-                                        // <Link href={"/Cluster/" + cluster.name}>
-                                            <IconButton aria-label={`info about ${cluster.name}`} className={classes.icon}>
-                                                <InfoIcon />
-                                            </IconButton>
-                                        // </Link>
+                                        <IconButton aria-label={`info about ${cluster.name}`} className={classes.icon}>
+                                            <InfoIcon />
+                                        </IconButton>
                                     }
                                 />
                             </Link>

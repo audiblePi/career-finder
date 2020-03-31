@@ -66,7 +66,9 @@ const App = (props) => {
       keywords: [],
       careers: [],
     });
+
     if (res.data.result === "successfully-added") {
+      console.log(res.data)
       console.log("created cluster", cluster.name, "from db")
       readClusters()
     } 
@@ -76,8 +78,10 @@ const App = (props) => {
   }
 
   const readClusters = async () => {
-    const res = await axios('/returnCluster');
+    const res = await axios.get('/cluster');
+
     if (res.data.length > 0) {
+      console.log(res.data)
       setClusters(res.data)
     } 
     else {
@@ -86,13 +90,15 @@ const App = (props) => {
   }
 
   const updateCluster = async (cluster) => {
-    const res = await axios.put('/cluster', {
+    const res = await axios.put('/cluster/' + cluster._id, {
       name: cluster.name,
       image: cluster.image,
       //keywords: [],
       //careers: [],
     });
+
     if (res.data.result === "update-success") {
+      console.log(res.data)
       console.log("updated cluster", cluster.name)
       readClusters()
     } 
@@ -101,12 +107,14 @@ const App = (props) => {
     }
   }
 
-  const deleteCluster = async (e, name) => {
+  const deleteCluster = async (e, id) => {
     //e.preventDefault()
+        
+    const res = await axios.delete('/cluster/' + id)
 
-    const res = await axios.delete('/cluster', {data: {name: name}})
     if (res.data.result === "delete-success") {
-      console.log("deleted cluster", name, "from db")
+      console.log(res.data)
+      console.log("deleted cluster", id, "from db")
       readClusters()
     } 
     else {
