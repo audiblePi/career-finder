@@ -82,9 +82,49 @@ module.exports.read = (req, res) => {
     mongoose.connection.close;
 };
 
+//send all users
+module.exports.readAll = (req, res) => {
+    mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+    User.find({})
+        .then(found => {
+            if(found[0]) {
+                res.write({result: 'match'});
+                //remove passwords on send
+                found.forEach(function(i) {
+                    i.toResponse();
+                });
+                res.send(found);
+            } else {
+                res.send({result: 'no-users'});
+            }
+        })
+        .catch(err => {
+            res.send({result: 'error', error: err});
+        });
+    mongoose.connection.close;
+};
+
 module.exports.update = (req, res) => {
-    res.status = 501;
-    res.end();
+    mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+    User.findOne({name: req.body.name})
+        .then(found => {
+            if(found) {
+                User.updateOne({name: req.body.name}, {$set: req.body})
+                .then(updated => {
+                    res.send({result: 'update-success'});
+                })
+                .catch(err => {
+                    //not sure what error mongoose would throw
+                });
+            } else {
+                res.send({result: 'user-not-found'});
+                //maybe add to db if not already existing?
+            }
+        })
+        .catch(err => {
+            res.send({result: 'error', error: err});
+        });
+    mongoose.connection.close;
 };
 //remove user based off of username
 module.exports.delete = (req, res) => {
