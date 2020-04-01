@@ -7,7 +7,7 @@ const path = require('path'),
 const authRouter = require('../routes/authRouter.js');
 const userRouter = require('../routes/userRouter.js');
 const clusterRouter = require('../routes/clusterRouter.js');
-const specialClusterRouter = require('../routes/specialClusterRouter.js');
+//const specialClusterRouter = require('../routes/specialClusterRouter.js');
 
 module.exports.init = () => {
     /* 
@@ -34,7 +34,7 @@ module.exports.init = () => {
     app.use('/auth', authRouter);
     app.use('/user', userRouter);
     app.use('/cluster', clusterRouter);
-    app.use('/returnCluster', specialClusterRouter);
+    //app.use('/returnCluster', specialClusterRouter);
 
     if (process.env.NODE_ENV === 'production') {
         // Serve any static files
