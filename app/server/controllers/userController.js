@@ -82,6 +82,28 @@ module.exports.read = (req, res) => {
     mongoose.connection.close;
 };
 
+//send all users
+module.exports.readAll = (req, res) => {
+    mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+    User.find({})
+        .then(found => {
+            if(found[0]) {
+                res.write({result: 'match'});
+                //remove passwords on send
+                found.forEach(function(i) {
+                    i.toResponse();
+                });
+                res.send(found);
+            } else {
+                res.send({result: 'no-users'});
+            }
+        })
+        .catch(err => {
+            res.send({result: 'error', error: err});
+        });
+    mongoose.connection.close;
+};
+
 module.exports.update = (req, res) => {
     res.status = 501;
     res.end();
