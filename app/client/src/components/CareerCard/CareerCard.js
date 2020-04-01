@@ -146,6 +146,8 @@ function CareerCard(props) {
 
     let { cluster } = useParams()
 
+    console.log(cluster)
+
     return (
         <div>
             <Paper className={classes.paper}>
