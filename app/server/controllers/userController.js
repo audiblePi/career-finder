@@ -105,8 +105,26 @@ module.exports.readAll = (req, res) => {
 };
 
 module.exports.update = (req, res) => {
-    res.status = 501;
-    res.end();
+    mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+    User.findOne({name: req.body.name})
+        .then(found => {
+            if(found) {
+                User.updateOne({name: req.body.name}, {$set: req.body})
+                .then(updated => {
+                    res.send({result: 'update-success'});
+                })
+                .catch(err => {
+                    //not sure what error mongoose would throw
+                });
+            } else {
+                res.send({result: 'user-not-found'});
+                //maybe add to db if not already existing?
+            }
+        })
+        .catch(err => {
+            res.send({result: 'error', error: err});
+        });
+    mongoose.connection.close;
 };
 //remove user based off of username
 module.exports.delete = (req, res) => {
