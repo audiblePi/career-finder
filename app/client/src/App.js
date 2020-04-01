@@ -60,7 +60,7 @@ const App = (props) => {
    * Career Cluster CRUD
    */
   const createCluster = async (cluster) => {
-    const res = await axios.post('/cluster', {
+    const res = await axios.post('/_cluster', {
       name: cluster.name,
       image: cluster.image,
       keywords: [],
@@ -78,7 +78,7 @@ const App = (props) => {
   }
 
   const readClusters = async () => {
-    const res = await axios.get('/cluster');
+    const res = await axios.get('/_cluster');
 
     if (res.data.length > 0) {
       console.log(res.data)
@@ -90,7 +90,7 @@ const App = (props) => {
   }
 
   const updateCluster = async (cluster) => {
-    const res = await axios.put('/cluster/' + cluster._id, {
+    const res = await axios.put('/_cluster/' + cluster._id, {
       name: cluster.name,
       image: cluster.image,
       //keywords: [],
@@ -110,7 +110,7 @@ const App = (props) => {
   const deleteCluster = async (e, id) => {
     //e.preventDefault()
         
-    const res = await axios.delete('/cluster/' + id)
+    const res = await axios.delete('/_cluster/' + id)
 
     if (res.data.result === "delete-success") {
       console.log(res.data)
