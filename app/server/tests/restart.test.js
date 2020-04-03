@@ -54,10 +54,17 @@ describe('Restarting Data', () => {
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
         
         await async.forEach(clusterData, (doc, callback) => {
-            Clusters.findOne({_id: doc._id})
+            Clusters.findOne({name: doc.name})
             .then(found => {
                 if(!found) {
-                    Clusters.create(doc, (err) => {
+                    c = {
+                        "name": doc.name,
+                        "image": doc.image,
+                        "keywords": doc.keywords,
+                        "careers": doc.careers,
+                    }
+
+                    Clusters.create(c, (err) => {
                         if (err) throw err;
                         callback();
                     });
