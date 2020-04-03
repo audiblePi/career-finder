@@ -33,7 +33,7 @@ module.exports.init = () => {
 
     // add a router
     //app.use('/api/example', exampleRouter);
-    app.use('/_auth', authRouter);
+    app.use('/auth', authRouter);
     app.use('/_user', userRouter);
     app.use('/_cluster', clusterRouter);
     app.use('/returnCluster', specialClusterRouter);
