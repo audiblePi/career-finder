@@ -117,10 +117,12 @@
 
 
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
+
+import axios from 'axios';
 
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -146,22 +148,40 @@ function CareerCard(props) {
 
     let { cluster } = useParams()
 
-    console.log(cluster)
+    const [career, setCareer] = useState("");
 
-    return (
+    const getCareerData = async (id, set) => {
+        const res = await axios.get('/_career/' + id);
+        set(res.data)
+    }
+    
+    useEffect(() => {
+        getCareerData(props.id, setCareer)
+    }, [props.id, setCareer]);
+
+    const card = () => {
+        return (
+            <div>
+                <Paper className={classes.paper}>
+                    <Grid container wrap="nowrap" spacing={2}>
+                        <Grid item>
+                            <Avatar>{career.name.charAt(0)}</Avatar>
+                        </Grid>
+                        <Grid item xs>
+                            <Link color="inherit" href={"/Cluster/" + cluster + "/Career/" + props.id}>
+                                <Typography variant="h4">{career.name}</Typography>
+                            </Link>
+                            <p>{career.shortDescription}</p>
+                        </Grid>
+                    </Grid>
+                </Paper>
+            </div>
+        );
+    }
+    
+    return (    
         <div>
-            <Paper className={classes.paper}>
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item>
-                        <Avatar>{props.name.charAt(0)}</Avatar>
-                    </Grid>
-                    <Grid item xs>
-                        <Link color="inherit" href={"/Cluster/" + cluster + "/Career/" + props.id}>
-                            <Typography variant="h4">{props.name}</Typography>
-                        </Link>
-                    </Grid>
-                </Grid>
-            </Paper>
+            {career === "" ? "" : card()}
         </div>
     );
 }

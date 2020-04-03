@@ -41,7 +41,7 @@ const routes = [
         Component: DITL
     },
     { 
-        path: "/Cluster/:id/Career/:id/Celebrity/:id",
+        path: "/Cluster/:id/Career/:id/Celebrity",
         name: "Celebrity", 
         Component: Celebrity 
     }
@@ -58,27 +58,25 @@ export default function Breadcrumbs(props) {
             <Link color="inherit" href="/">
                 Home
             </Link>
-            {
-                routes.map( ({ path, name, Component }, key) => {
-                    let idx = paths.indexOf(name)
+            {routes.map( ({ path, name, Component }, key) => {
+                let idx = paths.indexOf(name)
 
-                    if (idx > 0){
-                        let href = "/"
+                if (idx > 0){
+                    let href = "/"
 
-                        paths.forEach( (element, index) => {
-                            if (index <= idx && index > 0)
-                                href += (element + "/") 
-                        });
+                    paths.forEach( (element, index) => {
+                        if (index <= idx && index > 0)
+                            href += (element + "/") 
+                    });
 
-                        if (paths[idx+1] !== "")
-                            href += (paths[idx+1] + "/")
+                    if (paths[idx+1] !== "")
+                        href += (paths[idx+1] + "/")
 
-                        return <Link key={key} color="inherit" href={href}>{name}</Link>
-                    }
+                    return <Link key={key} color="inherit" href={href}>{name}</Link>
+                }
 
-                    return ""
-                })
-            }
+                return ""
+            })}
         </BREADCRUMBS>
     );
 }

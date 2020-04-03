@@ -6,174 +6,180 @@ import Main from "./views/Main";
 import axios from 'axios';
 
 const msgs = [
-  { 
-    id: 1,
-    type: "chatbot",
-    message: "Hello, Apollo 11. Houston. We're standing by.",
-  }
+    { 
+        id: 1,
+        type: "chatbot",
+        message: "Hello, Apollo 11. Houston. We're standing by.",
+    }
 ];
 
 const getMessages = () => {
-  return msgs
+    return msgs
 }
 
-// const initialState = {
-//   user: '',
-//   role: '',
-//   loggedIn: 'false',
-//   clusters: [],
-// }
-
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case 'increment':
-//       return {count: state.count + 1};
-//     case 'decrement':
-//       return {count: state.count - 1};
-//     default:
-//       throw new Error();
-//   }
-// }
-
 const App = (props) => {
-  // const [state, dispatch] = useReducer(reducer, initialState);
-  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') || 'false');
-  const [user, setUser] = useState(localStorage.getItem('user') || '');
-  const [role, setRole] = useState(localStorage.getItem('role') || '');
-  const [clusters, setClusters] = useState([]);
-  const [chatMessages, setChatMessages] = useState(getMessages);
+    const [user_id, setUserId] = useState(localStorage.getItem('user_id') || '');
+    const [role, setRole] = useState(localStorage.getItem('role') || '');
+    const [clusters, setClusters] = useState([]);
+    const [chatMessages, setChatMessages] = useState(getMessages);
+    const [careerIds, setCareerIds] = useState([]);
+    const [currentCareer, setCurrentCareer] = useState('');
 
-  const updateLoggedIn = (status, user) => {    
-    setLoggedIn(status)
-    localStorage.setItem('loggedIn', status);
 
-    let user_id = (user === undefined) ? '' : user.name
-    setUser(user)
-    localStorage.setItem('user_id', user_id);
 
-    let role = (user === undefined) ? '' : user.role
-    setRole(role)
-    localStorage.setItem('role', role);
-  };
 
-  /*
-   * Career Cluster CRUD
-   */
-  const createCluster = async (cluster) => {
-    const res = await axios.post('/_cluster', {
-      name: cluster.name,
-      image: cluster.image,
-      keywords: [],
-      careers: [],
-    });
+    /********************
+    * LogIn
+    ********************/
+    const logIn = (user) => {   
+        let _user_id = (user === null) ? '' : user._id
+        let _role = (user === null) ? '' : user.role
 
-    if (res.data.result === "successfully-added") {
-      console.log(res.data)
-      console.log("created cluster", cluster.name, "from db")
-      readClusters()
-    } 
-    else {
-      console.log("create clusters error")
-    }
-  }
+        setUserId(_user_id)
+        setRole(_role)
 
-  const readClusters = async () => {
-    const res = await axios.get('/_cluster');
+        localStorage.setItem('user_id', _user_id);
+        localStorage.setItem('role', _role);
+    };
 
-    if (res.data.length > 0) {
-      console.log(res.data)
-      setClusters(res.data)
-    } 
-    else {
-      console.log("read clusters error")
-    }
-  }
+    const logOut = () => {  
+        setUserId('')
+        setRole('')
 
-  const updateCluster = async (cluster) => {
-    const res = await axios.put('/_cluster/' + cluster._id, {
-      name: cluster.name,
-      image: cluster.image,
-      //keywords: [],
-      //careers: [],
-    });
+        localStorage.setItem('user_id', '');
+        localStorage.setItem('role', '');
+    };
 
-    if (res.data.result === "update-success") {
-      console.log(res.data)
-      console.log("updated cluster", cluster.name)
-      readClusters()
-    } 
-    else {
-      console.log("update clusters error")
-    }
-  }
 
-  const deleteCluster = async (e, id) => {
-    //e.preventDefault()
-        
-    const res = await axios.delete('/_cluster/' + id)
 
-    if (res.data.result === "delete-success") {
-      console.log(res.data)
-      console.log("deleted cluster", id, "from db")
-      readClusters()
-    } 
-    else {
-      console.log("delete error")
-    }
-  }
 
-  /*
-   * Chat CRUD
-   */
-  const addMessage = (e, message) => {
-    e.preventDefault()
-  
-    let id = chatMessages.length + 1
 
-    let m = {
-      id: id,
-      type: "response", 
-      message: message
+    /********************
+    * Clusters
+    ********************/
+    const createCluster = async (cluster) => {
+        const res = await axios.post('/_cluster', {
+            name: cluster.name,
+            image: cluster.image,
+            keywords: [],
+            careers: [],
+        });
+        console.log(res)
+        if (res.data.result === "successfully-added") {
+            readClusters()
+        } 
     }
 
-    let r = {
-      id: id + 1,
-      type: "chatbot", 
-      message: "Roger. " + message
+    const readClusters = async () => {
+        const res = await axios.get('/_cluster');
+        console.log(res)
+        if (res.data.length > 0) {            
+            res.data.sort((a, b) => (a.name > b.name) ? 1 : -1)
+            setClusters(res.data)
+            getClusterCareers()
+        } 
     }
 
-    setChatMessages([...chatMessages, m, r])
-  }
+    const updateCluster = async (cluster) => {
+        const res = await axios.put('/_cluster/' + cluster._id, {
+            name: cluster.name,
+            image: cluster.image,
+            //keywords: [],
+            //careers: [],
+        });
+        console.log(res)
+        if (res.data.result === "update-success") {
+            readClusters()
+        } 
+    }
 
-  useEffect(() => {
-    readClusters();
-  }, []);
+    const deleteCluster = async (e, id) => {            
+        const res = await axios.delete('/_cluster/' + id)
+        console.log(res)
+        if (res.data.result === "delete-success") {
+            readClusters()
+        } 
+    }
 
-  const mainComponent = () => {
-    return (
-      <Main 
-        clusters={clusters} 
-        onCreateCluster={createCluster}
-        onUpdateCluster={updateCluster}
-        onDeleteCluster={deleteCluster} 
-        onLogin={updateLoggedIn}
-        role={role}
-        chatMessages={chatMessages}
-        onAddMessage={addMessage}/>
-    )
-  }
 
-  const loginComponent = () => {
-    return (
-      <Login onLogin={updateLoggedIn}/>
-    )
-  }
 
-  return (    
-    <div>
-      {loggedIn === 'true' ? mainComponent() : loginComponent()}
-    </div>
-  );
+
+
+    /********************
+    * Cluster 
+    ********************/
+    const getClusterCareers = () => {
+        //console.log("getClusterCareers", clusters)
+    }
+
+    const updateCareerIds = (ids) => {
+        setCareerIds(ids)
+    }
+
+
+
+
+
+    /********************
+    * Chat CRUD
+    ********************/
+    const addMessage = (e, message) => {
+        e.preventDefault()
+    
+        let id = chatMessages.length + 1
+
+        let m = { id: id, type: "response", message: message }
+
+        let r = { id: id + 1, type: "chatbot", message: "Roger. " + message }
+
+        setChatMessages([...chatMessages, m, r])
+    }
+
+
+
+
+
+
+    useEffect(() => {
+        readClusters();
+    }, []);
+
+    const mainComponent = () => {
+        return (
+            <Main 
+                clusters={clusters} 
+                onCreateCluster={createCluster}
+                onUpdateCluster={updateCluster}
+                onDeleteCluster={deleteCluster} 
+
+                onLogin={logIn}
+                onLogOut={logOut}
+
+                role={role}
+
+                chatMessages={chatMessages}
+                onAddMessage={addMessage}
+
+                careerIds={careerIds}
+                onUpdateCareerIds={updateCareerIds}    
+
+                currentCareer={currentCareer}
+                setCurrentCareer={setCurrentCareer}
+                />
+        )
+    }
+
+    const loginComponent = () => {
+        return (
+            <Login onLogin={logIn}/>
+        )
+    }
+
+    return (    
+        <div>
+            {user_id !== '' ? mainComponent() : loginComponent()}
+        </div>
+    );
 }
 
 export default App;

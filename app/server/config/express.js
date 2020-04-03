@@ -33,12 +33,12 @@ module.exports.init = () => {
 
     // add a router
     //app.use('/api/example', exampleRouter);
-    app.use('/auth', authRouter);
+    app.use('/_auth', authRouter);
     app.use('/_user', userRouter);
     app.use('/_cluster', clusterRouter);
-    app.use('/returnCluster', specialClusterRouter);
-    app.use('/returnUsers', specialUserRouter);
-    app.use('/career', careersRouter)
+    //app.use('/returnCluster', specialClusterRouter);
+    //app.use('/returnUsers', specialUserRouter);
+    app.use('/_career', careersRouter)
 
     if (process.env.NODE_ENV === 'production') {
         // Serve any static files

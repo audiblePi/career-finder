@@ -131,18 +131,16 @@ class PrimarySearchAppBar extends React.Component {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-
     const renderMenu = (
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={isMenuOpen}
-        onClose={this.handleMenuClose}
-      >
+        onClose={this.handleMenuClose}>
         {/* <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>My account</MenuItem> */}
-        <MenuItem onClick={(e) => this.props.onLogin('false')}>Log Out</MenuItem>
+        <MenuItem onClick={(e) => this.props.onLogOut()}>Log Out</MenuItem>
       </Menu>
     );
 
@@ -152,8 +150,7 @@ class PrimarySearchAppBar extends React.Component {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={isMobileMenuOpen}
-        onClose={this.handleMobileMenuClose}
-      >
+        onClose={this.handleMobileMenuClose}>
         <MenuItem>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">

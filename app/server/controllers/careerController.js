@@ -33,6 +33,27 @@ exports.create = async (req, res) => {
     mongoose.connection.close();
 };
 
+//return all career clusters
+module.exports.readAll = (req, res) => {
+
+    mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
+    careers.find({})
+        .then(found => {
+            if(found[0]) {
+                //res.write({result: 'match'});
+                res.send(found);
+            } else {
+                res.send({result: 'no-careers'});
+            }
+        })
+        .catch(err => {
+            res.send({result: 'error', error: err});
+        });
+
+    mongoose.connection.close;
+};
+
 // Read by careerId... _id should be in doc here as well right?
 exports.read = (req, res) => {
     mongoose.connect(config.db.uri, {useNeUrlParser: true, useUnifiedTopology: true});

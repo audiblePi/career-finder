@@ -5,6 +5,7 @@ const config = require('../config/config.js');
 module.exports.authenticate = (req, res) => {
     if(req.body.username && req.body.password) {
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
         User.findOne({ user: req.body.username })
             .then(found => {
                 if(found.password === req.body.password) {
@@ -24,12 +25,14 @@ module.exports.authenticate = (req, res) => {
         //username and/or password null
         res.send({result: 'invalid-entry'});
     }
+
     mongoose.connection.close;
 };
 
 module.exports.create = (req, res) => {
     if(req.body.username) {
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
         User.findOne({ user: req.body.username })
             .then(found => {
                 if(found) {
@@ -57,6 +60,7 @@ module.exports.create = (req, res) => {
                 //database error
                 res.send({result: 'database-error', error: err});//or database issue
             });
+
         mongoose.connection.close;
     } else {
         //username undefined/null
@@ -67,10 +71,11 @@ module.exports.create = (req, res) => {
 //sends document based off user passed in get request body
 module.exports.read = (req, res) => {
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-    User.findOne({user: req.body.username})
+
+    User.findOne({_id: req.params.userId})
         .then(found => {
             if(found) {
-                res.write({result: 'match'});
+                //res.write({result: 'match'});
                 res.send(found.toResponse());
             } else {
                 res.send({result: 'user-not-found'});
@@ -79,16 +84,18 @@ module.exports.read = (req, res) => {
         .catch(err => {
             res.send({result: 'error', error: err});
         });
+
     mongoose.connection.close;
 };
 
 //send all users
 module.exports.readAll = (req, res) => {
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
     User.find({})
         .then(found => {
             if(found[0]) {
-                res.write({result: 'match'});
+                //res.write({result: 'match'});
                 //remove passwords on send
                 found.forEach(function(i) {
                     i.toResponse();
@@ -101,11 +108,13 @@ module.exports.readAll = (req, res) => {
         .catch(err => {
             res.send({result: 'error', error: err});
         });
+
     mongoose.connection.close;
 };
 
 module.exports.update = (req, res) => {
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
     User.findOne({name: req.body.name})
         .then(found => {
             if(found) {
@@ -124,11 +133,14 @@ module.exports.update = (req, res) => {
         .catch(err => {
             res.send({result: 'error', error: err});
         });
+
     mongoose.connection.close;
 };
+
 //remove user based off of username
 module.exports.delete = (req, res) => {
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
     User.deleteOne({user: req.body.username}), function(err) {
         if(err) {
             res.send({result: 'error', error: err});
@@ -136,8 +148,10 @@ module.exports.delete = (req, res) => {
             res.send({result: 'user-removed'});
         }
     };
+
     mongoose.connection.close;
 };
+
 //template endpoint for database
 /*
 module.exports.templates = (req, res) => {

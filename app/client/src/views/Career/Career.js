@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import axios from 'axios';
 import { useParams } from 'react-router-dom'
 
 import Typography from '@material-ui/core/Typography';
@@ -15,45 +17,61 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Career() {
+function Career(props) {
     const classes = useStyles();
 
     let { cluster, id } = useParams()
 
-    return (
-        <div>
-            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                A Career {id}
-            </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
-                Salary
-            </Typography>
+    const getCurrentCareer = async (id, set) => {
+        const res = await axios.get('/_career/' + id);
+        set(res.data)
+    }
+
+    useEffect(() => {
+        getCurrentCareer(id, props.setCurrentCareer)
+    }, [id, props.setCurrentCareer]);
+
+    //console.log("currentCareer", props.currentCareer)
+
+    const career = (career) => {
+        return (
             <div>
-                <Keyword/>
-                <Keyword/>
-                <Keyword/>
+                <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                    {career.name}
+                </Typography>
+                <Typography variant="h5" color="inherit" paragraph>
+                    ${career.salary} / year
+                </Typography>
+                <div>
+                    <Keyword/>
+                    <Keyword/>
+                    <Keyword/>
+                </div>
+                <p>
+                    {career.shortDescription}
+                </p>
+                <p>
+                    {career.description}
+                </p>
+                <div className={classes.buttongroup}>
+                    <Button variant="contained" color="primary" href={"/Cluster/" + cluster + "/Career/" + id + "/DITL/"}>
+                        A Day in the Life
+                    </Button>
+                    <ButtonGroup
+                        orientation="vertical"
+                        color="primary"
+                        aria-label="vertical outlined primary button group"
+                        >
+                        <Button color="primary" href={"/Cluster/" + cluster + "/Career/" + id + "/Celebrity"}>Celebrity</Button>
+                    </ButtonGroup>
+                </div>
             </div>
-            <p>
-                The Agriculture, Food & Natural Resources career cluster is for people interested in the production, processing, marketing, distribution, financing, and development of agricultural commodities and resources. Their interests in the field might include food, fuel, fiber, wood products, natural resources,horticulture, and other plant and animal products/resources.
-            </p>
-            <p>
-                Curabitur mollis urna velit, non pellentesque ante dapibus vitae. Nulla tempus finibus purus, eget molestie libero ornare at. Mauris semper ligula id nisl semper, vitae bibendum dui viverra. Nulla facilisi. Etiam consequat nisi cursus nisi luctus sollicitudin. Nunc sed orci in sem feugiat blandit at sed ligula. Aliquam eleifend ipsum at lectus sodales, id gravida nisl viverra. Aenean viverra turpis vel libero rhoncus mattis. Duis vel velit vel augue vehicula dictum at vitae tortor. Suspendisse blandit non ex ac vulputate. Cras eu tempus odio. Nullam tempus tellus dui, non viverra ipsum ornare at. Nullam vel dolor condimentum leo mattis fringilla. Maecenas efficitur ex id ipsum luctus, nec tincidunt nulla scelerisque.
-            </p>
-            <div className={classes.buttongroup}>
-                <Button variant="contained" color="primary" href={"/Cluster/" + cluster + "/Career/" + id + "/DITL/"}>
-                    A Day in the Life
-                </Button>
-                <ButtonGroup
-                    orientation="vertical"
-                    color="primary"
-                    aria-label="vertical outlined primary button group"
-                    
-                >
-                    <Button color="primary" href={"/Cluster/" + cluster + "/Career/" + id + "/Celebrity/1"}>Celebrity Link 1</Button>
-                    <Button color="primary" href={"/Cluster/" + cluster + "/Career/" + id + "/Celebrity/2"}>Celebrity Link 2</Button>
-                    <Button color="primary" href={"/Cluster/" + cluster + "/Career/" + id + "/Celebrity/3"}>Celebrity Link 3</Button>
-                </ButtonGroup>
-            </div>
+        );
+    }
+
+    return (    
+        <div>
+            {props.currentCareer === "" ? "" : career(props.currentCareer)}
         </div>
     );
 }

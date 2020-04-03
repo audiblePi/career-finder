@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,50 +11,36 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const careers = [
-    { 
-        id: 1, 
-        name: "Test Pilot", 
-    },
-    { 
-        id: 2, 
-        name: "Payload Commander (PLC)", 
-    },
-    { 
-        id: 3, 
-        name: "Mission Specialist (MS)", 
-    },
-    { 
-        id: 4, 
-        name: "Flight Engineer", 
-    },
-    { 
-        id: 5, 
-        name: "Commander", 
-    },
-    { 
-        id: 6, 
-        name: "Payload Specialist", 
-    },
-    { 
-        id: 7, 
-        name: "Science Officer", 
-    },
-];
-
-function Cluster() {
+function Cluster(props) {
     const classes = useStyles();
 
     let { cluster } = useParams()
 
+    const [clusterName, setClusterName] = React.useState("");
+
+    const getCareers = (clusters, setClusterName, setCareerIds, cluster) => {
+        let result = clusters.filter( (data, index, arr) => {
+            return data._id == cluster
+        })
+    
+        if (result.length > 0){
+            setCareerIds(result[0].careers)
+            setClusterName(result[0].name)
+        }
+    }
+    
+    useEffect(() => {
+        getCareers(props.clusters, setClusterName, props.onUpdateCareerIds, cluster)
+    }, [props.clusters, setClusterName, props.onUpdateCareerIds, cluster]);
+
     return (
         <div className={classes.root}>
             <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                  Cluster {cluster}
+                { clusterName === "" ? "" : 'Careers: ' + clusterName }
             </Typography>
 
-            {careers.map( ({ id, name }, key) => {
-                return <CareerCard key={key} id={id} name={name}/>
+            {props.careerIds.map( (id, key) => {
+                return <CareerCard key={key} id={id}/>
             })}
         </div>
     );
