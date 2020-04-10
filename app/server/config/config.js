@@ -5,6 +5,7 @@
 
 module.exports = {
     db: {
-        uri: process.env.MONGODB_URI, //place the URI of your mongo database here.
-    }, 
+        //uri: process.env.MONGODB_URI, //place the URI of your mongo database here.
+        uri: 'mongodb://localhost:27017/career-planner'
+    }
 };
