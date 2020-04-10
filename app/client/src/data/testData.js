@@ -84,13 +84,13 @@ const tileData = [
     subtitle: 'Marketing',
   },
   {
-    id: 14,
+    id: 15,
     img: '/assets/stem.png',
     title: 'STEM',
     subtitle: 'Science, technology, engineering, and mathematics',
   },
   {
-    id: 15,
+    id: 16,
     img: '/assets/transportation.png',
     title: 'Transportation',
     subtitle: 'Transportation, distribution, and logistics',

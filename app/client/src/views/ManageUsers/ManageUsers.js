@@ -52,7 +52,6 @@ const users = [
 ];
 
 const retrieveUsers = () => {
-    console.log("retrieved users", users)
     return users
 }
 

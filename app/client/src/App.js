@@ -1,74 +1,177 @@
-import React, { useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-import NavBar from "./components/Nav/NavBar";
-import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
-import Chat from "./components/Chat/Chat";
-
-import Home from "./views/Home/Home";
 import Login from "./views/Login/Login";
-import Cluster from "./views/Cluster/Cluster";
-import Career from "./views/Career/Career";
-import DITL from "./views/DITL/DITL";
-import Celebrity from "./views/Celebrity/Celebrity";
-import ManageUsers from "./views/ManageUsers/ManageUsers";
-import NotFound from "./views/NotFound";
+import Main from "./views/Main";
 
-const useStyles = makeStyles(theme => ({
-  root: {},
-  container: {},
-}));
+import axios from 'axios';
 
-const Main = (props) => {
-  const classes = useStyles();
-  
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <NavBar onLogin={props.onLogin} />
-      <Container maxWidth="lg" className={classes.container}>      
-        <Breadcrumbs/>
-        <Switch>
-          {/* <Route exact path="/" component={Home} /> */}
-          <Route exact path="/" render={(routeProps) => <Home {...routeProps} {...props}/>}  />
-          <Route exact path="/Cluster/:cluster" component={Cluster} />
-          <Route exact path="/Cluster/:cluster/Career/:id" component={Career} />
-          <Route exact path="/Cluster/:cluster/Career/:id/DITL" component={DITL} />
-          <Route exact path="/Cluster/:cluster/Career/:id/Celebrity/:id" component={Celebrity} />
-          <Route exact path="/ManageUsers" component={ManageUsers}/>
-          <Route component={NotFound}/>
-        </Switch>
-      </Container>
-      <Chat/>
-    </div>
-  )
+const msgs = [
+  { 
+    id: 1,
+    type: "chatbot",
+    message: "Hello, Apollo 11. Houston. We're standing by.",
+  }
+];
+
+const getMessages = () => {
+  return msgs
 }
 
+// const initialState = {
+//   user: '',
+//   role: '',
+//   loggedIn: 'false',
+//   clusters: [],
+// }
+
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case 'increment':
+//       return {count: state.count + 1};
+//     case 'decrement':
+//       return {count: state.count - 1};
+//     default:
+//       throw new Error();
+//   }
+// }
+
 const App = (props) => {
-  const classes = useStyles();
+  // const [state, dispatch] = useReducer(reducer, initialState);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') || 'false');
+  const [user, setUser] = useState(localStorage.getItem('user') || '');
+  const [role, setRole] = useState(localStorage.getItem('role') || '');
+  const [clusters, setClusters] = useState([]);
+  const [chatMessages, setChatMessages] = useState(getMessages);
 
-  const [loggedIn, setLoggedIn] = useState(
-    localStorage.getItem('loggedIn') || 'false'
-  );
-
-  const [role, setRole] = useState('student');
-
-  const updateLoggedIn = (status, role) => {   
-    console.log('updateLoggedIn')
-    
+  const updateLoggedIn = (status, user) => {    
+    setLoggedIn(status)
     localStorage.setItem('loggedIn', status);
 
-    setLoggedIn(status)
+    let user_id = (user === undefined) ? '' : user.name
+    setUser(user)
+    localStorage.setItem('user_id', user_id);
+
+    let role = (user === undefined) ? '' : user.role
     setRole(role)
+    localStorage.setItem('role', role);
   };
 
+  /*
+   * Career Cluster CRUD
+   */
+  const createCluster = async (cluster) => {
+    const res = await axios.post('/cluster', {
+      name: cluster.name,
+      image: cluster.image,
+      keywords: [],
+      careers: [],
+    });
+
+    if (res.data.result === "successfully-added") {
+      console.log(res.data)
+      console.log("created cluster", cluster.name, "from db")
+      readClusters()
+    } 
+    else {
+      console.log("create clusters error")
+    }
+  }
+
+  const readClusters = async () => {
+    const res = await axios.get('/cluster');
+
+    if (res.data.length > 0) {
+      console.log(res.data)
+      setClusters(res.data)
+    } 
+    else {
+      console.log("read clusters error")
+    }
+  }
+
+  const updateCluster = async (cluster) => {
+    const res = await axios.put('/cluster/' + cluster._id, {
+      name: cluster.name,
+      image: cluster.image,
+      //keywords: [],
+      //careers: [],
+    });
+
+    if (res.data.result === "update-success") {
+      console.log(res.data)
+      console.log("updated cluster", cluster.name)
+      readClusters()
+    } 
+    else {
+      console.log("update clusters error")
+    }
+  }
+
+  const deleteCluster = async (e, id) => {
+    //e.preventDefault()
+        
+    const res = await axios.delete('/cluster/' + id)
+
+    if (res.data.result === "delete-success") {
+      console.log(res.data)
+      console.log("deleted cluster", id, "from db")
+      readClusters()
+    } 
+    else {
+      console.log("delete error")
+    }
+  }
+
+  /*
+   * Chat CRUD
+   */
+  const addMessage = (e, message) => {
+    e.preventDefault()
+  
+    let id = chatMessages.length + 1
+
+    let m = {
+      id: id,
+      type: "response", 
+      message: message
+    }
+
+    let r = {
+      id: id + 1,
+      type: "chatbot", 
+      message: "Roger. " + message
+    }
+
+    setChatMessages([...chatMessages, m, r])
+  }
+
+  useEffect(() => {
+    readClusters();
+  }, []);
+
+  const mainComponent = () => {
+    return (
+      <Main 
+        clusters={clusters} 
+        onCreateCluster={createCluster}
+        onUpdateCluster={updateCluster}
+        onDeleteCluster={deleteCluster} 
+        onLogin={updateLoggedIn}
+        role={role}
+        chatMessages={chatMessages}
+        onAddMessage={addMessage}/>
+    )
+  }
+
+  const loginComponent = () => {
+    return (
+      <Login onLogin={updateLoggedIn}/>
+    )
+  }
+
   return (    
-    <div className={classes.root}>
-      {loggedIn === 'true' ? <Main role={role} onLogin={updateLoggedIn}/> : <Login role={role} onLogin={updateLoggedIn}/>}
+    <div>
+      {loggedIn === 'true' ? mainComponent() : loginComponent()}
     </div>
   );
 }

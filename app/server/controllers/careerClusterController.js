@@ -4,6 +4,7 @@ const config = require('../config/config.js');
 
 //create one cluster by name
 module.exports.create = (req, res) => {
+    //all these are required?
     if(req.body.name && req.body.image && req.body.keywords && req.body.careers) {
         //check for required fields
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -23,7 +24,7 @@ module.exports.create = (req, res) => {
                             }
                         });
                 }
-        })
+            })
             .catch(err => {
                 //database error
                 res.send({result: 'database-error', error: err});
@@ -34,13 +35,16 @@ module.exports.create = (req, res) => {
         res.send({result: 'required-fields-not-met'});
     }
 };
+
 //return all career clusters
 module.exports.readAll = (req, res) => {
+
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
     CareerCluster.find({})
         .then(found => {
             if(found[0]) {
-                res.write({result: 'match'});
+                //res.write({result: 'match'});
                 res.send(found);
             } else {
                 res.send({result: 'no-clusters'});
@@ -49,15 +53,19 @@ module.exports.readAll = (req, res) => {
         .catch(err => {
             res.send({result: 'error', error: err});
         });
+
     mongoose.connection.close;
 };
-//read one cluster by name
+
+//read one cluster by id
 module.exports.read = (req, res) => {
+
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-    CareerCluster.findOne({user: req.body.name})
+
+    CareerCluster.findOne({_id: req.params.clusterId})
         .then(found => {
             if(found) {
-                res.write({result: 'match'});
+                //res.write({result: 'match'});
                 res.send(found);
             } else {
                 res.send({result: 'cluster-not-found'});
@@ -66,17 +74,24 @@ module.exports.read = (req, res) => {
         .catch(err => {
             res.send({result: 'error', error: err});
         });
+
     mongoose.connection.close;
 };
+
 //update cluster, arrays are replaced by what is provided
 module.exports.update = (req, res) => {
+
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-    CareerCluster.findOne({name: req.body.name})
+
+    CareerCluster.findOne({_id: req.params.clusterId})
         .then(found => {
             if(found) {
-                CareerCluster.updateOne({name: req.body.name}, {$set: req.body})
+                CareerCluster.updateOne({_id: req.params.clusterId}, {$set: req.body})
                 .then(updated => {
-                    res.send({result: 'update-success'});
+                    res.send({
+                        result: 'update-success',
+                        cluster: found,
+                    });
                 })
                 .catch(err => {
                     //not sure what error mongoose would throw
@@ -89,19 +104,26 @@ module.exports.update = (req, res) => {
         .catch(err => {
             res.send({result: 'error', error: err});
         });
+
     mongoose.connection.close;
 };
+
 //add update cluster for pushing new data to arrays
 
 //delete one cluster
 module.exports.delete = (req, res) => {
+
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-    CareerCluster.findOne({name: req.body.name})
+   
+    CareerCluster.findOne({_id: req.params.clusterId})
         .then(found => {
             if(found) {
-                CareerCluster.deleteOne({name: req.body.name}, {$set: req.body})
+                CareerCluster.deleteOne({_id: req.params.clusterId}, {$set: req.body})
                 .then(deleted => {
-                    res.send({result: 'delete-success'});
+                    res.send({
+                        result: 'delete-success',
+                        cluster: found,
+                    });
                 })
                 .catch(err => {
                     //not sure what error mongoose would throw
@@ -113,6 +135,7 @@ module.exports.delete = (req, res) => {
         .catch(err => {
             res.send({result: 'error', error: err});
         });
+
     mongoose.connection.close;
 };
 
