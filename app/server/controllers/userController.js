@@ -4,6 +4,7 @@ const config = require('../config/config.js');
 
 module.exports.authenticate = (req, res) => {
     if(req.body.username && req.body.password) {
+        //console.log(req.body.password);
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
         User.findOne({ user: req.body.username })
             .then(found => {
