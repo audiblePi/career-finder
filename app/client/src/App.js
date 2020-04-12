@@ -62,6 +62,7 @@ const App = (props) => {
     * Clusters
     ********************/
     const createCluster = async (cluster) => {
+        console.log(cluster)
         const res = await axios.post('/_cluster', {
             name: cluster.name,
             image: cluster.image,

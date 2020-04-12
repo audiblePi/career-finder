@@ -10,6 +10,7 @@ module.exports.create = (req, res) => {
         //check for required fields
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
+        
         CareerCluster.findOne({name: req.body.name})
             .then(found => {
                 if(found) {
@@ -42,6 +43,7 @@ module.exports.create = (req, res) => {
                 //database error
                 res.send({result: 'database-error', error: err});
             });
+
         mongoose.connection.close;
         
     } 
