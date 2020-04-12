@@ -6,18 +6,28 @@ import { useParams } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
 
 function DITL(props) {
+
     let { id } = useParams()
 
-    const getCurrentCareer = async (id, set) => {
-        const res = await axios.get('/_career/' + id);
-        set(res.data)
+    // const getCurrentCareer = async (id, set) => {
+    //     const res = await axios.get('/_career/' + id);
+    //     console.log(res)
+    //     set(res.data)
+    // }
+
+    // useEffect(() => {
+    //     getCurrentCareer(id, props.setCurrentCareer)
+    // }, [id, props.setCurrentCareer]);
+
+    const getCareer = () => {
+        props.readCareer(id)
     }
 
     useEffect(() => {
-        getCurrentCareer(id, props.setCurrentCareer)
-    }, [id, props.setCurrentCareer]);
+        getCareer()
+    }, []);
 
-    console.log("currentCareer", props.currentCareer)
+    console.log("career", props.career)
 
     const ditl = (career) => {
         return (
@@ -34,7 +44,7 @@ function DITL(props) {
 
     return (    
         <div>
-            {props.currentCareer === "" ? "" : ditl(props.currentCareer)}
+            {props.career === "" ? "" : ditl(props.career)}
         </div>
     );
 }

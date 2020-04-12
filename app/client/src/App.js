@@ -20,10 +20,12 @@ const getMessages = () => {
 const App = (props) => {
     const [user_id, setUserId] = useState(localStorage.getItem('user_id') || '');
     const [role, setRole] = useState(localStorage.getItem('role') || '');
+    const [cluster, setCluster] = useState({});//should be cluster not clustername
     const [clusters, setClusters] = useState([]);
     const [chatMessages, setChatMessages] = useState(getMessages);
-    const [careerIds, setCareerIds] = useState([]);
-    const [currentCareer, setCurrentCareer] = useState('');
+    const [career, setCareer] = useState("");
+    const [careers, setCareers] = useState([]);
+
 
 
 
@@ -54,6 +56,8 @@ const App = (props) => {
 
 
 
+
+
     /********************
     * Clusters
     ********************/
@@ -62,7 +66,6 @@ const App = (props) => {
             name: cluster.name,
             image: cluster.image,
             keywords: [],
-            careers: [],
         });
         console.log(res)
         if (res.data.result === "successfully-added") {
@@ -76,8 +79,15 @@ const App = (props) => {
         if (res.data.length > 0) {            
             res.data.sort((a, b) => (a.name > b.name) ? 1 : -1)
             setClusters(res.data)
-            getClusterCareers()
         } 
+    }
+
+    const readCluster = async (cluster) => {
+        const res = await axios.get('/_cluster/' + cluster);
+        console.log(res)
+        if (res.data.name !== undefined){
+            setCluster(res.data)
+        }
     }
 
     const updateCluster = async (cluster) => {
@@ -105,16 +115,74 @@ const App = (props) => {
 
 
 
+
+
     /********************
-    * Cluster 
+    * Cluster Careers
     ********************/
-    const getClusterCareers = () => {
-        //console.log("getClusterCareers", clusters)
+    const createCareer = async (career) => {
+        let defaultCareer = {
+            description: "",
+            ditl: "",
+            celebrity: {
+                name: "",
+                photo: "",
+                article: "",
+            },
+        }        
+        const res = await axios.post('/_career', {
+            name: career.name,
+            shortDescription: career.shortDescription,
+            cluster: career.cluster,
+            salary: career.salary,
+            ...defaultCareer 
+        });
+        console.log(res)
+        if (res.data.result === "successfully-added") {
+            readCareers(res.data.career.cluster)
+        } 
     }
 
-    const updateCareerIds = (ids) => {
-        setCareerIds(ids)
+    const readCareers = async (cluster) => {
+        const res = await axios.get('/_career');
+        console.log(res)
+        if (res.data.length > 0) { 
+            let result = res.data.filter( (data, index, arr) => {
+                return data.cluster === cluster
+            })     
+            setCareers(result)
+        } 
     }
+
+    const readCareer = async (id) => {
+        const res = await axios.get('/_career/' + id);
+        console.log(res)
+        if (res.data.result !== "error"){
+            setCareer(res.data)
+        }
+    }
+
+    const updateCareer = async (career) => {
+        const res = await axios.put('/_career/' + career._id, career);
+        console.log(res)
+        if (res.data.result === "update-success") {
+            //filter on current cluster that this career belongs to
+            readCareers(career.cluster) 
+        } 
+    }
+
+    const deleteCareer = async (e, id) => {
+        const res = await axios.delete('/_career/' + id)
+        console.log(res)
+        if (res.data.result === "delete-success") {
+            readCareers(res.data.career.cluster)
+        } 
+    }
+
+    
+
+
+
 
 
 
@@ -141,16 +209,19 @@ const App = (props) => {
 
 
     useEffect(() => {
-        readClusters();
+        //readClusters();
     }, []);
 
     const mainComponent = () => {
         return (
             <Main 
+                cluster={cluster} 
                 clusters={clusters} 
-                onCreateCluster={createCluster}
-                onUpdateCluster={updateCluster}
-                onDeleteCluster={deleteCluster} 
+                createCluster={createCluster}
+                readCluster={readCluster}
+                readClusters={readClusters}
+                updateCluster={updateCluster}
+                deleteCluster={deleteCluster} 
 
                 onLogin={logIn}
                 onLogOut={logOut}
@@ -160,11 +231,13 @@ const App = (props) => {
                 chatMessages={chatMessages}
                 onAddMessage={addMessage}
 
-                careerIds={careerIds}
-                onUpdateCareerIds={updateCareerIds}    
-
-                currentCareer={currentCareer}
-                setCurrentCareer={setCurrentCareer}
+                career={career}
+                careers={careers}
+                createCareer={createCareer}
+                readCareer={readCareer}
+                readCareers={readCareers}
+                updateCareer={updateCareer}
+                deleteCareer={deleteCareer}
                 />
         )
     }

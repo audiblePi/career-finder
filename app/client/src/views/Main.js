@@ -19,7 +19,7 @@ const Main = (props) => {
 	return (
 		<div>
 			<CssBaseline />
-			<NavBar onLogOut={props.onLogOut} />
+			<NavBar onLogOut={props.onLogOut} role={props.role} />
 			<Container maxWidth="lg">      
 				<Breadcrumbs/>
 				<Switch>

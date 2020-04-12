@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 export default function Clusters(props) {
     const classes = useStyles();
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
         setOpen(true);
@@ -45,6 +45,10 @@ export default function Clusters(props) {
     const onClose = () => {
         setOpen(false);
     };
+
+    const getClusters = () => {
+        props.readClusters()
+    }
 
     const editClusters = () => {
         return (
@@ -55,6 +59,10 @@ export default function Clusters(props) {
             </div>
         )
     }
+
+    useEffect(() => {
+        getClusters()
+    }, []);
 
     return (
         <div>
@@ -85,9 +93,9 @@ export default function Clusters(props) {
                     open={open} 
                     handleClose={onClose} 
                     data={props.clusters}
-                    onCreate={props.onCreateCluster}
-                    onUpdate={props.onUpdateCluster}
-                    onDelete={props.onDeleteCluster}
+                    onCreate={props.createCluster}
+                    onUpdate={props.updateCluster}
+                    onDelete={props.deleteCluster}
                     ignoreKeys={["keywords", "careers"]}/>
             </div>
         </div>

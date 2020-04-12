@@ -64,12 +64,13 @@ export default function Breadcrumbs(props) {
                 if (idx > 0){
                     let href = "/"
 
-                    paths.forEach( (element, index) => {
-                        if (index <= idx && index > 0)
+                    paths.forEach( (element, index) => {                        
+                        if (index <= idx && index > 0){
                             href += (element + "/") 
+                        }
                     });
 
-                    if (paths[idx+1] !== "")
+                    if (paths[idx+1] !== ("" || undefined))
                         href += (paths[idx+1] + "/")
 
                     return <Link key={key} color="inherit" href={href}>{name}</Link>

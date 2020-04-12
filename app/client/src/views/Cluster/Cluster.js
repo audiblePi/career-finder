@@ -3,11 +3,19 @@ import { useParams } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
 import CareerCard from "../../components/CareerCard/CareerCard";
+import EditModal from '../../components/EditModal/EditModal';
 
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
+    },
+    editWrapper: {
+        display: 'flex',
+        padding: 20,
+        justifyContent: 'center',
     },
 }));
 
@@ -16,32 +24,65 @@ function Cluster(props) {
 
     let { cluster } = useParams()
 
-    const [clusterName, setClusterName] = React.useState("");
+    const [open, setOpen] = React.useState(false);
 
-    const getCareers = (clusters, setClusterName, setCareerIds, cluster) => {
-        let result = clusters.filter( (data, index, arr) => {
-            return data._id == cluster
-        })
-    
-        if (result.length > 0){
-            setCareerIds(result[0].careers)
-            setClusterName(result[0].name)
-        }
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
+
+    const editClusterCareers = () => {
+        return (
+            <div className={classes.editWrapper}>
+                <Button className={classes.editButton} color="inherit" onClick={handleOpen}>
+                    Edit Cluster Careers
+                </Button>
+            </div>
+        )
     }
-    
+
+    const getCareers = () => {
+        props.readCareers(cluster)
+    }
+
+    const getClusterName = () => {
+        props.readCluster(cluster)    
+    }
+
     useEffect(() => {
-        getCareers(props.clusters, setClusterName, props.onUpdateCareerIds, cluster)
-    }, [props.clusters, setClusterName, props.onUpdateCareerIds, cluster]);
-
+        getCareers()
+        getClusterName()
+    }, []);
+    
     return (
-        <div className={classes.root}>
-            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                { clusterName === "" ? "" : 'Careers: ' + clusterName }
-            </Typography>
+        <div>
 
-            {props.careerIds.map( (id, key) => {
-                return <CareerCard key={key} id={id}/>
-            })}
+            { props.role === 'admin' ? editClusterCareers() : ''}
+
+            <div className={classes.root}>
+                <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                    {(props.cluster.name === undefined) ? 'Careers: ' : 'Careers: ' + props.cluster.name}
+                </Typography>
+
+                {props.careers.map( (career, key) => {                    
+                    if (career.cluster === cluster)
+                        return <CareerCard key={key} career={career}/>
+
+                    return ""
+                })}
+
+                <EditModal 
+                    open={open} 
+                    handleClose={onClose} 
+                    data={props.careers}
+                    onCreate={props.createCareer}
+                    onUpdate={props.updateCareer}
+                    onDelete={props.deleteCareer}
+                    ignoreKeys={["celebrity", "description", "ditl"]}/>
+            </div>
         </div>
     );
 }

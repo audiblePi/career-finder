@@ -5,22 +5,35 @@ const config = require('../config/config.js');
 //create one cluster by name
 module.exports.create = (req, res) => {
     //all these are required?
-    if(req.body.name && req.body.image && req.body.keywords && req.body.careers) {
+    if(req.body.name && req.body.image && req.body.keywords) {
+
         //check for required fields
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
         CareerCluster.findOne({name: req.body.name})
             .then(found => {
                 if(found) {
                     //cluster already exists
                     res.send({result: 'cluster-already-exists'});
-                } else {
+                } 
+                else {
                     //add cluster
-                    new CareerCluster(req.body)
+                    let id = mongoose.mongo.ObjectId().toString();
+                    
+                    let newCluster = { 
+                        _id: id, 
+                        ...req.body 
+                    }
+ 
+                    new CareerCluster(newCluster)
                         .save(function (err) {
                             if(err) {
                                 res.send({result: 'database-error', error: err});
                             } else {
-                                res.send({result: 'successfully-added'});
+                                res.send({
+                                    result: 'successfully-added',
+                                    cluster: newCluster,
+                                });
                             }
                         });
                 }
@@ -30,7 +43,9 @@ module.exports.create = (req, res) => {
                 res.send({result: 'database-error', error: err});
             });
         mongoose.connection.close;
-    } else {
+        
+    } 
+    else {
         //required fields not met
         res.send({result: 'required-fields-not-met'});
     }

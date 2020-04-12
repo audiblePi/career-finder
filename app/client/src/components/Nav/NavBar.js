@@ -131,6 +131,12 @@ class PrimarySearchAppBar extends React.Component {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+    const manageUsersMobile = (
+      <MenuItem>
+        <Button color="inherit" href="/ManageUsers">Manage Users</Button>
+      </MenuItem>
+    );
+
     const renderMenu = (
       <Menu
         anchorEl={anchorEl}
@@ -151,30 +157,38 @@ class PrimarySearchAppBar extends React.Component {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={isMobileMenuOpen}
         onClose={this.handleMobileMenuClose}>
+
+        {/*ManageUsers*/}
+        {this.props.role === 'admin' ? manageUsersMobile : ''}
+
+        {/*Awards*/}
+        <MenuItem>
+          <IconButton color="inherit">
+            <Badge badgeContent={41} color="secondary">
+              <EmojiEventsIcon />
+            </Badge>
+          </IconButton>
+          <p>Awards</p>
+        </MenuItem>
+        
+        {/*Queue*/}
         <MenuItem>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
-              <MailIcon />
+              <ListIcon />
             </Badge>
           </IconButton>
-          <p>Messages</p>
-        </MenuItem>
-        
-        <MenuItem>
-          <IconButton color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <p>Notifications</p>
+          <p>Queue</p>
         </MenuItem>
 
+        {/*Profile*/}
         <MenuItem onClick={this.handleProfileMenuOpen}>
           <IconButton color="inherit">
             <AccountCircle />
           </IconButton>
           <p>Profile</p>
         </MenuItem>
+        
       </Menu>
     );
 
@@ -189,7 +203,10 @@ class PrimarySearchAppBar extends React.Component {
             <div className={classes.grow} />
             
             <div className={classes.sectionDesktop}>
-              <Button color="inherit" href="/ManageUsers">Manage Users</Button>
+
+              {/*ManageUsers*/}
+              {this.props.role === 'admin' ? <Button color="inherit" href="/ManageUsers">Manage Users</Button>
+ : ''}
 
               {/*Awards*/}
               <IconButton color="inherit">
@@ -206,9 +223,9 @@ class PrimarySearchAppBar extends React.Component {
               </IconButton>
 
               {/*Settings*/}
-              <IconButton color="inherit">
+              {/* <IconButton color="inherit">
                 <SettingsIcon />
-              </IconButton>
+              </IconButton> */}
 
               {/*Profile*/}
               <IconButton

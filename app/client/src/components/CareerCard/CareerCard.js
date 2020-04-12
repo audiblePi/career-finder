@@ -117,12 +117,10 @@
 
 
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
-
-import axios from 'axios';
 
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -148,40 +146,21 @@ function CareerCard(props) {
 
     let { cluster } = useParams()
 
-    const [career, setCareer] = useState("");
-
-    const getCareerData = async (id, set) => {
-        const res = await axios.get('/_career/' + id);
-        set(res.data)
-    }
-    
-    useEffect(() => {
-        getCareerData(props.id, setCareer)
-    }, [props.id, setCareer]);
-
-    const card = () => {
-        return (
-            <div>
-                <Paper className={classes.paper}>
-                    <Grid container wrap="nowrap" spacing={2}>
-                        <Grid item>
-                            <Avatar>{career.name.charAt(0)}</Avatar>
-                        </Grid>
-                        <Grid item xs>
-                            <Link color="inherit" href={"/Cluster/" + cluster + "/Career/" + props.id}>
-                                <Typography variant="h4">{career.name}</Typography>
-                            </Link>
-                            <p>{career.shortDescription}</p>
-                        </Grid>
-                    </Grid>
-                </Paper>
-            </div>
-        );
-    }
-    
-    return (    
+    return (
         <div>
-            {career === "" ? "" : card()}
+            <Paper className={classes.paper}>
+                <Grid container wrap="nowrap" spacing={2}>
+                    <Grid item>
+                        <Avatar>{props.career.name.charAt(0)}</Avatar>
+                    </Grid>
+                    <Grid item xs>
+                        <Link color="inherit" href={"/Cluster/" + cluster + "/Career/" + props.career._id}>
+                            <Typography variant="h4">{props.career.name}</Typography>
+                        </Link>
+                        <p>{props.career.shortDescription}</p>
+                    </Grid>
+                </Grid>
+            </Paper>
         </div>
     );
 }
