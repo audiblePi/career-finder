@@ -60,20 +60,19 @@ export default function Login(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        //authenticate
-        axios.post('/auth', {
+        axios.post('/_auth', {
             username: username,
             password: crypto.createHash('md5').update(password).digest('hex')
         })
-        .then(res => {
+        .then(res => {            
             let user = res.data.found
 
             if (res.data.result === 'match') {
-                props.onLogin('true', user); //move to db?
+                props.onLogin(user); //move to db?
             } 
             else {
                 setShowError(1)
-                props.onLogin('false', user);
+                //props.onLogin(null);
             }
         });
     }

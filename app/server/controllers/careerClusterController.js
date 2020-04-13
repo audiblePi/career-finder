@@ -8,12 +8,14 @@ module.exports.create = (req, res) => {
     if(req.body.name && req.body.image && req.body.keywords && req.body.careers) {
         //check for required fields
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+        
         CareerCluster.findOne({name: req.body.name})
             .then(found => {
                 if(found) {
                     //cluster already exists
                     res.send({result: 'cluster-already-exists'});
-                } else {
+                } 
+                else {
                     //add cluster
                     new CareerCluster(req.body)
                         .save(function (err) {
@@ -29,8 +31,10 @@ module.exports.create = (req, res) => {
                 //database error
                 res.send({result: 'database-error', error: err});
             });
+
         mongoose.connection.close;
-    } else {
+    } 
+    else {
         //required fields not met
         res.send({result: 'required-fields-not-met'});
     }

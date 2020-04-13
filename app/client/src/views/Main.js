@@ -16,26 +16,26 @@ import ManageUsers from "../views/ManageUsers/ManageUsers";
 import NotFound from "../views/NotFound";
 
 const Main = (props) => {  
-  return (
-    <div>
-      <CssBaseline />
-      <NavBar onLogin={props.onLogin} />
-      <Container maxWidth="lg">      
-        <Breadcrumbs/>
-        <Switch>
-          {/* <Route exact path="/" component={Home} /> */}
-          <Route exact path="/" render={(routeProps) => <Home {...routeProps} {...props}/>}  />
-          <Route exact path="/Cluster/:cluster" component={Cluster} />
-          <Route exact path="/Cluster/:cluster/Career/:id" component={Career} />
-          <Route exact path="/Cluster/:cluster/Career/:id/DITL" component={DITL} />
-          <Route exact path="/Cluster/:cluster/Career/:id/Celebrity/:id" component={Celebrity} />
-          <Route exact path="/ManageUsers" component={ManageUsers}/>
-          <Route component={NotFound}/>
-        </Switch>
-      </Container>
-      <Chat {...props}/>
-    </div>
-  )
+	return (
+		<div>
+			<CssBaseline />
+			<NavBar onLogOut={props.onLogOut} />
+			<Container maxWidth="lg">      
+				<Breadcrumbs/>
+				<Switch>
+					{/* <Route exact path="/" component={Home} /> */}
+					<Route exact path="/" render={(routeProps) => <Home {...routeProps} {...props}/>}  />
+					<Route exact path="/Cluster/:cluster" render={(routeProps) => <Cluster {...routeProps} {...props}/>} />
+					<Route exact path="/Cluster/:cluster/Career/:id" render={(routeProps) => <Career {...routeProps} {...props}/>} />
+					<Route exact path="/Cluster/:cluster/Career/:id/DITL" render={(routeProps) => <DITL {...routeProps} {...props}/>} />
+					<Route exact path="/Cluster/:cluster/Career/:id/Celebrity" render={(routeProps) => <Celebrity {...routeProps} {...props}/>} />
+					<Route exact path="/ManageUsers" component={ManageUsers}/>
+					<Route component={NotFound}/>
+				</Switch>
+			</Container>
+			<Chat {...props}/>
+		</div>
+	)
 }
 
 export default Main;
