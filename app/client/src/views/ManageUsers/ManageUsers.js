@@ -2,6 +2,7 @@ import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import MaterialTable from 'material-table';
+import axios from 'axios'
 
 const users = [
     { 
@@ -52,7 +53,7 @@ const users = [
 ];
 
 const retrieveUsers = () => {
-    return users
+    return users;
 }
 
 function ManageUsers() {
@@ -71,23 +72,32 @@ function ManageUsers() {
             { title: 'Username', field: 'username', filtering: false },
             { title: 'FName', field: 'fname', filtering: false  },
             { title: 'LName', field: 'lname', filtering: false  },
-            { title: 'Class', field: 'class', lookup: { 'MSL': 'MSL', 'MER': 'MER' , 'SOJ': 'SOJ'}, },
+            { title: 'Class', field: 'group', lookup: { 'MSL': 'MSL', 'MER': 'MER' , 'SOJ': 'SOJ'}, },
             { title: 'Points', field: 'points', filtering: false  },
             { title: 'Role', field: 'role', lookup: { 'student': 'S', 'admin': 'A'}, },
         ],
-        data: retrieveUsers(),
+        data: retrieveUsers()
     });
 
     const createUser = (user) => {
-        console.log("creating user", user)
+        let url = '/_user'
+        axios.post('/_user', user)
+            .then(res => {
+                
+            });
     }
 
     const updateUser = (user) => {
-        console.log("update user", user)
+        let url = '/_user'
+        axios.put(url, user)
+            .then(res => {
+                
+            });
     }
     
     const deleteUser = (user) => {
-        console.log("delete user", user)
+        let url = '/_user'
+        axios.delete('/_user', {data: {username: "admin5"}})
     }
     
     //console.log(state)
@@ -101,10 +111,43 @@ function ManageUsers() {
             <MaterialTable
                 title=""
                 columns={state.columns}
-                data={state.data}
+                data={query =>
+                new Promise((resolve, reject) => {
+                    axios.get('/_user')
+                        .then(res => {
+                            resolve({
+                                data: res.data
+                            })
+                        })
+                    })
+                }
                 options={{
                     filtering: true
                 }}
+                actions={[
+                    {
+                        icon: 'save',
+                        tooltip: 'Save User',
+                        onClick: (event, rowData) => createUser([
+                                {username: rowData.username},
+                                {fname: rowData.fname},
+                                {lname: rowData.lname},
+                                {group: rowData.group},
+                                {points: rowData.points},
+                                {role: rowData.role}])
+                    },
+                    {
+                        icon: 'delete',
+                        tooltip: 'Delete User',
+                        onClick: (event, rowData) => deleteUser([
+                                {username: rowData.username},
+                                {fname: rowData.fname},
+                                {lname: rowData.lname},
+                                {group: rowData.group},
+                                {points: rowData.points},
+                                {role: rowData.role}])
+                    }
+                ]}
                 editable={{
                     onRowAdd: newData =>
                         new Promise(resolve => {

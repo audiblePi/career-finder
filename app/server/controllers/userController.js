@@ -7,7 +7,7 @@ module.exports.authenticate = (req, res) => {
         //console.log(req.body.password);
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
-        User.findOne({ user: req.body.username })
+        User.findOne({ username: req.body.username })
             .then(found => {
                 if(found.password === req.body.password) {
                     //password matches
@@ -31,17 +31,20 @@ module.exports.authenticate = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
+    //console.log("creation request rec");
+    console.log(req.body);
     if(req.body.username) {
+        console.log("correct form");
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
-        User.findOne({ user: req.body.username })
+        User.findOne({ username: req.body.username })
             .then(found => {
                 if(found) {
                     //user already exists
                     res.send({result: 'username-already-exists'});
                 } else {
                     //user does not exist, so it will be added
-                    var newUser = new User({ user: req.body.username });
+                    var newUser = new User({ username: req.body.username });
                     if(req.body.password) {
                         newUser.password = req.body.password;
                     }
@@ -92,15 +95,15 @@ module.exports.read = (req, res) => {
 //send all users
 module.exports.readAll = (req, res) => {
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-
+    console.log("read all request");
     User.find({})
         .then(found => {
             if(found[0]) {
                 //res.write({result: 'match'});
                 //remove passwords on send
-                found.forEach(function(i) {
-                    i.toResponse();
-                });
+                for(let i = 0, len = found.length; i < len; i++) {
+                    found[i] = found[i].toResponse();
+                }
                 res.send(found);
             } else {
                 res.send({result: 'no-users'});
@@ -140,17 +143,23 @@ module.exports.update = (req, res) => {
 
 //remove user based off of username
 module.exports.delete = (req, res) => {
+    console.log("delete request recieved")
+    console.log(req.body.username)
+    if(req.body.username) {
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-
-    User.deleteOne({user: req.body.username}), function(err) {
+    console.log("db connected")
+    User.deleteOne({username: req.body.username}), function(err) {
         if(err) {
             res.send({result: 'error', error: err});
         } else {
             res.send({result: 'user-removed'});
         }
     };
-
     mongoose.connection.close;
+    } else {
+        console.log("no-username")
+        res.send({result: 'error'});
+    }
 };
 
 //template endpoint for database

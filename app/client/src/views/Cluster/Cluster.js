@@ -20,12 +20,12 @@ function Cluster(props) {
 
     const getCareers = (clusters, setClusterName, setCareerIds, cluster) => {
         let result = clusters.filter( (data, index, arr) => {
-            return data._id == cluster
+            return data._id === cluster;
         })
     
         if (result.length > 0){
-            setCareerIds(result[0].careers)
-            setClusterName(result[0].name)
+            setCareerIds(result[0].careers);
+            setClusterName(result[0].name);
         }
     }
     

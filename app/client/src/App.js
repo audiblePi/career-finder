@@ -14,7 +14,7 @@ const msgs = [
 ];
 
 const getMessages = () => {
-    return msgs
+    return msgs;
 }
 
 const App = (props) => {
