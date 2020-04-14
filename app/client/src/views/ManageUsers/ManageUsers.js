@@ -82,22 +82,16 @@ function ManageUsers() {
     const createUser = (user) => {
         let url = '/_user'
         axios.post('/_user', user)
-            .then(res => {
-                
-            });
     }
 
     const updateUser = (user) => {
         let url = '/_user'
         axios.put(url, user)
-            .then(res => {
-                
-            });
     }
     
     const deleteUser = (user) => {
         let url = '/_user'
-        axios.delete('/_user', {data: {username: "admin5"}})
+        axios.delete('/_user', {data: user})
     }
     
     //console.log(state)
@@ -122,30 +116,15 @@ function ManageUsers() {
                     })
                 }
                 options={{
-                    filtering: true
+                    filtering: true,
+                    loadingType: "linear"
                 }}
                 actions={[
                     {
-                        icon: 'save',
-                        tooltip: 'Save User',
-                        onClick: (event, rowData) => createUser([
-                                {username: rowData.username},
-                                {fname: rowData.fname},
-                                {lname: rowData.lname},
-                                {group: rowData.group},
-                                {points: rowData.points},
-                                {role: rowData.role}])
-                    },
-                    {
-                        icon: 'delete',
-                        tooltip: 'Delete User',
-                        onClick: (event, rowData) => deleteUser([
-                                {username: rowData.username},
-                                {fname: rowData.fname},
-                                {lname: rowData.lname},
-                                {group: rowData.group},
-                                {points: rowData.points},
-                                {role: rowData.role}])
+                        icon: 'refresh',
+                        tooltip: 'Refresh Data',
+                        isFreeAction: true,
+                        onClick: () => this.tableRef.current && this.tableRef.current.onQueryChange(),
                     }
                 ]}
                 editable={{

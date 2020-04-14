@@ -48,6 +48,21 @@ module.exports.create = (req, res) => {
                     if(req.body.password) {
                         newUser.password = req.body.password;
                     }
+                    if(req.body.fname) {
+                        newUser.fname = req.body.fname;
+                    }
+                    if(req.body.lname) {
+                        newUser.lname = req.body.lname;
+                    }
+                    if(req.body.group) {
+                        newUser.group = req.body.group;
+                    }
+                    if(req.body.role) {
+                        newUser.role = req.body.role;
+                    }
+                    if(req.body.points) {
+                        newUser.points = req.body.points;
+                    }
                     newUser.save(function (err) {
                         if(err) {
                             //error in saving document to db
@@ -106,13 +121,12 @@ module.exports.readAll = (req, res) => {
                 }
                 res.send(found);
             } else {
-                res.send({result: 'no-users'});
+                res.send({});
             }
         })
         .catch(err => {
             res.send({result: 'error', error: err});
         });
-
     mongoose.connection.close;
 };
 
@@ -146,16 +160,18 @@ module.exports.delete = (req, res) => {
     console.log("delete request recieved")
     console.log(req.body.username)
     if(req.body.username) {
-    mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-    console.log("db connected")
-    User.deleteOne({username: req.body.username}), function(err) {
-        if(err) {
-            res.send({result: 'error', error: err});
-        } else {
-            res.send({result: 'user-removed'});
-        }
-    };
-    mongoose.connection.close;
+        mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+        console.log("db connected")
+        User.deleteOne({username: req.body.username}, function(err) {        
+            if(err) {
+                res.send({result: 'error', error: err});
+            } else {
+                res.send({result: 'user-removed'});
+            }
+            console.log("delete block finished")
+            mongoose.connection.close;
+            console.log("connection closed to db")
+        })
     } else {
         console.log("no-username")
         res.send({result: 'error'});
