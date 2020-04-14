@@ -34,6 +34,7 @@ function Career(props) {
     //console.log("currentCareer", props.currentCareer)
 
     const career = (career) => {
+        let thisCelebrity = career && career.celebrity ? career.celebrity.name : null;
         return (
             <div>
                 <Typography component="h1" variant="h3" color="inherit" gutterBottom>
@@ -57,13 +58,15 @@ function Career(props) {
                     <Button variant="contained" color="primary" href={"/Cluster/" + cluster + "/Career/" + id + "/DITL/"}>
                         A Day in the Life
                     </Button>
+                    { (thisCelebrity != null) && //https://reactjs.org/docs/conditional-rendering.html
                     <ButtonGroup
                         orientation="vertical"
                         color="primary"
                         aria-label="vertical outlined primary button group"
                         >
-                        <Button color="primary" href={"/Cluster/" + cluster + "/Career/" + id + "/Celebrity"}>Celebrity</Button>
+                        <Button color="primary" href={"/Cluster/" + cluster + "/Career/" + id + "/Celebrity"}>Celebrity Profile: {thisCelebrity}</Button>
                     </ButtonGroup>
+                    }
                 </div>
             </div>
         );
