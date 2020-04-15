@@ -44,19 +44,6 @@ function ManageUsers() {
         ]
     });
     
-    const refreshLookupTable = (lookup) => {
-        let newLookup = { title: 'Class', field: 'group', lookup: { }};
-        let set = new Set();
-        for(var k in state.data) {
-            set.add(k);
-        }
-        for(var k in set) {
-            newLookup.lookup.append(k);
-        }
-    }
-    
-    
-    
     const refresh = () => {
         axios.get('/_user')
         .then(res => {
@@ -67,6 +54,7 @@ function ManageUsers() {
 
     const createUser = (user) => {
         let url = '/_user';
+        user.password = crypto.createHash('md5').update(user.password).digest('hex');
         axios.post(url, user);
     }
 

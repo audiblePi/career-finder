@@ -31,10 +31,7 @@ module.exports.authenticate = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
-    //console.log("creation request rec");
-    console.log(req.body);
     if(req.body.username) {
-        console.log("correct form");
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
         User.findOne({ username: req.body.username })
