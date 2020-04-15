@@ -129,6 +129,7 @@ function ManageUsers() {
                                     return { ...prevState, data };
                                 });
                             }
+                            refresh();
                             }, 600);
                         }),
                     onRowDelete: oldData =>
@@ -143,6 +144,7 @@ function ManageUsers() {
 
                                 return { ...prevState, data };
                             });
+                            refresh();
                             }, 600);
                         }),
                 }}
