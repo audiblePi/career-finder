@@ -9,7 +9,9 @@ const career = new mongoose.Schema({
     shortDescription: String,
     description: String,
     salary: String, // Assuming no calculations needed...
+    image: String,
     ditl: String,
+    ditlImage: String,
     cluster: {type: String, required: true},
     celebrity: { // Celebrity article is unique to career, name is required.
         //name: {type: String, required: true},

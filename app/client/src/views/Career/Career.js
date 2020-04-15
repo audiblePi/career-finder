@@ -1,15 +1,24 @@
 import React, { useEffect } from 'react';
 
-import axios from 'axios';
+//import axios from 'axios';
 import { useParams } from 'react-router-dom'
 
 import Typography from '@material-ui/core/Typography';
 import Keyword from "../../components/Keyword/Keyword";
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+//import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Grid from '@material-ui/core/Grid';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import EditIcon from '@material-ui/icons/Edit';
+
 import { makeStyles } from '@material-ui/core/styles';
 
-import EditModal from '../../components/EditModal/EditModal';
+import EditCareerModal from '../../components/EditModal/EditCareerModal';
 
 const useStyles = makeStyles(theme => ({
     buttongroup: {
@@ -17,10 +26,29 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1),
       },
     },
+    media: {
+        height: 140,
+    },
+    mediaMain: {
+        height: 350,
+    },
     editWrapper: {
         display: 'flex',
-        padding: 20,
-        justifyContent: 'center',
+        paddingBottom: 20,
+        justifyContent: 'flex-end',
+    },
+    img: {
+        borderRadius: '50%',
+        height: 'auto',
+        maxWidth: '100%',
+    },
+    title: {
+        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+    },
+    flex: {
+        display: 'flex',
     },
 }));
 
@@ -39,10 +67,29 @@ function Career(props) {
         setOpen(false);
     };
 
+    const backButton = () => {
+        return (
+            <Button 
+                color="primary"
+                startIcon={<ArrowBackIcon />}
+                size="large"
+                href={"/Cluster/" + cluster}
+                >
+                Back
+            </Button>
+        )
+    }
+
     const editCareer = () => {
         return (
             <div className={classes.editWrapper}>
-                <Button className={classes.editButton} color="inherit" onClick={handleOpen}>
+                <Button 
+                    className={classes.editButton} 
+                    startIcon={<EditIcon />}
+                    variant="outlined"
+                    color="primary"
+                    size="large"
+                    onClick={handleOpen}>
                     Edit Career
                 </Button>
             </div>
@@ -60,49 +107,131 @@ function Career(props) {
     const career = (career) => {
         return (
             <div>
-                
-                { props.role === 'admin' ? editCareer() : ''}
 
+                <Grid container spacing={3}>
+                    <Grid item xs={6}>
+                        {backButton()}
+                    </Grid>
+                    <Grid item xs={6}>
+                        { props.role === 'admin' ? editCareer() : ''}
+                    </Grid>
+                </Grid>
+                
                 <div>
                     <Typography component="h1" variant="h3" color="inherit" gutterBottom>
                         {career.name}
                     </Typography>
-                    <Typography variant="h5" color="inherit" paragraph>
-                        ${career.salary} / year
-                    </Typography>
-                    <div>
-                        <Keyword/>
-                        <Keyword/>
-                        <Keyword/>
-                    </div>
-                    <p>
-                        {career.shortDescription}
-                    </p>
-                    <p>
-                        {career.description}
-                    </p>
-                    <div className={classes.buttongroup}>
-                        <Button variant="contained" color="primary" href={"/Cluster/" + cluster + "/Career/" + id + "/DITL"}>
-                            A Day in the Life
-                        </Button>
-                        <ButtonGroup
-                            orientation="vertical"
-                            color="primary"
-                            aria-label="vertical outlined primary button group"
-                            >
-                            <Button color="primary" href={"/Cluster/" + cluster + "/Career/" + id + "/Celebrity"}>Celebrity</Button>
-                        </ButtonGroup>
-                    </div>
                 </div>
 
-                <EditModal 
+                <Grid container spacing={3}>
+                    <Grid item xs={7}>
+
+                        <Card className={classes.root}>
+                            {/* <CardActionArea> */}
+                                <CardMedia
+                                className={classes.mediaMain}
+                                image={career.image}
+                                title="Contemplative Reptile"
+                                />
+                                <CardContent>
+                                    {/* <Typography gutterBottom variant="h5" component="h2">
+                                        A Day In the Life
+                                    </Typography> */}
+                                    <Typography variant="h5" color="inherit" paragraph>
+                                        ${career.salary} / year
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="div">
+                                        <div>
+                                            <Keyword/>
+                                            <Keyword/>
+                                            <Keyword/>
+                                        </div>
+                                        <p>
+                                            {career.shortDescription}
+                                        </p>
+                                        <p>
+                                            {career.description}
+                                        </p>
+                                    </Typography>
+                                </CardContent>
+                            {/* </CardActionArea> */}
+                            <CardActions>
+                                <Button size="small" color="primary">
+                                    Share
+                                </Button>
+                                <Button size="small" color="primary">
+                                    Learn More
+                                </Button>
+                            </CardActions>
+                        </Card>
+                    
+                    </Grid>
+                
+                    <Grid item xs={5}>
+
+                        <Card className={classes.root}>
+                            {/* <CardActionArea> */}
+                                <CardMedia
+                                    className={classes.media}
+                                    image={career.ditlImage}
+                                    title="Contemplative Reptile"
+                                    />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="h2">
+                                        A Day In the Life
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {career.ditl}
+                                    </Typography>
+                                </CardContent>
+                            {/* </CardActionArea> */}
+                            <CardActions>
+                                <Button size="small" color="primary">
+                                    Share
+                                </Button>
+                                <Button size="small" color="primary">
+                                    Learn More
+                                </Button>
+                            </CardActions>
+                        </Card>
+                    
+                        <br/>
+
+                        <Card className={classes.root}>
+                            {/* <CardActionArea> */}
+                                <CardMedia
+                                    className={classes.media}
+                                    image={career.celebrity.photo}
+                                    title="Contemplative Reptile"
+                                    />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="h2">
+                                        {career.celebrity.name}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {career.celebrity.article}
+                                    </Typography>
+                                </CardContent>
+                            {/* </CardActionArea> */}
+                            <CardActions>
+                                <Button size="small" color="primary">
+                                    Share
+                                </Button>
+                                <Button size="small" color="primary">
+                                    Learn More
+                                </Button>
+                            </CardActions>
+                        </Card>
+
+                    </Grid>
+                </Grid>
+
+                <EditCareerModal 
                     open={open} 
                     handleClose={onClose} 
-                    data={props.careers}
-                    onCreate={props.createCareer}
-                    onUpdate={props.updateCareer}
-                    onDelete={props.deleteCareer}
-                    ignoreKeys={["celebrity"]}/>
+                    data={props.career}
+                    updateCareer={props.updateCareer}
+                    ignoreKeys={[]}/>
 
             </div>
         );

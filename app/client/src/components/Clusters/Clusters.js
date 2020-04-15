@@ -5,8 +5,11 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
+import EditIcon from '@material-ui/icons/Edit';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
 import EditModal from '../EditModal/EditModal';
 
 const useStyles = makeStyles(theme => ({
@@ -16,15 +19,15 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'space-around',
     },
     gridList: {
-        width: 800,
+        width: 1000,
     },
     icon: {
         color: 'rgba(255, 255, 255, 0.54)',
     },
     editWrapper: {
         display: 'flex',
-        padding: 20,
-        justifyContent: 'center',
+        paddingBottom: 20,
+        justifyContent: 'flex-end',
     },
     remove: {
         position: 'absolute',
@@ -53,7 +56,13 @@ export default function Clusters(props) {
     const editClusters = () => {
         return (
             <div className={classes.editWrapper}>
-                <Button className={classes.editButton} color="inherit" onClick={handleOpen}>
+                <Button 
+                    className={classes.editButton} 
+                    startIcon={<EditIcon />}
+                    variant="outlined"
+                    color="primary"
+                    size="large"
+                    onClick={handleOpen}>
                     Edit Clusters
                 </Button>
             </div>
@@ -67,10 +76,17 @@ export default function Clusters(props) {
     return (
         <div>
     
-            { props.role === 'admin' ? editClusters() : ''}
+            <Grid container spacing={3}>
+                <Grid item xs={6}>
+                    {/* {backButton()} */}
+                </Grid>
+                <Grid item xs={6}>
+                    { props.role === 'admin' ? editClusters() : ''}
+                </Grid>
+            </Grid>
             
             <div className={classes.root}>    
-                <GridList cols={3} cellHeight={260} className={classes.gridList}>
+                <GridList cols={3} cellHeight={300} className={classes.gridList}>
                     {props.clusters.map(cluster => (
                         <GridListTile key={cluster._id}>
                             <Link href={"/Cluster/" + cluster._id}>

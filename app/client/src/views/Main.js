@@ -1,12 +1,14 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import { makeStyles } from '@material-ui/core/styles';
+
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import NavBar from "../components/Nav/NavBar";
-import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs";
-import Chat from "../components/Chat/Chat";
+// import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs";
+// import Chat from "../components/Chat/Chat";
 import Home from "../views/Home/Home";
 import Cluster from "../views/Cluster/Cluster";
 import Career from "../views/Career/Career";
@@ -15,13 +17,22 @@ import Celebrity from "../views/Celebrity/Celebrity";
 import ManageUsers from "../views/ManageUsers/ManageUsers";
 import NotFound from "../views/NotFound";
 
+const useStyles = makeStyles(theme => ({
+    root: {
+        paddingTop: 30,
+        paddingBottom: 30,
+    },
+}));
+
 const Main = (props) => {  
+	const classes = useStyles();
+
 	return (
 		<div>
 			<CssBaseline />
 			<NavBar onLogOut={props.onLogOut} role={props.role} />
-			<Container maxWidth="lg">      
-				<Breadcrumbs/>
+			<Container maxWidth="md" className={classes.root}>      
+				{/* <Breadcrumbs/> */}
 				<Switch>
 					{/* <Route exact path="/" component={Home} /> */}
 					<Route exact path="/" render={(routeProps) => <Home {...routeProps} {...props}/>}  />
@@ -33,7 +44,7 @@ const Main = (props) => {
 					<Route component={NotFound}/>
 				</Switch>
 			</Container>
-			<Chat {...props}/>
+			{/* <Chat {...props}/> */}
 		</div>
 	)
 }

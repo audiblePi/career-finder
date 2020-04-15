@@ -57,14 +57,7 @@ describe('Restarting Data', () => {
             Clusters.findOne({name: doc.name})
             .then(found => {
                 if(!found) {
-                    c = {
-                        "name": doc.name,
-                        "image": doc.image,
-                        "keywords": doc.keywords,
-                        "careers": doc.careers,
-                    }
-
-                    Clusters.create(c, (err) => {
+                    Clusters.create(doc, (err) => {
                         if (err) throw err;
                         callback();
                     });

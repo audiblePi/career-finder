@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import axios from 'axios';
-import { useParams } from 'react-router-dom'
+//import axios from 'axios';
+//import { useParams } from 'react-router-dom'
 
 import Typography from '@material-ui/core/Typography';
 
 function DITL(props) {
 
-    let { id } = useParams()
+    //let { id } = useParams()
 
     // const getCurrentCareer = async (id, set) => {
     //     const res = await axios.get('/_career/' + id);
@@ -19,15 +19,15 @@ function DITL(props) {
     //     getCurrentCareer(id, props.setCurrentCareer)
     // }, [id, props.setCurrentCareer]);
 
-    const getCareer = () => {
-        props.readCareer(id)
-    }
+    // const getCareer = () => {
+    //     props.readCareer(id)
+    // }
 
-    useEffect(() => {
-        getCareer()
-    }, []);
+    // useEffect(() => {
+    //     getCareer()
+    // }, []);
 
-    console.log("career", props.career)
+    //console.log("career", props.career)
 
     const ditl = (career) => {
         return (
