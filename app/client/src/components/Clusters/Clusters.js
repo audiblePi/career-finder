@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'space-around',
     },
     gridList: {
-        width: 1000,
+        width: 1280,
     },
     icon: {
         color: 'rgba(255, 255, 255, 0.54)',
@@ -86,7 +86,7 @@ export default function Clusters(props) {
             </Grid>
             
             <div className={classes.root}>    
-                <GridList cols={3} cellHeight={300} className={classes.gridList}>
+                <GridList cols={4} cellHeight={320} className={classes.gridList}>
                     {props.clusters.map(cluster => (
                         <GridListTile key={cluster._id}>
                             <Link href={"/Cluster/" + cluster._id}>

@@ -81,7 +81,7 @@ export default function Login(props) {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <Typography component="h1" variant="h5">
+                <Typography component="h1" variant="h2">
                     CareerFind
                 </Typography>
 

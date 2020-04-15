@@ -105,6 +105,7 @@ function Career(props) {
     }, []);
 
     const career = (career) => {
+        let thisCelebrity = career && career.celebrity ? career.celebrity.name : null;
         return (
             <div>
 
@@ -197,31 +198,33 @@ function Career(props) {
                     
                         <br/>
 
-                        <Card className={classes.root}>
-                            {/* <CardActionArea> */}
-                                <CardMedia
-                                    className={classes.media}
-                                    image={career.celebrity.photo}
-                                    title="Contemplative Reptile"
-                                    />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        {career.celebrity.name}
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {career.celebrity.article}
-                                    </Typography>
-                                </CardContent>
-                            {/* </CardActionArea> */}
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                                </Button>
-                            </CardActions>
-                        </Card>
+                        { (thisCelebrity != null) &&
+                            <Card className={classes.root}>
+                                {/* <CardActionArea> */}
+                                    <CardMedia
+                                        className={classes.media}
+                                        image={career.celebrity.photo}
+                                        title="Contemplative Reptile"
+                                        />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="h2">
+                                            {career.celebrity.name}
+                                        </Typography>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            {career.celebrity.article}
+                                        </Typography>
+                                    </CardContent>
+                                {/* </CardActionArea> */}
+                                <CardActions>
+                                    <Button size="small" color="primary">
+                                        Share
+                                    </Button>
+                                    <Button size="small" color="primary">
+                                        Learn More
+                                    </Button>
+                                </CardActions>
+                            </Card>
+                        }
 
                     </Grid>
                 </Grid>

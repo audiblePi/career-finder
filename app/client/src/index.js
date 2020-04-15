@@ -4,10 +4,24 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import theme from "./theme.js";
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+//<link href='https://fonts.googleapis.com/css?family=Quicksand:700:bold|Montserrat:400' rel='stylesheet' type='text/css'></link>
+//<link href='https://fonts.googleapis.com/css?family=Alice|Montserrat:400' rel='stylesheet' type='text/css'></link>
+//<link href='https://fonts.googleapis.com/css?family=Quando|Montserrat:400' rel='stylesheet' type='text/css'></link>
+//<link href='https://fonts.googleapis.com/css?family=Montserrat+Alternatives:700:Bold|Montserrat:400' rel='stylesheet' type='text/css'></link>
 ReactDOM.render(
     <Router>
-        <App />
-    </Router>, document.getElementById('root'));
+        <link href='https://fonts.googleapis.com/css?family=Quando&effect=fire-animation|Montserrat:400' rel='stylesheet' type='text/css'></link>
+        <MuiThemeProvider theme={theme}>
+            <CssBaseline />
+                <App />
+        </MuiThemeProvider>
+    </Router>,
+    document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
