@@ -54,13 +54,17 @@ function ManageUsers() {
 
     const createUser = (user) => {
         let url = '/_user';
-        user.password = crypto.createHash('md5').update(user.password).digest('hex');
+        if(user.password) {
+            user.password = crypto.createHash('md5').update(user.password).digest('hex');
+        }
         axios.post(url, user);
     }
 
     const updateUser = (user) => {
         let url = '/_user';
-        user.password = crypto.createHash('md5').update(user.password).digest('hex');
+        if(user.password) {
+            user.password = crypto.createHash('md5').update(user.password).digest('hex');
+        }
         axios.put(url, user);
     }
     
