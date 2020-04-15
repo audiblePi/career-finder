@@ -112,6 +112,7 @@ function ManageUsers() {
 
                                 return { ...prevState, data };
                             });
+                            refresh();
                             }, 600);
                         }),
                     onRowUpdate: (newData, oldData) =>
