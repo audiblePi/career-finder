@@ -70,6 +70,9 @@ function ManageUsers() {
             user.password = crypto.createHash('md5').update(user.pass).digest('hex');
             user.pass = "";
         }
+        if(user.user) {
+            user.username = user.user;
+        }
         axios.put(url, user);
     }
     
