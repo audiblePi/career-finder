@@ -15,7 +15,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 //<link href='https://fonts.googleapis.com/css?family=Montserrat+Alternatives:700:Bold|Montserrat:400' rel='stylesheet' type='text/css'></link>
 ReactDOM.render(
     <Router>
-        <link href='https://fonts.googleapis.com/css?family=Comic+Neue:400&effect=emboss|Montserrat:bold:700' rel='stylesheet' type='text/css'></link>
+        <link href='https://fonts.googleapis.com/css?family=Comic+Neue:400|Montserrat:bold:700' rel='stylesheet' type='text/css'></link>
         <MuiThemeProvider theme={theme}>
             <CssBaseline />
                 <App />
