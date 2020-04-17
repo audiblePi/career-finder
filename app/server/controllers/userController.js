@@ -7,7 +7,7 @@ module.exports.authenticate = (req, res) => {
         //console.log(req.body.password);
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
-        User.findOne({ username: req.body.username })
+        User.findOne({ user: req.body.username })
             .then(found => {
                 if(found.password === req.body.password) {
                     //password matches
@@ -34,14 +34,14 @@ module.exports.create = (req, res) => {
     if(req.body.username) {
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
-        User.findOne({ username: req.body.username })
+        User.findOne({ user: req.body.username })
             .then(found => {
                 if(found) {
                     //user already exists
                     res.send({result: 'username-already-exists'});
                 } else {
                     //user does not exist, so it will be added
-                    var newUser = new User({ username: req.body.username });
+                    var newUser = new User({ user: req.body.username });
                     if(req.body.password) {
                         newUser.password = req.body.password;
                     }
@@ -159,7 +159,7 @@ module.exports.delete = (req, res) => {
     if(req.body.username) {
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
         console.log("db connected")
-        User.deleteOne({username: req.body.username}, function(err) {        
+        User.deleteOne({user: req.body.username}, function(err) {        
             if(err) {
                 res.send({result: 'error', error: err});
             } else {

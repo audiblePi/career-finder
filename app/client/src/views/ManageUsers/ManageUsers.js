@@ -34,11 +34,11 @@ function ManageUsers() {
     
     const [state, setState] = React.useState({
         columns: [
-            { title: 'Username', field: 'username', filtering: false },
+            { title: 'Username', field: 'user', filtering: false },
             { title: 'FName', field: 'fname', filtering: false  },
             { title: 'LName', field: 'lname', filtering: false  },
             { title: 'Class', field: 'group', filtering: false },
-            { title: 'Password', field: 'password', filtering: false },
+            { title: 'Password', field: 'pass', filtering: false },
             { title: 'Points', field: 'points', filtering: false  },
             { title: 'Role', field: 'role', lookup: { 'student': 'Student', 'admin': 'Admin'}, },
         ]
@@ -54,22 +54,30 @@ function ManageUsers() {
 
     const createUser = (user) => {
         let url = '/_user';
-        if(user.password) {
-            user.password = crypto.createHash('md5').update(user.password).digest('hex');
+        if(user.pass) {
+            user.password = crypto.createHash('md5').update(user.pass).digest('hex');
+            user.pass = "";
+        }
+        if(user.user) {
+            user.username = user.user;
         }
         axios.post(url, user);
     }
 
     const updateUser = (user) => {
         let url = '/_user';
-        if(user.password) {
-            user.password = crypto.createHash('md5').update(user.password).digest('hex');
+        if(user.pass) {
+            user.password = crypto.createHash('md5').update(user.pass).digest('hex');
+            user.pass = "";
         }
         axios.put(url, user);
     }
     
     const deleteUser = (user) => {
         let url = '/_user';
+        if(user.user) {
+            user.username = user.user;
+        }
         axios.delete(url, {data: user});
     }
     

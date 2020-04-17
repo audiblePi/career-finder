@@ -1,7 +1,7 @@
 {
     "entries": [
         {
-            "username": "admin",
+            "user": "admin",
             "password": "21232f297a57a5a743894a0e4a801fc3",
             "role": "admin",
             "group": "p",
@@ -9,7 +9,7 @@
             "lname": "admin-lname"
         },
         {
-            "username": "student",
+            "user": "student",
             "password": "cd73502828457d15655bbd7a63fb0bc8",
             "role": "student",
             "group": "s",
