@@ -8,13 +8,14 @@ import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import theme from "./theme.js";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
+
 //<link href='https://fonts.googleapis.com/css?family=Quicksand:700:bold|Montserrat:400' rel='stylesheet' type='text/css'></link>
 //<link href='https://fonts.googleapis.com/css?family=Alice|Montserrat:400' rel='stylesheet' type='text/css'></link>
 //<link href='https://fonts.googleapis.com/css?family=Quando|Montserrat:400' rel='stylesheet' type='text/css'></link>
 //<link href='https://fonts.googleapis.com/css?family=Montserrat+Alternatives:700:Bold|Montserrat:400' rel='stylesheet' type='text/css'></link>
 ReactDOM.render(
     <Router>
-        <link href='https://fonts.googleapis.com/css?family=Quando&effect=fire-animation|Montserrat:400' rel='stylesheet' type='text/css'></link>
+        <link href='https://fonts.googleapis.com/css?family=Comic+Neue:400&effect=emboss|Montserrat:bold:700' rel='stylesheet' type='text/css'></link>
         <MuiThemeProvider theme={theme}>
             <CssBaseline />
                 <App />
