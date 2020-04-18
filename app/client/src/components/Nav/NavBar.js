@@ -214,7 +214,7 @@ class PrimarySearchAppBar extends React.Component {
             <div className={classes.sectionDesktop}>
 
               {/*ManageUsers*/}
-              {this.props.role === 'admin' ? <Button endIcon={<PeopleIcon />} color="inherit" href="/ManageUsers">Manage Users</Button>
+              {this.props.role === 'admin' ? <Button startIcon={<PeopleIcon />} color="inherit" href="/ManageUsers">Manage Users</Button>
  : ''}
 
               {/*Awards*/}
@@ -239,7 +239,7 @@ class PrimarySearchAppBar extends React.Component {
               {/*Profile*/}
               <Button 
                 color="inherit" 
-                endIcon={<ExitToAppIcon />}
+                startIcon={<ExitToAppIcon />}
                 onClick={(e) => this.props.onLogOut()}>
                 Log Out
               </Button>

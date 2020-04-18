@@ -5,20 +5,20 @@ import MaterialTable from 'material-table';
 import crypto from 'crypto';
 import axios from 'axios';
 
-const users2 = [
+// const users2 = [
 
-];
+// ];
 
-function getUsers() {
-    axios.get('/_user')
-        .then(res => {
-            return res.data;
-        });
-}
+// function getUsers() {
+//     axios.get('/_user')
+//         .then(res => {
+//             return res.data;
+//         });
+// }
 
-const retrieve = () => {
-    return users2;
-}
+// const retrieve = () => {
+//     return users2;
+// }
 
 
 function ManageUsers() {
@@ -39,7 +39,6 @@ function ManageUsers() {
             { title: 'LName', field: 'lname', filtering: false  },
             { title: 'Class', field: 'group', filtering: false },
             { title: 'Password', field: 'pass', filtering: false },
-            { title: 'Points', field: 'points', filtering: false  },
             { title: 'Role', field: 'role', lookup: { 'student': 'Student', 'admin': 'Admin'}, },
         ]
     });

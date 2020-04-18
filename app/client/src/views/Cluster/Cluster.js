@@ -99,7 +99,7 @@ function Cluster(props) {
                 <Grid container spacing={3}>
                     {props.careers.map( (career, key) => {                    
                         if (career.cluster === cluster)
-                            return <Grid key={key} item xs={6}><CareerCard career={career}/></Grid>
+                            return <Grid key={key} item xs={12}><CareerCard career={career}/></Grid>
 
                         return ""
                     })}

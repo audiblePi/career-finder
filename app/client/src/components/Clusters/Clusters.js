@@ -86,7 +86,7 @@ export default function Clusters(props) {
             </Grid>
             
             <div className={classes.root}>    
-                <GridList cols={4} cellHeight={320} className={classes.gridList}>
+                <GridList cols={3} cellHeight={320} className={classes.gridList}>
                     {props.clusters.map(cluster => (
                         <GridListTile key={cluster._id}>
                             <Link href={"/Cluster/" + cluster._id}>

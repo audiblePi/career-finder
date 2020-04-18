@@ -14,9 +14,9 @@ const useStyles = makeStyles({
     root: {
       maxWidth: "100%",
     },
-    shortDescription: {
-        minHeight: 50,
-    },
+    // shortDescription: {
+    //     minHeight: 50,
+    // },
 });
 
 function CareerCard(props) {

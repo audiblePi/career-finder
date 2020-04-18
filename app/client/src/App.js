@@ -5,24 +5,11 @@ import Main from "./views/Main";
 
 import axios from 'axios';
 
-// const msgs = [
-//     { 
-//         id: 1,
-//         type: "chatbot",
-//         message: "Hello, Apollo 11. Houston. We're standing by.",
-//     }
-// ];
-
-// const getMessages = () => {
-//     return msgs
-// }
-
 const App = (props) => {
     const [user_id, setUserId] = useState(localStorage.getItem('user_id') || '');
     const [role, setRole] = useState(localStorage.getItem('role') || '');
     const [cluster, setCluster] = useState({});//should be cluster not clustername
     const [clusters, setClusters] = useState([]);
-    //const [chatMessages, setChatMessages] = useState(getMessages);
     const [career, setCareer] = useState("");
     const [careers, setCareers] = useState([]);
 
@@ -186,25 +173,6 @@ const App = (props) => {
 
 
 
-
-
-
-
-
-    /********************
-    * Chat CRUD
-    ********************/
-    // const addMessage = (e, message) => {
-    //     e.preventDefault()
-    
-    //     let id = chatMessages.length + 1
-
-    //     let m = { id: id, type: "response", message: message }
-
-    //     let r = { id: id + 1, type: "chatbot", message: "Roger. " + message }
-
-    //     setChatMessages([...chatMessages, m, r])
-    // }
 
 
 

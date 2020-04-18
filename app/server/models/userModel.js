@@ -6,8 +6,7 @@ const loginSchema = new mongoose.Schema({
     fname: { type: String },
     lname: { type: String },
     role: { type: String, enum: ['admin', 'student'], default: 'student' }, //admin, student
-    group: { type: String },
-    points: { type: Number, default: 0 }
+    group: { type: String }
 });
 
 //removes the password field for when being passed back to client
