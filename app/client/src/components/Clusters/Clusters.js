@@ -95,7 +95,8 @@ export default function Clusters(props) {
                                 <img src={cluster.image} alt={cluster.name} className="MuiGridListTile-imgFullHeight"/>
                                 <GridListTileBar
                                     title={cluster.name}
-                                    subtitle={<span>Subtitle</span>}
+                                    /*subtitle={<span>Subtitle</span>}*/
+                                    subtitle={<span></span>}
                                     actionIcon={
                                         <IconButton aria-label={`info about ${cluster.name}`} className={classes.icon}>
                                             <InfoIcon />

@@ -4,16 +4,16 @@ import {createMuiTheme} from '@material-ui/core/styles';
 //import primary from '@material-ui/core/colors/lightBlue';
 //import secondary from '@material-ui/core/colors/orange';
 //import background from '@material-ui/core/colors/lime';
-import primary from '@material-ui/core/colors/deepPurple';
-import secondary from '@material-ui/core/colors/teal';
-import background from '@material-ui/core/colors/orange';
+//import primary from '@material-ui/core/colors/deepPurple';
+//import secondary from '@material-ui/core/colors/teal';
+//import background from '@material-ui/core/colors/orange';
 
 //https://developers.google.com/fonts/docs/getting_started
 
 let headFont = 'Montserrat';
 let bodyFont = 'Comic Neue';
 let scaleFactor = 1.25;
-let articleScaleFactor = 2;
+let articleScaleFactor = 1.66;
 // Blue, Orange, Cyan
 //let pColor = '#01579b';
 //let sColor = '#ff3d00';
@@ -65,7 +65,7 @@ export default createMuiTheme({
         // https://material.io/design/typography/#
         // NOTE: These are the web defaults for Material-UI.
        h1: {fontFamily: headFont, fontSize: 99 * scaleFactor, color: pColor,},
-       h2: {fontFamily: headFont, fontSize: 62 * scaleFactor, color: pColor,},
+       h2: {fontFamily: headFont, fontSize: 62 * scaleFactor * 0.9, color: pColor,},
        h3: {fontFamily: headFont, fontSize: 49 * scaleFactor * 0.75, color: pColor,},
        h4: {fontFamily: headFont, fontSize: 35 * scaleFactor,},
        h5: {fontFamily: headFont, fontSize: 25 * scaleFactor,},
@@ -74,7 +74,7 @@ export default createMuiTheme({
        subtitle2: {fontFamily: bodyFont, fontSize: 14 * scaleFactor,},
        body1: {fontFamily: bodyFont, fontSize: 16 * scaleFactor,},
        body2: {fontFamily: bodyFont, fontSize: 14 * articleScaleFactor,},
-       button: {fontFamily: bodyFont, fontSize: 14 * scaleFactor,},
+       button: {fontFamily: bodyFont, fontSize: 14 * scaleFactor * 1.5,},
        caption: {fontFamily: bodyFont, fontSize: 12 * scaleFactor,},
        overline: {fontFamily: bodyFont, fontSize: 10 * scaleFactor,},       
       },
