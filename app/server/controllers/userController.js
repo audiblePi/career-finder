@@ -4,6 +4,7 @@ const config = require('../config/config.js');
 
 module.exports.authenticate = (req, res) => {
     if(req.body.username && req.body.password) {
+        //console.log(req.body.password);
         mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
         User.findOne({ user: req.body.username })
@@ -43,6 +44,21 @@ module.exports.create = (req, res) => {
                     var newUser = new User({ user: req.body.username });
                     if(req.body.password) {
                         newUser.password = req.body.password;
+                    }
+                    if(req.body.fname) {
+                        newUser.fname = req.body.fname;
+                    }
+                    if(req.body.lname) {
+                        newUser.lname = req.body.lname;
+                    }
+                    if(req.body.group) {
+                        newUser.group = req.body.group;
+                    }
+                    if(req.body.role) {
+                        newUser.role = req.body.role;
+                    }
+                    if(req.body.points) {
+                        newUser.points = req.body.points;
                     }
                     newUser.save(function (err) {
                         if(err) {
@@ -91,24 +107,23 @@ module.exports.read = (req, res) => {
 //send all users
 module.exports.readAll = (req, res) => {
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-
+    console.log("read all request");
     User.find({})
         .then(found => {
             if(found[0]) {
                 //res.write({result: 'match'});
                 //remove passwords on send
-                found.forEach(function(i) {
-                    i.toResponse();
-                });
+                for(let i = 0, len = found.length; i < len; i++) {
+                    found[i] = found[i].toResponse();
+                }
                 res.send(found);
             } else {
-                res.send({result: 'no-users'});
+                res.send({});
             }
         })
         .catch(err => {
             res.send({result: 'error', error: err});
         });
-
     mongoose.connection.close;
 };
 
@@ -139,17 +154,25 @@ module.exports.update = (req, res) => {
 
 //remove user based off of username
 module.exports.delete = (req, res) => {
-    mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-
-    User.deleteOne({user: req.body.username}), function(err) {
-        if(err) {
-            res.send({result: 'error', error: err});
-        } else {
-            res.send({result: 'user-removed'});
-        }
-    };
-
-    mongoose.connection.close;
+    console.log("delete request recieved")
+    console.log(req.body.username)
+    if(req.body.username) {
+        mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+        console.log("db connected")
+        User.deleteOne({user: req.body.username}, function(err) {        
+            if(err) {
+                res.send({result: 'error', error: err});
+            } else {
+                res.send({result: 'user-removed'});
+            }
+            console.log("delete block finished")
+            mongoose.connection.close;
+            console.log("connection closed to db")
+        })
+    } else {
+        console.log("no-username")
+        res.send({result: 'error'});
+    }
 };
 
 //template endpoint for database

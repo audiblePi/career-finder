@@ -1,8 +1,12 @@
 // https://material-ui.com/customization/theming/#createmuitheme-options-args-theme
 import {createMuiTheme} from '@material-ui/core/styles';
-import primary from '@material-ui/core/colors/lightBlue';
-import secondary from '@material-ui/core/colors/orange';
-import background from '@material-ui/core/colors/lime';
+
+//import primary from '@material-ui/core/colors/lightBlue';
+//import secondary from '@material-ui/core/colors/orange';
+//import background from '@material-ui/core/colors/lime';
+import primary from '@material-ui/core/colors/deepPurple';
+import secondary from '@material-ui/core/colors/teal';
+import background from '@material-ui/core/colors/orange';
 
 //https://developers.google.com/fonts/docs/getting_started
 

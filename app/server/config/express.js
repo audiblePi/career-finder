@@ -7,8 +7,6 @@ const path = require('path'),
 const authRouter = require('../routes/authRouter.js');
 const userRouter = require('../routes/userRouter.js');
 const clusterRouter = require('../routes/clusterRouter.js');
-const specialClusterRouter = require('../routes/specialClusterRouter.js');
-const specialUserRouter = require('../routes/specialUserRouter.js');
 const careersRouter = require('../routes/careerRouter.js');
 
 module.exports.init = () => {
