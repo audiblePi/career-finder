@@ -8,6 +8,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import EditModal from '../EditModal/EditModal';
+import Grow from '@material-ui/core/Grow';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -64,6 +65,7 @@ export default function Clusters(props) {
             <div className={classes.root}>    
                 <GridList cols={4} cellHeight={320} className={classes.gridList}>
                     {props.clusters.map(cluster => (
+                        <Grow in={true}>
                         <GridListTile key={cluster._id}>
                             <Link href={"/Cluster/" + cluster._id}>
                                 <img src={cluster.image} alt={cluster.name} className="MuiGridListTile-imgFullHeight"/>
@@ -75,10 +77,12 @@ export default function Clusters(props) {
                                             <InfoIcon />
                                         </IconButton>
                                     }
+                                    className="cssTest"
                                 />
                             </Link>
                         </GridListTile>
-                    ))}
+                        </Grow>
+                      ))}
                 </GridList>
 
                 <EditModal 

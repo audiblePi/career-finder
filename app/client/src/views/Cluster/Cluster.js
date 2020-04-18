@@ -35,7 +35,7 @@ function Cluster(props) {
 
     return (
         <div className={classes.root}>
-            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+            <Typography component="h1" variant="h3" gutterBottom>
                 { clusterName === "" ? "" : 'Careers: ' + clusterName }
             </Typography>
 

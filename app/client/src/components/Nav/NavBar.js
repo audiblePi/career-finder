@@ -18,6 +18,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ListIcon from '@material-ui/icons/List';
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import Back from '@material-ui/icons/KeyboardBackspace';
 
 // import clsx from 'clsx';
 // import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -178,13 +180,21 @@ class PrimarySearchAppBar extends React.Component {
       </Menu>
     );
 
+    function goBack() {
+      window.history.back();
+    };
+
     return (
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
             <Typography className={classes.title} variant="h4" color="inherit" noWrap>
-              CareerFind
+              <Link href="/" value="CareerFind" color="secondary">
+                CareerFind
+              </Link>
             </Typography>
+
+            <Button onClick={goBack} color="inherit"><Back />BACK</Button>
 
             <div className={classes.grow} />
             
