@@ -5,7 +5,6 @@ const clusterData = [
     name: 'Agriculture',
     subtitle: 'Agriculture, food and natural resources',
     keywords: [],
-    careers:[101, 102, 103, 104, 105],
   },
   {
     _id: 2,
@@ -13,7 +12,6 @@ const clusterData = [
     name: 'Architecture',
     subtitle: 'Architecture and construction',
     keywords: [],
-    careers:[201],
   },
   {
     _id: 3,
@@ -21,7 +19,6 @@ const clusterData = [
     name: 'Arts',
     subtitle: 'Arts, audio/video technology, and communications',
     keywords: [],
-    careers:[301],
   },
   {
     _id: 4,
@@ -29,7 +26,6 @@ const clusterData = [
     name: 'Business',
     subtitle: 'Business management and administration ',
     keywords: [],
-    careers:[401],
   },
   {
     _id: 5,
@@ -37,7 +33,6 @@ const clusterData = [
     name: 'Education',
     subtitle: 'Education and training',
     keywords: [],
-    careers:[501],
   },
   {
     _id: 6,
@@ -45,7 +40,6 @@ const clusterData = [
     name: 'Finance',
     subtitle: 'Finance',
     keywords: [],
-    careers:[601],
   },
   {
     _id: 7,
@@ -53,7 +47,6 @@ const clusterData = [
     name: 'Government',
     subtitle: 'Government and public administration',
     keywords: [],
-    careers:[701],
   },
   {
     _id: 8,
@@ -61,7 +54,6 @@ const clusterData = [
     name: 'Health',
     subtitle: 'Health sciences',
     keywords: [],
-    careers:[801],
   },
   {
     _id: 9,
@@ -69,7 +61,6 @@ const clusterData = [
     name: 'Hospitality',
     subtitle: 'Hospitality and tourism',
     keywords: [],
-    careers:[901],
   },
   {
     _id: 10,
@@ -77,7 +68,6 @@ const clusterData = [
     name: 'Human services',
     subtitle: 'Human services',
     keywords: [],
-    careers:[1001],
   },
   {
     _id: 11,
@@ -85,7 +75,6 @@ const clusterData = [
     name: 'Information technology',
     subtitle: 'Information technology',
     keywords: [],
-    careers:[1101],
   },
   {
     _id: 12,
@@ -93,7 +82,6 @@ const clusterData = [
     name: 'Law',
     subtitle: 'Law, public safety, corrections, and security',
     keywords: [],
-    careers:[1201],
   },
   {
     _id: 13,
@@ -101,7 +89,6 @@ const clusterData = [
     name: 'Manufacturing',
     subtitle: 'Manufacturing',
     keywords: [],
-    careers:[1301],
   },
   {
     _id: 14,
@@ -109,7 +96,6 @@ const clusterData = [
     name: 'Marketing',
     subtitle: 'Marketing',
     keywords: [],
-    careers:[1401],
   },
   {
     _id: 15,
@@ -117,7 +103,6 @@ const clusterData = [
     name: 'STEM',
     subtitle: 'Science, technology, engineering, and mathematics',
     keywords: [],
-    careers:[1501],
   },
   {
     _id: 16,
@@ -125,7 +110,6 @@ const clusterData = [
     name: 'Transportation',
     subtitle: 'Transportation, distribution, and logistics',
     keywords: [],
-    careers:[1601],
   },
 ];
 
