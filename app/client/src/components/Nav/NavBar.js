@@ -199,10 +199,6 @@ class PrimarySearchAppBar extends React.Component {
       </Menu>
     );
 
-    function goBack() {
-      window.history.back();
-    };
-
     return (
       <div className={classes.root}>
         <AppBar position="static">
