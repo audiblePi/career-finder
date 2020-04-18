@@ -9,3 +9,7 @@
 /*.MuiGridListTile-imgFullHeight:hover {
     transform: scale(1.1) translateX(-50%) !important;
 }*/
+
+.MuiTableCell-root {
+    font-size:12px!important;
+}
