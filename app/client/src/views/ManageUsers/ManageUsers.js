@@ -86,7 +86,7 @@ function ManageUsers() {
     return (
         
         <div>
-            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+            <Typography component="h1" variant="h4" color="primary" gutterBottom>
                 Manage Users
             </Typography>
             

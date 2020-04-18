@@ -93,7 +93,7 @@ function Cluster(props) {
             </Grid>
 
             <div className={classes.root}>
-                <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                <Typography component="h1" variant="h4" color="primary" gutterBottom>
                     {(props.cluster.name === undefined) ? 'Careers: ' : 'Careers: ' + props.cluster.name}
                 </Typography>
 
