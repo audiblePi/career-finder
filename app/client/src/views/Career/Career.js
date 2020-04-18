@@ -119,7 +119,7 @@ function Career(props) {
                 </Grid>
                 
                 <div>
-                    <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                    <Typography component="h1" variant="h4" color="primary" gutterBottom>
                         {career.name}
                     </Typography>
                 </div>
