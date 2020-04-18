@@ -77,7 +77,7 @@ const App = (props) => {
         }
     }
 
-    const updateCluster = async (cluster) => {
+    const updateCluster = async (cluster) => {                                                  
         const res = await axios.put('/_cluster/' + cluster._id, {
             name: cluster.name,
             image: cluster.image,
@@ -108,7 +108,11 @@ const App = (props) => {
     * Cluster Careers
     ********************/
     const createCareer = async (career) => {
+        let path = window.location.pathname
+        let cluster = path.split("/")[2]
+
         let defaultCareer = {
+            cluster: cluster,
             description: "",
             image: "",
             ditl: "",
@@ -125,7 +129,7 @@ const App = (props) => {
             cluster: career.cluster,
             salary: career.salary,
             ...defaultCareer 
-        });
+        });        
         console.log(res)
         if (res.data.result === "successfully-added") {
             readCareers(res.data.career.cluster)//forces update? ehhhh?
