@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import MaterialTable from 'material-table';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -55,7 +56,7 @@ const processData = (data, ignoreKeys) => {
 
         let row = {
             key: member,
-            value: data[member],
+            value: data[member],          
         }
 
         rows.push(row)
@@ -69,7 +70,17 @@ export default function EditModal(props) {
   
     const [columns] = useState([
         { title: 'Key', field: 'key', editable: 'never' },
-        { title: 'Value', field: 'value' },
+        { title: 'Value',
+          field: 'value',
+          editComponent: props => (
+            <TextField
+            id="standard-multiline-flexible"
+            multiline
+            fullWidth={true}
+            rowsMax={2}
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)}
+          />)   },
     ]);
     const [state, setState] = useState({});
     const [modalStyle] = useState(getModalStyle);
