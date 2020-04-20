@@ -113,7 +113,7 @@ function Cluster(props) {
                     onCreate={props.createCareer}
                     onUpdate={props.updateCareer}
                     onDelete={props.deleteCareer}
-                    ignoreKeys={["celebrity", "description", "ditl", "ditlImage"]}/>
+                    ignoreKeys={["celebrity", "description", "ditl", "ditlImage", "cluster"]}/>
             </div>
         </div>
     );

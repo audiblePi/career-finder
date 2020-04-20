@@ -4,7 +4,8 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+//import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import theme from "./theme.js";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
