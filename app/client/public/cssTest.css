@@ -15,5 +15,10 @@
 }
 
 .MuiTableCell-root {
-    font-size:12px!important;
+    /*font-size:12px!important; // Too small? Multiline edit might address this...*/
+    font-size: 18px !important;
+}
+
+.MuiInputBase-root {
+    font-size: 18px !important;
 }
