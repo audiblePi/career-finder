@@ -5,22 +5,6 @@ import MaterialTable from 'material-table';
 import crypto from 'crypto';
 import axios from 'axios';
 
-// const users2 = [
-
-// ];
-
-// function getUsers() {
-//     axios.get('/_user')
-//         .then(res => {
-//             return res.data;
-//         });
-// }
-
-// const retrieve = () => {
-//     return users2;
-// }
-
-
 function ManageUsers() {
     
     const [users, setUsers] = React.useState([]);
@@ -100,7 +84,7 @@ function ManageUsers() {
     return (
         
         <div>
-            <Typography component="h1" variant="h4" color="primary" gutterBottom>
+            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
                 Manage Users
             </Typography>
             
@@ -134,7 +118,6 @@ function ManageUsers() {
 
                                 return { ...prevState, data };
                             });
-                            //refresh();
                             }, 600);
                         }),
                     onRowUpdate: (newData, oldData) =>
@@ -151,7 +134,6 @@ function ManageUsers() {
                                     return { ...prevState, data };
                                 });
                             }
-                            //refresh();
                             }, 600);
                         }),
                     onRowDelete: oldData =>
@@ -166,7 +148,6 @@ function ManageUsers() {
 
                                 return { ...prevState, data };
                             });
-                            //refresh();
                             }, 600);
                         }),
                 }}
