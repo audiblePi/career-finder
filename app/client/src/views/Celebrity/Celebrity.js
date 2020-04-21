@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import axios from 'axios';
+//import axios from 'axios';
 
 import { useParams } from 'react-router-dom'
 
@@ -37,14 +37,23 @@ function Celebrity(props) {
 
     let { id } = useParams()
 
-    const getCurrentCareer = async (id, set) => {
-        const res = await axios.get('/_career/' + id);
-        set(res.data)
+    // const getCurrentCareer = async (id, set) => {
+    //     const res = await axios.get('/_career/' + id);
+    //     console.log(res)
+    //     set(res.data)
+    // }
+
+    // useEffect(() => {
+    //     getCurrentCareer(id, props.setCurrentCareer)
+    // }, [id, props.setCurrentCareer]);
+
+    const getCareer = () => {
+        props.readCareer(id)
     }
 
     useEffect(() => {
-        getCurrentCareer(id, props.setCurrentCareer)
-    }, [id, props.setCurrentCareer]);
+        getCareer()
+    }, []);
 
     const celebrity = (celebrity) => {
         return (
@@ -72,7 +81,7 @@ function Celebrity(props) {
 
     return (    
         <div>
-            {props.currentCareer === "" ? "" : celebrity(props.currentCareer.celebrity)}
+            {props.career === "" ? "" : celebrity(props.career.celebrity)}
         </div>
     );
 }

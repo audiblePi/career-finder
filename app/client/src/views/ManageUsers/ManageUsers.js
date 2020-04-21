@@ -156,5 +156,4 @@ function ManageUsers() {
         </div>
     );
 }
-
 export default ManageUsers;

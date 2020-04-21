@@ -1,0 +1,24 @@
+.MuiGridListTile-tile .MuiGridListTileBar-title {
+    font-size: 20px !important;
+}
+.MuiGridListTile-tile:hover .MuiGridListTileBar-title {
+    /*font-size: 24px !important;*/
+    transform: scale(1.1) translateX(5%) !important;
+    transition: transform 40ms cubic-bezier(0, 0, 0.9, 0.9) !important;
+    transform-origin: 50% 50% !important;
+}
+
+.MuiGridListTile-imgFullHeight:hover {
+    transform: scale(1.2) translateX(-50%) !important;
+    transition: transform 12000ms cubic-bezier(0, 0, 0.9, 0.9) !important;
+    transform-origin: 50% 50% !important;
+}
+
+.MuiTableCell-root {
+    /*font-size:12px!important; // Too small? Multiline edit might address this...*/
+    font-size: 18px !important;
+}
+
+.MuiInputBase-root {
+    font-size: 18px !important;
+}

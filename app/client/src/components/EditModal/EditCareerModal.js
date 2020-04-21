@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import MaterialTable from 'material-table';
-import { text } from 'body-parser';
 import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles(theme => ({
@@ -27,10 +26,10 @@ function getModalStyle() {
     };
 }
 
-const getColumns = (data, ignoreKeys) => {    
-    let columns = []
+const processData = (data, ignoreKeys) => {    
+    let rows = []
 
-    for (const member in data[0]) {
+    for (const member in data) {
         if (ignoreKeys.includes(member))
             continue
 
@@ -39,53 +38,70 @@ const getColumns = (data, ignoreKeys) => {
 
         if (member === "__v")
             continue
-        
-        let column = {
-            title: member,
-            field: member,
-            editComponent: props => (
-                //<input
-                //  type="text"
-                //  value={props.value}
-                //  onChange={e => props.onChange(e.target.value)}
-                ///>)
-                <TextField
-                id="standard-multiline-flexible"
-                multiline
-                fullWidth={true}                
-                rowsMax={2}
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-              />)                          
+
+        if (member === "celebrity"){
+            let celebrity = data[member]
+            
+            for (const key in celebrity) {
+                let row = {
+                    key: "celebrity." + key,
+                    value: celebrity[key],
+                }
+
+                rows.push(row)
+            }
+
+            continue
         }
-        columns.push(column)
+
+        let row = {
+            key: member,
+            value: data[member],          
+        }
+
+        rows.push(row)
     }
 
-    return columns
+    return rows
 }
 
 export default function EditModal(props) {
     const classes = useStyles();
   
-    const [columns, setColumns] = useState([]);
+    const [columns] = useState([
+        { title: 'Key', field: 'key', editable: 'never' },
+        { title: 'Value',
+          field: 'value',
+          editComponent: props => (
+            <TextField
+            id="standard-multiline-flexible"
+            multiline
+            fullWidth={true}
+            rowsMax={2}
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)}
+          />)   },
+    ]);
     const [state, setState] = useState({});
     const [modalStyle] = useState(getModalStyle);
 
-    const createData = (d) => {
-        props.onCreate(d)
-    }
-
     const updateData = (d) => {
-        props.onUpdate(d)
-    }
-    
-    const deleteData = (d) => {
-        props.onDelete(null, d._id)
+        let newCareer = {...props.data}
+
+        if (d.key.includes("celebrity")) {
+            let key = d.key.split(".")[1] //does exist
+            newCareer["celebrity"][key] = d.value
+        }
+        else {
+            newCareer[d.key] = d.value
+        }
+  
+        props.updateCareer(newCareer)
     }
   
     useEffect(() => { 
-        setState({data:props.data});
-        setColumns(getColumns(props.data, props.ignoreKeys));
+        let data = processData(props.data, props.ignoreKeys)
+        setState({data:data});
     }, [props.data]);
 
     return (
@@ -100,21 +116,10 @@ export default function EditModal(props) {
                     title="Edit"
                     columns={columns}
                     data={state.data}
+                    options={{
+                        tableLayout: "fixed",
+                    }}
                     editable={{
-                        onRowAdd: newData =>
-                            new Promise(resolve => {
-                                setTimeout(() => {
-                                resolve();
-                                setState(prevState => {
-                                    const data = [...prevState.data];
-                                    data.push(newData);
-
-                                    createData(newData)
-
-                                    return { ...prevState, data };
-                                });
-                                }, 600);
-                            }),
                         onRowUpdate: (newData, oldData) =>
                             new Promise(resolve => {
                                 setTimeout(() => {
@@ -131,21 +136,7 @@ export default function EditModal(props) {
                                 }
                                 }, 600);
                             }),
-                        onRowDelete: oldData =>
-                            new Promise(resolve => {
-                                setTimeout(() => {
-                                resolve();
-                                setState(prevState => {
-                                    const data = [...prevState.data];
-                                    data.splice(data.indexOf(oldData), 1);
-
-                                    deleteData(oldData)
-
-                                    return { ...prevState, data };
-                                });
-                                }, 600);
-                            }),
-                    }}                  
+                    }}
                 />
             </div>
         </Modal>

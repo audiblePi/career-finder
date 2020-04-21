@@ -4,21 +4,24 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
+//import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 //import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+//import AccountCircle from '@material-ui/icons/AccountCircle';
+//import MailIcon from '@material-ui/icons/Mail';
+//import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import SettingsIcon from '@material-ui/icons/Settings';
-import ListIcon from '@material-ui/icons/List';
-import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+//import SettingsIcon from '@material-ui/icons/Settings';
+//import ListIcon from '@material-ui/icons/List';
+//import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import Button from '@material-ui/core/Button';
-
+import Link from '@material-ui/core/Link';
+//import Back from '@material-ui/icons/KeyboardBackspace';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PeopleIcon from '@material-ui/icons/People';
 // import clsx from 'clsx';
 // import { makeStyles, useTheme } from '@material-ui/core/styles';
 // import Drawer from '@material-ui/core/Drawer';
@@ -131,6 +134,12 @@ class PrimarySearchAppBar extends React.Component {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+    const manageUsersMobile = (
+      <MenuItem>
+        <Button color="inherit" href="/ManageUsers">Manage Users</Button>
+      </MenuItem>
+    );
+
     const renderMenu = (
       <Menu
         anchorEl={anchorEl}
@@ -151,74 +160,104 @@ class PrimarySearchAppBar extends React.Component {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={isMobileMenuOpen}
         onClose={this.handleMobileMenuClose}>
-        <MenuItem>
+
+        {/*ManageUsers*/}
+        {this.props.role === 'admin' ? manageUsersMobile : ''}
+
+        {/*Awards*/}
+        {/* <MenuItem>
+          <IconButton color="inherit">
+            <Badge badgeContent={41} color="secondary">
+              <EmojiEventsIcon />
+            </Badge>
+          </IconButton>
+          <p>Awards</p>
+        </MenuItem> */}
+        
+        {/*Queue*/}
+        {/* <MenuItem>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
-              <MailIcon />
+              <ListIcon />
             </Badge>
           </IconButton>
-          <p>Messages</p>
+          <p>Queue</p>
+        </MenuItem> */}
+
+        {/*Profile*/}
+        <MenuItem>
+          <Button color="inherit" onClick={(e) => this.props.onLogOut()}>Log Out</Button>
         </MenuItem>
         
-        <MenuItem>
-          <IconButton color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <p>Notifications</p>
-        </MenuItem>
-
-        <MenuItem onClick={this.handleProfileMenuOpen}>
+        {/* <MenuItem onClick={this.handleProfileMenuOpen}>
           <IconButton color="inherit">
             <AccountCircle />
           </IconButton>
           <p>Profile</p>
-        </MenuItem>
+        </MenuItem> */}
+        
       </Menu>
     );
 
     return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Toolbar>
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              CareerFind
-            </Typography>
-
+          <Toolbar>          
+            {/*<Typography className={classes.title} variant="h6" color="inherit" noWrap>
+              <Link href="/" color="inherit">
+                CareerFind
+              </Link>
+              </Typography>*/}
+              <Typography className={classes.title} variant="h2" color="secondary" noWrap>
+                <Link href="/" color="inherit">
+                  CareerFind
+                </Link>
+              </Typography>              
+            
             <div className={classes.grow} />
             
             <div className={classes.sectionDesktop}>
-              <Button color="inherit" href="/ManageUsers">Manage Users</Button>
+
+              {/*ManageUsers*/}
+              {this.props.role === 'admin' ? <Button startIcon={<PeopleIcon />} color="inherit" href="/ManageUsers">Manage Users</Button>
+ : ''}
 
               {/*Awards*/}
-              <IconButton color="inherit">
+              {/* <IconButton color="inherit">
                 <Badge badgeContent={41} color="secondary">
                   <EmojiEventsIcon />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
 
               {/*Queue?*/}
-              <IconButton color="inherit">
+              {/* <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
                   <ListIcon />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
 
               {/*Settings*/}
-              <IconButton color="inherit">
+              {/* <IconButton color="inherit">
                 <SettingsIcon />
-              </IconButton>
+              </IconButton> */}
 
               {/*Profile*/}
-              <IconButton
+              <Button 
+                color="inherit" 
+                startIcon={<ExitToAppIcon />}
+                onClick={(e) => this.props.onLogOut()}>
+                Log Out
+              </Button>
+
+              {/* <IconButton
                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                 aria-haspopup="true"
                 onClick={this.handleProfileMenuOpen}
                 color="inherit"
               >
+                Log Out
                 <AccountCircle />
-              </IconButton>
+              </IconButton> */}
 
             </div>
             <div className={classes.sectionMobile}>

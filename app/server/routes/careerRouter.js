@@ -6,6 +6,6 @@ careersRouter.get('/', careers.readAll); // Get by Cluster.
 careersRouter.get('/:careerId', careers.read) // Get by Career.
 careersRouter.post('/', careers.create);
 careersRouter.put('/:careerId', careers.update);
-//careersRouter.delete('/:careerId', careers.delete); // Not working
+careersRouter.delete('/:careerId', careers.delete);
 
 module.exports = careersRouter;
