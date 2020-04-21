@@ -5,22 +5,6 @@ import MaterialTable from 'material-table';
 import crypto from 'crypto';
 import axios from 'axios';
 
-// const users2 = [
-
-// ];
-
-// function getUsers() {
-//     axios.get('/_user')
-//         .then(res => {
-//             return res.data;
-//         });
-// }
-
-// const retrieve = () => {
-//     return users2;
-// }
-
-
 function ManageUsers() {
     
     const [users, setUsers] = React.useState([]);
@@ -48,7 +32,6 @@ function ManageUsers() {
         .then(res => {
             setUsers({data: res.data});
         });
-        //refreshLookupTable();
     }
 
     const createUser = (user) => {
@@ -60,7 +43,12 @@ function ManageUsers() {
         if(user.user) {
             user.username = user.user;
         }
-        axios.post(url, user);
+        axios.post(url, user)
+        .then(res => {
+            setTimeout(function() {
+                refresh();
+            }, 100);
+        });
     }
 
     const updateUser = (user) => {
@@ -72,7 +60,12 @@ function ManageUsers() {
         if(user.user) {
             user.username = user.user;
         }
-        axios.put(url, user);
+        axios.put(url, user)
+        .then(res => {
+            setTimeout(function() {
+                refresh();
+            }, 100);
+        });
     }
     
     const deleteUser = (user) => {
@@ -80,13 +73,18 @@ function ManageUsers() {
         if(user.user) {
             user.username = user.user;
         }
-        axios.delete(url, {data: user});
+        axios.delete(url, {data: user})
+        .then(res => {
+            setTimeout(function() {
+                refresh();
+            }, 100);
+        });
     }
     
     return (
         
         <div>
-            <Typography component="h1" variant="h4" color="primary" gutterBottom>
+            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
                 Manage Users
             </Typography>
             
@@ -104,8 +102,6 @@ function ManageUsers() {
                         icon: 'refresh',
                         tooltip: 'Refresh Data',
                         isFreeAction: true,
-                        //onClick: () => tableRef.current && tableRef.current.onQueryChange(),
-                        //onClick: () => refreshLookupTable()
                         onClick: () => refresh()
                     }
                 ]}
@@ -122,7 +118,6 @@ function ManageUsers() {
 
                                 return { ...prevState, data };
                             });
-                            refresh();
                             }, 600);
                         }),
                     onRowUpdate: (newData, oldData) =>
@@ -139,7 +134,6 @@ function ManageUsers() {
                                     return { ...prevState, data };
                                 });
                             }
-                            refresh();
                             }, 600);
                         }),
                     onRowDelete: oldData =>
@@ -154,7 +148,6 @@ function ManageUsers() {
 
                                 return { ...prevState, data };
                             });
-                            refresh();
                             }, 600);
                         }),
                 }}
@@ -163,5 +156,4 @@ function ManageUsers() {
         </div>
     );
 }
-
 export default ManageUsers;
