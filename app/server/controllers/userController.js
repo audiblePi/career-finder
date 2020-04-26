@@ -129,11 +129,11 @@ module.exports.readAll = (req, res) => {
 
 module.exports.update = (req, res) => {
     mongoose.connect(config.db.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-
-    User.findOne({name: req.body.name})
+        
+    User.findOne({user: req.body.user})
         .then(found => {
             if(found) {
-                User.updateOne({name: req.body.name}, {$set: req.body})
+                User.updateOne({user: req.body.user}, {$set: req.body})
                 .then(updated => {
                     res.send({result: 'update-success'});
                 })
