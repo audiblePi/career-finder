@@ -18,7 +18,7 @@ function ManageUsers() {
     
     const [state, setState] = React.useState({
         columns: [
-            { title: 'Username', field: 'user', filtering: false },
+            { title: 'Username', field: 'user', filtering: false, editable: "onAdd"},
             { title: 'FName', field: 'fname', filtering: false  },
             { title: 'LName', field: 'lname', filtering: false  },
             { title: 'Class', field: 'group', filtering: false },
