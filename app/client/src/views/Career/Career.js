@@ -142,11 +142,11 @@ function Career(props) {
                                         ${career.salary} / year
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="div">
-                                        <div>
+                                        {/*<div>
                                             <Keyword/>
                                             <Keyword/>
                                             <Keyword/>
-                                        </div>
+                                        </div>*/}
                                         <p>
                                             {career.shortDescription}
                                         </p>
