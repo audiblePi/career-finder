@@ -132,7 +132,7 @@ function Career(props) {
                                 <CardMedia
                                 className={classes.mediaMain}
                                 image={career.image}
-                                title="Contemplative Reptile"
+                                title={career.name}
                                 />
                                 <CardContent>
                                     {/* <Typography gutterBottom variant="h5" component="h2">
@@ -175,7 +175,7 @@ function Career(props) {
                                 <CardMedia
                                     className={classes.media}
                                     image={career.ditlImage}
-                                    title="Contemplative Reptile"
+                                    title="DITL"
                                     />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">
@@ -204,7 +204,7 @@ function Career(props) {
                                     <CardMedia
                                         className={classes.media}
                                         image={career.celebrity.photo}
-                                        title="Contemplative Reptile"
+                                        title={career.celebrity.name}
                                         />
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="h2">
